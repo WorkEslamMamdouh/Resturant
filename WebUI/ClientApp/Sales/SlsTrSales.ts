@@ -7,6 +7,7 @@ namespace SlsTrSales {
 
     ////system varables
     var SysSession: SystemSession = GetSystemSession();
+
     var sys: SystemTools = new SystemTools();
     var FamilyDetails: Array<PRODUCT> = new Array<PRODUCT>();
     var Det_Single_Cust: CUSTOMER = new CUSTOMER();

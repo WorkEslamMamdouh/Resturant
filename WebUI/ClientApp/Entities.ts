@@ -499,28 +499,34 @@ class PRODUCT extends SecurityClass {
 
 class ReviewSalesItemInfo extends SecurityClass {
     constructor() {
-        super();
-        this.ID_DELIVERY = 0;
+        super();                
         this.Name_Product_sell = "";
+        this.ID_DELIVERY = 0;
         this.Quantity_sell = 0;
-        this.price_One_part = 0;
-        this.Total_Price_One_Part = 0;
+        this.price_One_part
+        this.Total_Price_One_Part
         this.Notes_Order = "";
         this.FK_ORDER_Delivery = 0;
-        this.MinUnitPrice = 0;
+        this.MinUnitPrice
         this.ID_CAT = 0;
+        this.PRODUCT_NAME = "";
+        this.PRODUCT_QET = 0;
         this.PRODUCT_ID = 0;
+        this.Remarks = "";
     }
     public ID_DELIVERY: number;
-    public Name_Product_sell: string;
     public Quantity_sell: number;
-    public price_One_part: number;
-    public Total_Price_One_Part: number;
+    public price_One_part: any;
+    public Total_Price_One_Part: any;
+    public Name_Product_sell: string;
     public Notes_Order: string;
     public FK_ORDER_Delivery: number;
-    public MinUnitPrice: number;
+    public MinUnitPrice: any;
     public ID_CAT: number;
+    public PRODUCT_NAME: string;
+    public PRODUCT_QET: number;
     public PRODUCT_ID: number;
+    public Remarks: string;
 }
 
 
@@ -533,7 +539,7 @@ class ReviewSalesMaster extends SecurityClass {
         this.CUSTOMER_ADDRES = "";
         this.PHONE = "";
         this.CUSTOMER_ADDRES_2 = "";
-        this.Total_All = 0;
+        this.Total_All
         this.EMPLOYEE_NAME = "";
         this.Date = "";
         this.EMPLOYEE_ID = 0;
@@ -541,6 +547,9 @@ class ReviewSalesMaster extends SecurityClass {
         this.Confirmation = false;
         this.USER_CODE = "";
         this.CUSTOMER_ID = 0;
+        this.type_order = "";
+        this.Name_Pilot = "";
+        this.Namber_Order_Delivery = 0;
     }
     public ID_ORDER_Delivery: number;
     public Date_Order_Delivery: string;
@@ -548,7 +557,7 @@ class ReviewSalesMaster extends SecurityClass {
     public CUSTOMER_ADDRES: string;
     public PHONE: string;
     public CUSTOMER_ADDRES_2: string;
-    public Total_All: number;
+    public Total_All: any;
     public EMPLOYEE_NAME: string;
     public Date: string;
     public EMPLOYEE_ID: number;
@@ -556,6 +565,9 @@ class ReviewSalesMaster extends SecurityClass {
     public Confirmation: boolean;
     public USER_CODE: string;
     public CUSTOMER_ID: number;
+    public type_order: string;
+    public Name_Pilot: string;
+    public Namber_Order_Delivery: number;
 }
 
 
@@ -922,10 +934,11 @@ class Stok_ORDER_DELIVERY extends SecurityClass {
         this.ID_DELIVERY = 0;
         this.PRODUCT_ID = 0;
         this.Quantity_sell = 0;
-        this.price_One_part = 0;
-        this.Total_Price_One_Part = 0;
+        this.price_One_part
+        this.Total_Price_One_Part
         this.Notes_Order = "";
         this.FK_ORDER_Delivery = 0;
+        this.Remarks = "";
         this.Name_Product_sell = "";
         this.StatusFlag = "";
     }
@@ -936,6 +949,7 @@ class Stok_ORDER_DELIVERY extends SecurityClass {
     public Total_Price_One_Part: any;
     public Notes_Order: string;
     public FK_ORDER_Delivery: number;
+    public Remarks: string;
     public Name_Product_sell: string;
     public StatusFlag: string;
 }

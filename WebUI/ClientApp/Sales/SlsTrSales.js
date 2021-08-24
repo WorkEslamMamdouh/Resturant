@@ -154,7 +154,7 @@ var SlsTrSales;
         txtTotal_Price = document.getElementById('txtTotal_Popu');
         txtTotAfterTax_Popu = document.getElementById('txtTotAfterTax_Popu');
         txt_ApprovePass = document.getElementById('txt_ApprovePass');
-        txt_search = document.getElementById('txt_search');
+        //txt_search = document.getElementById('txt_search') as HTMLInputElement;
         //-------------------------------------------------------Customr-----------------------
         Insert_But_Cust = document.getElementById("Insert_But_Cust");
         CUST_NAME = document.getElementById("CUST_NAME");
@@ -193,7 +193,7 @@ var SlsTrSales;
         hid_div_Customr.onclick = hide_Custm;
         update_div_cust.onclick = update_cust;
         Remove_cust.onclick = Remove_cust_onclick;
-        txt_search.onchange = searcdisplay;
+        //txt_search.onchange = searcdisplay;
     }
     function timer() {
         debugger;
@@ -459,18 +459,13 @@ var SlsTrSales;
         $('#input' + IDPlus).mouseleave(mouseleave_but);
     }
     function mousemove_but() {
-        if (this.getAttribute('data-Qty') > 0) {
-            //this.setAttribute('style', 'background-color: #00ffe23d; zoom:' + zoom_select + ';');
-            //this.setAttribute('class', 'Css_but chat-box-wrap shadow-reset  animated pulse');
-            this.setAttribute('value', '( ' + this.getAttribute('data-pirce') + ' )' + 'ج');
-        }
-        else {
-            //this.setAttribute('style', 'zoom:' + zoom_select + ';background-color: #c80202db;');
-            //this.setAttribute('class', 'Css_but chat-box-wrap shadow-reset  animated pulse');
-            this.setAttribute('value', 'Finish');
-            //div.setAttribute('style', 'zoom:' + zoom_select + ';background-color: #ff000094;');
-        }
-        //this.focus();
+        this.setAttribute('value', '( ' + this.getAttribute('data-pirce') + ' )' + 'ج');
+        //if (this.getAttribute('data-Qty') > 0) {
+        //    this.setAttribute('value', '( ' + this.getAttribute('data-pirce') + ' )' + 'ج');
+        //}
+        //else {
+        //    this.setAttribute('value', 'Finish');                                                      
+        //}
     }
     function mouseleave_but() {
         this.setAttribute('value', this.getAttribute('data-Name'));
@@ -479,32 +474,32 @@ var SlsTrSales;
         btn_Add_Basket.setAttribute('style', 'display:block;');
         btn_Edit_Basket.setAttribute('style', 'display:none;');
         Name_Product = $(this).attr('data-Name');
-        OnhandQty = $(this).attr('data-Qty');
+        //OnhandQty = $(this).attr('data-Qty');
+        OnhandQty = 1;
         MinUnitPrice = $(this).attr('data-MinUnitPrice');
-        for (var i = 0; i < Num_Add_List + 1; i++) {
-            var prgraph = document.getElementById("ppp" + i);
-            if (prgraph != null) {
-                var Name_Item = prgraph.getAttribute("data_name_p");
-                var Qty_2 = Number(prgraph.getAttribute("data_qet_p"));
-                if (Name_Item == Name_Product) {
-                    OnhandQty = OnhandQty - Qty_2;
-                }
-            }
-        }
-        if (OnhandQty <= 0) {
-            $(this).val('Finish');
-        }
-        else {
-            $('#id_Labol').html('متاح (' + OnhandQty + ') من  ' + Name_Product + '');
-            $('#Men_popu').attr('style', 'display:block;');
-            $('#Men_popu').attr('class', 'popu animated zoomIn');
-            $('#txtQuantity').val('1');
-            $('#txtPrice').val($(this).attr('data-pirce'));
-            ItemID = $(this).attr('data-itemid');
-            PRODUCT_price = $(this).attr('data-pirce');
-            $("#PopupDialog").modal("show");
-            Total();
-        }
+        //for (var i = 0; i < Num_Add_List + 1; i++) {
+        //    var prgraph = document.getElementById("ppp" + i);
+        //    if (prgraph != null) {
+        //        let Name_Item = prgraph.getAttribute("data_name_p");
+        //        let Qty = Number(prgraph.getAttribute("data_qet_p"));
+        //        if (Name_Item == Name_Product) {
+        //            OnhandQty = OnhandQty - Qty;
+        //        }
+        //    }
+        //}
+        //if (OnhandQty <= 0) {
+        //    $(this).val('Finish');
+        //} else {
+        $('#id_Labol').html('' + Name_Product + '');
+        $('#Men_popu').attr('style', 'display:block;');
+        $('#Men_popu').attr('class', 'popu animated zoomIn');
+        $('#txtQuantity').val('1');
+        $('#txtPrice').val($(this).attr('data-pirce'));
+        ItemID = $(this).attr('data-itemid');
+        PRODUCT_price = $(this).attr('data-pirce');
+        $("#PopupDialog").modal("show");
+        Total();
+        //}
     }
     //--------------------------------------------------Create_Menu--------------------------------    
     //--------------------------------------------------Open_Popu--------------------------------
@@ -523,17 +518,17 @@ var SlsTrSales;
                 }
             }
             else if (type == 'plus') {
-                if (currentVal < Number(OnhandQty)) {
-                    if (currentVal < Number(input.attr('max'))) {
-                        input.val((currentVal + 1)).change();
-                    }
-                    if (parseFloat(input.val()) == parseFloat(input.attr('max'))) {
-                        $(this).val(input.attr('max'));
-                    }
+                //if (currentVal < Number(OnhandQty)) {
+                if (currentVal < Number(input.attr('max'))) {
+                    input.val((currentVal + 1)).change();
                 }
-                else {
-                    MessageBox.Show("خطأ الكميه المتاحه (" + OnhandQty + ")", "خطأ");
+                if (parseFloat(input.val()) == parseFloat(input.attr('max'))) {
+                    $(this).val(input.attr('max'));
                 }
+                //}
+                //else {
+                //    MessageBox.Show("خطأ الكميه المتاحه (" + OnhandQty + ")", "خطأ");
+                //}
             }
         }
         else {
@@ -573,15 +568,15 @@ var SlsTrSales;
         $('#Men_popu').attr('class', 'popu animated zoomOutUp');
     }
     function Total() {
-        if (Number($("#txtQuantity").val()) <= OnhandQty) {
-            var total = Number($("#txtPrice").val()) * Number($("#txtQuantity").val());
-            $("#txtTotal_Popu").val(total);
-        }
-        else {
-            $("#txtQuantity").val(OnhandQty);
-            MessageBox.Show("خطأ الكميه المتاحه (" + OnhandQty + ")", "خطأ");
-            Total();
-        }
+        //if (Number($("#txtQuantity").val()) <= OnhandQty) {
+        var total = Number($("#txtPrice").val()) * Number($("#txtQuantity").val());
+        $("#txtTotal_Popu").val(total);
+        //}
+        //else {
+        //    $("#txtQuantity").val(OnhandQty);
+        //    MessageBox.Show("خطأ الكميه المتاحه (" + OnhandQty + ")", "خطأ");
+        //    Total();
+        //}
     }
     function But_Add_Popu() {
         debugger;
@@ -673,7 +668,6 @@ var SlsTrSales;
             ppp.setAttribute('data_Name_P', Name_Product);
             ppp.setAttribute('data_price_P', PRODUCT_price.toString());
             ppp.setAttribute('data_ItemId', ItemID.toString());
-            alert(ItemID);
             //ppp.setAttribute('data_ItemFamilyID', New_ItemFamilyID.toString());
             ppp.setAttribute('data_QET_P', Qet_Product.toString());
             ppp.setAttribute('data_total_price', price_Product.toString());
@@ -833,9 +827,9 @@ var SlsTrSales;
             var prgraph = document.getElementById("ppp" + i);
             if (prgraph != null) {
                 var Name_Item = prgraph.getAttribute("data_name_p");
-                var Qty_3 = Number(prgraph.getAttribute("data_qet_p"));
+                var Qty_2 = Number(prgraph.getAttribute("data_qet_p"));
                 if (Name_Item == Name_Product) {
-                    New_OnhandQty -= Qty_3;
+                    New_OnhandQty -= Qty_2;
                 }
             }
         }
@@ -878,7 +872,7 @@ var SlsTrSales;
                 var Name_Item = prgraph.getAttribute("data_name_p");
                 var Item_ID = Number(prgraph.getAttribute("data_itemid"));
                 var ItemFamily_ID = Number(prgraph.getAttribute("data_itemfamilyid"));
-                var Qty_4 = Number(prgraph.getAttribute("data_qet_p"));
+                var Qty_3 = Number(prgraph.getAttribute("data_qet_p"));
                 var Price_Item = Number(prgraph.getAttribute("data_price_p"));
                 var Total_Price_1 = Number(prgraph.getAttribute("data_total_price"));
                 var MinPrice = prgraph.getAttribute("data-minunitprice");
@@ -887,7 +881,7 @@ var SlsTrSales;
                 Model.ID_DELIVERY = 0;
                 Model.PRODUCT_ID = Item_ID;
                 Model.Name_Product_sell = Name_Item;
-                Model.Quantity_sell = Number(Qty_4);
+                Model.Quantity_sell = Number(Qty_3);
                 Model.price_One_part = Number(Price_Item);
                 Model.Total_Price_One_Part = Number(Total_Price_1);
                 Model.Notes_Order = MinPrice;

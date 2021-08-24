@@ -188,11 +188,11 @@ namespace Items {
             '<div class="col-lg-1"><input id="txtCode' + cnt + '" type="text" class="form-control right2 SelectDIS" disabled=""></div>' +
             '<div class="col-lg-3"><input id="txtDescA' + cnt + '" type="text" class="form-control right2" disabled=""></div> ' +
             '<div class="col-lg-2"><select id="select_Type_Item' + cnt + '" class="form-control" disabled=""></select></div> ' +
-            '<div class="col-lg-1"><input id="txtOnhandQty' + cnt + '" type="number" disabled="" class="form-control right2 "></div> ' +
-            '<div class="col-lg-1"><input id="txtPurchasing_price' + cnt + '" type="number" disabled="" class="form-control right2"></div> ' +
-            '<div class="col-lg-1"><input id="txtUnitPrice' + cnt + '" type="number" disabled="" class="form-control right2"></div> ' +
-            '<div class="col-lg-1"><input id="txtMinUnitPrice' + cnt + '" type="number" disabled="" class="form-control right2"></div> ' +
-            '<div class="col-lg-2"><input id="Serial' + cnt + '" type="number" disabled="" class="form-control right2"></div> ' +
+            '<div class="col-lg-1"><input id="txtUnitPrice' + cnt + '" type="number" disabled="" class="form-control right2  "></div> ' +
+            '<div class="col-lg-1"><input id="txtMinUnitPrice' + cnt + '" type="number" disabled="" class="form-control right2  "></div> ' +
+            '<div class="col-lg-1"><input id="txtOnhandQty' + cnt + '" type="number" disabled="" class="form-control right2 display_none "></div> ' +
+            '<div class="col-lg-1"><input id="txtPurchasing_price' + cnt + '" type="number" disabled="" class="form-control right2 display_none"></div> ' +
+            '<div class="col-lg-2"><input id="Serial' + cnt + '" type="number" disabled="" class="form-control right2 display_none"></div> ' +
 
             '</div>' +
             '</div> ' +
@@ -401,43 +401,8 @@ namespace Items {
     }
 
     function Update() {
-        Assign();
-
-        console.log(BilldDetail);
-
-        if (BilldDetail.filter(x => x.PRODUCT_NAME == "" || x.PRODUCT_NAME == " " || x.PRODUCT_NAME == "  " || x.PRODUCT_NAME == "   " || x.PRODUCT_NAME == "    ").length > 0) {
-            MessageBox.Show(" يجب ادخال الوصف باعربي", "خطأ");
-            return;
-        }
-
-        if (BilldDetail.filter(x => x.ID_CAT == 10101).length > 0) {
-            MessageBox.Show(" يجب ادخال الفئه", "خطأ");
-            return;
-        }
-        if (BilldDetail.filter(x => x.PRODUCT_QET == Number("")).length > 0) {
-            MessageBox.Show(" يجب ادخال الكميه", "خطأ");
-            return;
-        }
-        if (BilldDetail.filter(x => x.PRODUCT_Purchasing_price == Number("")).length > 0) {
-            MessageBox.Show(" يجب ادخال السعر الشراء", "خطأ");
-            return;
-        }
-        if (BilldDetail.filter(x => x.PRODUCT_PRICE == Number("")).length > 0) {
-            MessageBox.Show(" يجب ادخال السعر", "خطأ");
-            return;
-        }
-        if (BilldDetail.filter(x => x.MinUnitPrice == Number("")).length > 0) {
-            MessageBox.Show(" يجب ادخال اقل سعر", "خطأ");
-            return;
-        }
-
-
-        //BilldDetail[0].Token = "HGFD-" + SysSession.CurrentEnvironment.Token;
-        //BilldDetail[0].UserCode = SysSession.CurrentEnvironment.UserCode;
-
-
-
-
+        Assign();               
+                             
         Ajax.Callsync({
             type: "POST",
             url: sys.apiUrl("Items", "UpdateLst"),
@@ -448,8 +413,7 @@ namespace Items {
                 if (result.IsSuccess == true) {
                     MessageBox.Show("تم الحفظ", "الحفظ");
                     btnback_onclick();
-
-                    //refresh();
+                                 
                     flag_Assign = 0;
                 }
                 else {
@@ -753,7 +717,7 @@ namespace Items {
         else {
 
             if (
-                ($("#txtDescA" + rowcount).val() == "") && $("#txt_StatusFlag" + rowcount).val() != "d") {
+                ($("#txtDescA" + rowcount).val().trim() == "") && $("#txt_StatusFlag" + rowcount).val() != "d") {
                 MessageBox.Show("  برجاء ادخل الوصف العربي ", "خطأ");
                 Errorinput($("#txtDescA" + rowcount));
                 return false;
@@ -764,25 +728,25 @@ namespace Items {
 
                 return false;
             }
-            if ($("#txtOnhandQty" + rowcount).val() == "") {
-                MessageBox.Show("برجاء ادخل الكميه المتاحه", "خطأ");
-                Errorinput($("#txtOnhandQty" + rowcount));
+            //if ($("#txtOnhandQty" + rowcount).val() == "") {
+            //    MessageBox.Show("برجاء ادخل الكميه المتاحه", "خطأ");
+            //    Errorinput($("#txtOnhandQty" + rowcount));
 
-                return false;
-            }
-            if ($("#txtPurchasing_price" + rowcount).val() == "") {
-                MessageBox.Show("برجاء ادخل سعر الشراء", "خطأ");
-                Errorinput($("#txtPurchasing_price" + rowcount));
+            //    return false;
+            //}
+            //if ($("#txtPurchasing_price" + rowcount).val() == "") {
+            //    MessageBox.Show("برجاء ادخل سعر الشراء", "خطأ");
+            //    Errorinput($("#txtPurchasing_price" + rowcount));
 
-                return false;
-            }
-            if ($("#txtUnitPrice" + rowcount).val() == "") {
+            //    return false;
+            //}
+            if ($("#txtUnitPrice" + rowcount).val().trim() == "") {
                 MessageBox.Show(" برجاء ادخل السعر البيع", "خطأ");
                 Errorinput($("#txtUnitPrice" + rowcount));
 
                 return false;
             }
-            if ($("#txtMinUnitPrice" + rowcount).val() == "") {
+            if ($("#txtMinUnitPrice" + rowcount).val().trim() == "") {
                 MessageBox.Show("برجاء ادخل اقل سعر", "خطأ");
                 Errorinput($("#txtMinUnitPrice" + rowcount));
 

@@ -829,7 +829,7 @@ var Purchases;
                 Errorinput($("#Family" + rowcount));
                 return false;
             }
-            else if (($("#Items" + rowcount).val() == "" || $("#ddlItem" + rowcount).val() == "الصنف") && ($("#txt_StatusFlag" + rowcount).val() != 'd')) {
+            else if (($("#Items" + rowcount).val().trim() == "" || $("#ddlItem" + rowcount).val() == "الصنف") && ($("#txt_StatusFlag" + rowcount).val() != 'd')) {
                 MessageBox.Show(" برجاءادخال الصنف", "خطأ");
                 Errorinput($("#Items" + rowcount));
                 Errorinput($("#ddlItem" + rowcount));

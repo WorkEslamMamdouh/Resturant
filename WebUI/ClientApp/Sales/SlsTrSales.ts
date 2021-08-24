@@ -165,7 +165,7 @@ namespace SlsTrSales {
         txtTotal_Price = document.getElementById('txtTotal_Popu') as HTMLInputElement;
         txtTotAfterTax_Popu = document.getElementById('txtTotAfterTax_Popu') as HTMLInputElement;
         txt_ApprovePass = document.getElementById('txt_ApprovePass') as HTMLInputElement;
-        txt_search = document.getElementById('txt_search') as HTMLInputElement;
+        //txt_search = document.getElementById('txt_search') as HTMLInputElement;
         //-------------------------------------------------------Customr-----------------------
 
         Insert_But_Cust = document.getElementById("Insert_But_Cust");
@@ -217,7 +217,7 @@ namespace SlsTrSales {
         update_div_cust.onclick = update_cust;
         Remove_cust.onclick = Remove_cust_onclick;
 
-        txt_search.onchange = searcdisplay;
+        //txt_search.onchange = searcdisplay;
 
     }
     function timer() {
@@ -579,23 +579,19 @@ namespace SlsTrSales {
 
     function mousemove_but() {
 
-        if (this.getAttribute('data-Qty') > 0) {
-
-            //this.setAttribute('style', 'background-color: #00ffe23d; zoom:' + zoom_select + ';');
-            //this.setAttribute('class', 'Css_but chat-box-wrap shadow-reset  animated pulse');
-            this.setAttribute('value', '( ' + this.getAttribute('data-pirce') + ' )' + 'ج');
-        }
-        else {
-
-            //this.setAttribute('style', 'zoom:' + zoom_select + ';background-color: #c80202db;');
-            //this.setAttribute('class', 'Css_but chat-box-wrap shadow-reset  animated pulse');
-            this.setAttribute('value', 'Finish');
-            //div.setAttribute('style', 'zoom:' + zoom_select + ';background-color: #ff000094;');
-        }
+        this.setAttribute('value', '( ' + this.getAttribute('data-pirce') + ' )' + 'ج');
 
 
+        //if (this.getAttribute('data-Qty') > 0) {
+                                                                                              
+        //    this.setAttribute('value', '( ' + this.getAttribute('data-pirce') + ' )' + 'ج');
+        //}
+        //else {
+                                                                                                     
+        //    this.setAttribute('value', 'Finish');                                                      
+        //}
 
-        //this.focus();
+                        
 
     }
     function mouseleave_but() {
@@ -610,26 +606,27 @@ namespace SlsTrSales {
         btn_Edit_Basket.setAttribute('style', 'display:none;');
 
         Name_Product = $(this).attr('data-Name');
-        OnhandQty = $(this).attr('data-Qty');
+        //OnhandQty = $(this).attr('data-Qty');
+        OnhandQty = 1;
         MinUnitPrice = $(this).attr('data-MinUnitPrice');
 
-        for (var i = 0; i < Num_Add_List + 1; i++) {
-            var prgraph = document.getElementById("ppp" + i);
-            if (prgraph != null) {
-                let Name_Item = prgraph.getAttribute("data_name_p");
-                let Qty = Number(prgraph.getAttribute("data_qet_p"));
+        //for (var i = 0; i < Num_Add_List + 1; i++) {
+        //    var prgraph = document.getElementById("ppp" + i);
+        //    if (prgraph != null) {
+        //        let Name_Item = prgraph.getAttribute("data_name_p");
+        //        let Qty = Number(prgraph.getAttribute("data_qet_p"));
 
-                if (Name_Item == Name_Product) {
-                    OnhandQty = OnhandQty - Qty;
-                }
-            }
-        }
+        //        if (Name_Item == Name_Product) {
+        //            OnhandQty = OnhandQty - Qty;
+        //        }
+        //    }
+        //}
 
-        if (OnhandQty <= 0) {
-            $(this).val('Finish');
-        } else {
+        //if (OnhandQty <= 0) {
+        //    $(this).val('Finish');
+        //} else {
 
-            $('#id_Labol').html('متاح (' + OnhandQty + ') من  ' + Name_Product + '');
+            $('#id_Labol').html('' + Name_Product + '');
             $('#Men_popu').attr('style', 'display:block;');
             $('#Men_popu').attr('class', 'popu animated zoomIn');
             $('#txtQuantity').val('1');
@@ -644,7 +641,7 @@ namespace SlsTrSales {
 
 
             Total();
-        }
+        //}
 
 
     }
@@ -668,7 +665,7 @@ namespace SlsTrSales {
 
             }
             else if (type == 'plus') {
-                if (currentVal < Number(OnhandQty)) {
+                //if (currentVal < Number(OnhandQty)) {
 
                     if (currentVal < Number(input.attr('max'))) {
                         input.val((currentVal + 1)).change();
@@ -677,10 +674,10 @@ namespace SlsTrSales {
                         $(this).val(input.attr('max'));
                     }
 
-                }
-                else {
-                    MessageBox.Show("خطأ الكميه المتاحه (" + OnhandQty + ")", "خطأ");
-                }
+                //}
+                //else {
+                //    MessageBox.Show("خطأ الكميه المتاحه (" + OnhandQty + ")", "خطأ");
+                //}
 
 
             }
@@ -734,18 +731,18 @@ namespace SlsTrSales {
     }
     function Total() {
 
-        if (Number($("#txtQuantity").val()) <= OnhandQty) {
+        //if (Number($("#txtQuantity").val()) <= OnhandQty) {
             var total = Number($("#txtPrice").val()) * Number($("#txtQuantity").val());
             $("#txtTotal_Popu").val(total);
 
 
-        }
-        else {
-            $("#txtQuantity").val(OnhandQty);
+        //}
+        //else {
+        //    $("#txtQuantity").val(OnhandQty);
 
-            MessageBox.Show("خطأ الكميه المتاحه (" + OnhandQty + ")", "خطأ");
-            Total();
-        }
+        //    MessageBox.Show("خطأ الكميه المتاحه (" + OnhandQty + ")", "خطأ");
+        //    Total();
+        //}
 
 
     }
@@ -1126,9 +1123,9 @@ namespace SlsTrSales {
         InvoiceModel.Total_All = Number($('#All_Total_Basket').attr('All_Total'));
         InvoiceModel.Date_Order_Delivery = timer();
         InvoiceModel.Tax = 0;
-        InvoiceModel.CUSTOMER_ID = Number(idCust.value) == null ? 24 : Number(idCust.value);
-        InvoiceModel.type_order = 'Delivery';
-        InvoiceModel.Confirmation = true;
+        InvoiceModel.CUSTOMER_ID = Number(idCust.value) == null ? null : Number(idCust.value);
+        InvoiceModel.type_order = Number(idCust.value) == null ? 'Takeaway' : 'Delivery' ;
+        InvoiceModel.Confirmation = Number(idCust.value) == null ? true : false;
 
         for (var i = 1; i < Num_Add_List + 1; i++) {
 

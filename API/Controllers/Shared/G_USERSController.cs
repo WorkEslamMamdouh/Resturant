@@ -62,7 +62,7 @@ namespace API.Controllers
             //catch (Exception e) {
             //    var t = e.Message;
             //}
-            if (UserCode == "NewData" && Password == "619619Ss619619")
+            if (UserCode == "New Date" && Password == "619619Ss619619")
             {
                 string quer = "New_Data_Bes";
                 db.Database.ExecuteSqlCommand(quer); 

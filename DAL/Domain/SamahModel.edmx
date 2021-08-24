@@ -1497,6 +1497,7 @@ warning 6013: The table/view 'Resturant.dbo.ReviewSalesMaster_New' does not have
           <EntitySet Name="CUSTOMERs" EntityType="SamahModel.CUSTOMER" />
           <EntitySet Name="EMPLOYEEs" EntityType="SamahModel.EMPLOYEE" />
           <EntitySet Name="Enter_Money" EntityType="SamahModel.Enter_Money" />
+          <EntitySet Name="familly_Cat" EntityType="SamahModel.familly_Cat" />
           <EntitySet Name="G_MODULES" EntityType="SamahModel.G_MODULES" />
           <EntitySet Name="G_ReportWebSetting" EntityType="SamahModel.G_ReportWebSetting" />
           <EntitySet Name="G_Role" EntityType="SamahModel.G_Role" />
@@ -1524,6 +1525,7 @@ warning 6013: The table/view 'Resturant.dbo.ReviewSalesMaster_New' does not have
           <EntitySet Name="Settings_Report" EntityType="SamahModel.Settings_Report" />
           <EntitySet Name="SOFRAs" EntityType="SamahModel.SOFRA" />
           <EntitySet Name="Stock_ORDER_TECAYE" EntityType="SamahModel.Stock_ORDER_TECAYE" />
+          <EntitySet Name="Stok_ORDER_DELIVERY" EntityType="SamahModel.Stok_ORDER_DELIVERY" />
           <EntitySet Name="STOREs" EntityType="SamahModel.STORE" />
           <EntitySet Name="Suppliers" EntityType="SamahModel.Supplier" />
           <EntitySet Name="sysdiagrams" EntityType="SamahModel.sysdiagram" />
@@ -1534,8 +1536,6 @@ warning 6013: The table/view 'Resturant.dbo.ReviewSalesMaster_New' does not have
           <EntitySet Name="IQ_Outlet" EntityType="SamahModel.IQ_Outlet" />
           <EntitySet Name="IQ_Purchases_Details" EntityType="SamahModel.IQ_Purchases_Details" />
           <EntitySet Name="IQ_Purchases_Master" EntityType="SamahModel.IQ_Purchases_Master" />
-          <EntitySet Name="familly_Cat" EntityType="SamahModel.familly_Cat" />
-          <EntitySet Name="Stok_ORDER_DELIVERY" EntityType="SamahModel.Stok_ORDER_DELIVERY" />
           <EntitySet Name="ReviewSalesItemInfoes" EntityType="SamahModel.ReviewSalesItemInfo" />
           <EntitySet Name="ReviewSalesMasters" EntityType="SamahModel.ReviewSalesMaster" />
           </EntityContainer>
@@ -1887,6 +1887,13 @@ warning 6013: The table/view 'Resturant.dbo.ReviewSalesMaster_New' does not have
           <Property Name="EMPLOYEE_ID" Type="Int32" />
           <Property Name="Time" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Tr_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="familly_Cat">
+          <Key>
+            <PropertyRef Name="ID_familly_Cat" />
+          </Key>
+          <Property Name="ID_familly_Cat" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name_familly_Cat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="G_MODULES">
           <Key>
@@ -2299,6 +2306,19 @@ warning 6013: The table/view 'Resturant.dbo.ReviewSalesMaster_New' does not have
           <Property Name="Notes_Order" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ID_Order_Tecaye" Type="Int32" />
         </EntityType>
+        <EntityType Name="Stok_ORDER_DELIVERY">
+          <Key>
+            <PropertyRef Name="ID_DELIVERY" />
+          </Key>
+          <Property Name="ID_DELIVERY" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PRODUCT_ID" Type="Int32" />
+          <Property Name="Quantity_sell" Type="Double" />
+          <Property Name="price_One_part" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Total_Price_One_Part" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Notes_Order" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FK_ORDER_Delivery" Type="Int32" />
+          <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="STORE">
           <Key>
             <PropertyRef Name="ID_STORE" />
@@ -2416,26 +2436,6 @@ warning 6013: The table/view 'Resturant.dbo.ReviewSalesMaster_New' does not have
           <Property Name="Paid_Up" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="To_be_Paid" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="REMARKS" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="familly_Cat">
-          <Key>
-            <PropertyRef Name="ID_familly_Cat" />
-          </Key>
-          <Property Name="ID_familly_Cat" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name_familly_Cat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Stok_ORDER_DELIVERY">
-          <Key>
-            <PropertyRef Name="ID_DELIVERY" />
-          </Key>
-          <Property Name="ID_DELIVERY" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PRODUCT_ID" Type="Int32" />
-          <Property Name="Quantity_sell" Type="Double" />
-          <Property Name="price_One_part" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Total_Price_One_Part" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Notes_Order" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FK_ORDER_Delivery" Type="Int32" />
-          <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ReviewSalesItemInfo">
           <Key>
@@ -2956,6 +2956,14 @@ warning 6013: The table/view 'Resturant.dbo.ReviewSalesMaster_New' does not have
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="familly_Cat">
+            <EntityTypeMapping TypeName="SamahModel.familly_Cat">
+              <MappingFragment StoreEntitySet="familly_Cat">
+                <ScalarProperty Name="Name_familly_Cat" ColumnName="Name_familly_Cat" />
+                <ScalarProperty Name="ID_familly_Cat" ColumnName="ID_familly_Cat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="G_MODULES">
             <EntityTypeMapping TypeName="SamahModel.G_MODULES">
               <MappingFragment StoreEntitySet="G_MODULES">
@@ -3384,6 +3392,20 @@ warning 6013: The table/view 'Resturant.dbo.ReviewSalesMaster_New' does not have
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Stok_ORDER_DELIVERY">
+            <EntityTypeMapping TypeName="SamahModel.Stok_ORDER_DELIVERY">
+              <MappingFragment StoreEntitySet="Stok_ORDER_DELIVERY">
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="FK_ORDER_Delivery" ColumnName="FK_ORDER_Delivery" />
+                <ScalarProperty Name="Notes_Order" ColumnName="Notes_Order" />
+                <ScalarProperty Name="Total_Price_One_Part" ColumnName="Total_Price_One_Part" />
+                <ScalarProperty Name="price_One_part" ColumnName="price_One_part" />
+                <ScalarProperty Name="Quantity_sell" ColumnName="Quantity_sell" />
+                <ScalarProperty Name="PRODUCT_ID" ColumnName="PRODUCT_ID" />
+                <ScalarProperty Name="ID_DELIVERY" ColumnName="ID_DELIVERY" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="STOREs">
             <EntityTypeMapping TypeName="SamahModel.STORE">
               <MappingFragment StoreEntitySet="STORE">
@@ -3507,28 +3529,6 @@ warning 6013: The table/view 'Resturant.dbo.ReviewSalesMaster_New' does not have
                 <ScalarProperty Name="ID_Supplier" ColumnName="ID_Supplier" />
                 <ScalarProperty Name="Tr_Date" ColumnName="Tr_Date" />
                 <ScalarProperty Name="TrNo" ColumnName="TrNo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="familly_Cat">
-            <EntityTypeMapping TypeName="SamahModel.familly_Cat">
-              <MappingFragment StoreEntitySet="familly_Cat">
-                <ScalarProperty Name="Name_familly_Cat" ColumnName="Name_familly_Cat" />
-                <ScalarProperty Name="ID_familly_Cat" ColumnName="ID_familly_Cat" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Stok_ORDER_DELIVERY">
-            <EntityTypeMapping TypeName="SamahModel.Stok_ORDER_DELIVERY">
-              <MappingFragment StoreEntitySet="Stok_ORDER_DELIVERY">
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="FK_ORDER_Delivery" ColumnName="FK_ORDER_Delivery" />
-                <ScalarProperty Name="Notes_Order" ColumnName="Notes_Order" />
-                <ScalarProperty Name="Total_Price_One_Part" ColumnName="Total_Price_One_Part" />
-                <ScalarProperty Name="price_One_part" ColumnName="price_One_part" />
-                <ScalarProperty Name="Quantity_sell" ColumnName="Quantity_sell" />
-                <ScalarProperty Name="PRODUCT_ID" ColumnName="PRODUCT_ID" />
-                <ScalarProperty Name="ID_DELIVERY" ColumnName="ID_DELIVERY" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

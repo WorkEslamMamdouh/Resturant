@@ -31,7 +31,6 @@ namespace DAL.Domain
         public virtual DbSet<CUSTOMER> CUSTOMERs { get; set; }
         public virtual DbSet<EMPLOYEE> EMPLOYEEs { get; set; }
         public virtual DbSet<Enter_Money> Enter_Money { get; set; }
-        public virtual DbSet<familly_Cat> familly_Cat { get; set; }
         public virtual DbSet<G_MODULES> G_MODULES { get; set; }
         public virtual DbSet<G_ReportWebSetting> G_ReportWebSetting { get; set; }
         public virtual DbSet<G_Role> G_Role { get; set; }
@@ -59,7 +58,6 @@ namespace DAL.Domain
         public virtual DbSet<Settings_Report> Settings_Report { get; set; }
         public virtual DbSet<SOFRA> SOFRAs { get; set; }
         public virtual DbSet<Stock_ORDER_TECAYE> Stock_ORDER_TECAYE { get; set; }
-        public virtual DbSet<Stok_ORDER_DELIVERY> Stok_ORDER_DELIVERY { get; set; }
         public virtual DbSet<STORE> STOREs { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
@@ -70,7 +68,10 @@ namespace DAL.Domain
         public virtual DbSet<IQ_Outlet> IQ_Outlet { get; set; }
         public virtual DbSet<IQ_Purchases_Details> IQ_Purchases_Details { get; set; }
         public virtual DbSet<IQ_Purchases_Master> IQ_Purchases_Master { get; set; }
+        public virtual DbSet<familly_Cat> familly_Cat { get; set; }
+        public virtual DbSet<Stok_ORDER_DELIVERY> Stok_ORDER_DELIVERY { get; set; }
         public virtual DbSet<ReviewSalesItemInfo> ReviewSalesItemInfoes { get; set; }
+        public virtual DbSet<ReviewSalesMaster> ReviewSalesMasters { get; set; }
     
         public virtual ObjectResult<insert_Table_Result> insert_Table(string name, string phone, string type, string message, string tR_Type)
         {

@@ -618,8 +618,32 @@ warning 6002: The table/view 'Resturant.dbo.ReviewSalesItemInfo' does not have a
           <Property Name="Remarks" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6013: The table/view 'Resturant.dbo.ReviewSalesMaster' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+warning 6002: The table/view 'Resturant.dbo.ReviewSalesMaster' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ReviewSalesMaster">
+          <Key>
+            <PropertyRef Name="ID_ORDER_Delivery" />
+          </Key>
+          <Property Name="ID_ORDER_Delivery" Type="int" Nullable="false" />
+          <Property Name="Date_Order_Delivery" Type="nvarchar" MaxLength="50" />
+          <Property Name="CUSTOMER_NAME" Type="nvarchar" MaxLength="50" />
+          <Property Name="CUSTOMER_ADDRES" Type="nvarchar" MaxLength="50" />
+          <Property Name="PHONE" Type="nvarchar" MaxLength="50" />
+          <Property Name="CUSTOMER_ADDRES_2" Type="nvarchar" MaxLength="50" />
+          <Property Name="Total_All" Type="money" />
+          <Property Name="EMPLOYEE_NAME" Type="nvarchar" MaxLength="50" />
+          <Property Name="Date" Type="date" />
+          <Property Name="EMPLOYEE_ID" Type="int" />
+          <Property Name="Tax" Type="float" />
+          <Property Name="Confirmation" Type="bit" />
+          <Property Name="USER_CODE" Type="nvarchar" MaxLength="50" />
+          <Property Name="CUSTOMER_ID" Type="int" />
+          <Property Name="type_order" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name_Pilot" Type="nvarchar" MaxLength="50" />
+          <Property Name="Namber_Order_Delivery" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'Resturant.dbo.ReviewSalesMaster_New' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="ReviewSalesMaster_New">
           <Property Name="ID_ORDER_Delivery" Type="int" />
           <Property Name="Date_Order_Delivery" Type="nvarchar" MaxLength="50" />
           <Property Name="CUSTOMER_NAME" Type="nvarchar" MaxLength="50" />
@@ -1108,6 +1132,27 @@ warning 6013: The table/view 'Resturant.dbo.ReviewSalesMaster' does not have a p
     [ReviewSalesItemInfo].[Remarks] AS [Remarks]
     FROM [dbo].[ReviewSalesItemInfo] AS [ReviewSalesItemInfo]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="ReviewSalesMaster" EntityType="Self.ReviewSalesMaster" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ReviewSalesMaster].[ID_ORDER_Delivery] AS [ID_ORDER_Delivery], 
+    [ReviewSalesMaster].[Date_Order_Delivery] AS [Date_Order_Delivery], 
+    [ReviewSalesMaster].[CUSTOMER_NAME] AS [CUSTOMER_NAME], 
+    [ReviewSalesMaster].[CUSTOMER_ADDRES] AS [CUSTOMER_ADDRES], 
+    [ReviewSalesMaster].[PHONE] AS [PHONE], 
+    [ReviewSalesMaster].[CUSTOMER_ADDRES_2] AS [CUSTOMER_ADDRES_2], 
+    [ReviewSalesMaster].[Total_All] AS [Total_All], 
+    [ReviewSalesMaster].[EMPLOYEE_NAME] AS [EMPLOYEE_NAME], 
+    [ReviewSalesMaster].[Date] AS [Date], 
+    [ReviewSalesMaster].[EMPLOYEE_ID] AS [EMPLOYEE_ID], 
+    [ReviewSalesMaster].[Tax] AS [Tax], 
+    [ReviewSalesMaster].[Confirmation] AS [Confirmation], 
+    [ReviewSalesMaster].[USER_CODE] AS [USER_CODE], 
+    [ReviewSalesMaster].[CUSTOMER_ID] AS [CUSTOMER_ID], 
+    [ReviewSalesMaster].[type_order] AS [type_order], 
+    [ReviewSalesMaster].[Name_Pilot] AS [Name_Pilot], 
+    [ReviewSalesMaster].[Namber_Order_Delivery] AS [Namber_Order_Delivery]
+    FROM [dbo].[ReviewSalesMaster] AS [ReviewSalesMaster]</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -1452,7 +1497,6 @@ warning 6013: The table/view 'Resturant.dbo.ReviewSalesMaster' does not have a p
           <EntitySet Name="CUSTOMERs" EntityType="SamahModel.CUSTOMER" />
           <EntitySet Name="EMPLOYEEs" EntityType="SamahModel.EMPLOYEE" />
           <EntitySet Name="Enter_Money" EntityType="SamahModel.Enter_Money" />
-          <EntitySet Name="familly_Cat" EntityType="SamahModel.familly_Cat" />
           <EntitySet Name="G_MODULES" EntityType="SamahModel.G_MODULES" />
           <EntitySet Name="G_ReportWebSetting" EntityType="SamahModel.G_ReportWebSetting" />
           <EntitySet Name="G_Role" EntityType="SamahModel.G_Role" />
@@ -1480,7 +1524,6 @@ warning 6013: The table/view 'Resturant.dbo.ReviewSalesMaster' does not have a p
           <EntitySet Name="Settings_Report" EntityType="SamahModel.Settings_Report" />
           <EntitySet Name="SOFRAs" EntityType="SamahModel.SOFRA" />
           <EntitySet Name="Stock_ORDER_TECAYE" EntityType="SamahModel.Stock_ORDER_TECAYE" />
-          <EntitySet Name="Stok_ORDER_DELIVERY" EntityType="SamahModel.Stok_ORDER_DELIVERY" />
           <EntitySet Name="STOREs" EntityType="SamahModel.STORE" />
           <EntitySet Name="Suppliers" EntityType="SamahModel.Supplier" />
           <EntitySet Name="sysdiagrams" EntityType="SamahModel.sysdiagram" />
@@ -1491,7 +1534,10 @@ warning 6013: The table/view 'Resturant.dbo.ReviewSalesMaster' does not have a p
           <EntitySet Name="IQ_Outlet" EntityType="SamahModel.IQ_Outlet" />
           <EntitySet Name="IQ_Purchases_Details" EntityType="SamahModel.IQ_Purchases_Details" />
           <EntitySet Name="IQ_Purchases_Master" EntityType="SamahModel.IQ_Purchases_Master" />
+          <EntitySet Name="familly_Cat" EntityType="SamahModel.familly_Cat" />
+          <EntitySet Name="Stok_ORDER_DELIVERY" EntityType="SamahModel.Stok_ORDER_DELIVERY" />
           <EntitySet Name="ReviewSalesItemInfoes" EntityType="SamahModel.ReviewSalesItemInfo" />
+          <EntitySet Name="ReviewSalesMasters" EntityType="SamahModel.ReviewSalesMaster" />
           </EntityContainer>
         <ComplexType Name="insert_Table_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
@@ -1841,13 +1887,6 @@ warning 6013: The table/view 'Resturant.dbo.ReviewSalesMaster' does not have a p
           <Property Name="EMPLOYEE_ID" Type="Int32" />
           <Property Name="Time" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Tr_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="familly_Cat">
-          <Key>
-            <PropertyRef Name="ID_familly_Cat" />
-          </Key>
-          <Property Name="ID_familly_Cat" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name_familly_Cat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="G_MODULES">
           <Key>
@@ -2260,19 +2299,6 @@ warning 6013: The table/view 'Resturant.dbo.ReviewSalesMaster' does not have a p
           <Property Name="Notes_Order" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ID_Order_Tecaye" Type="Int32" />
         </EntityType>
-        <EntityType Name="Stok_ORDER_DELIVERY">
-          <Key>
-            <PropertyRef Name="ID_DELIVERY" />
-          </Key>
-          <Property Name="ID_DELIVERY" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PRODUCT_ID" Type="Int32" />
-          <Property Name="Quantity_sell" Type="Double" />
-          <Property Name="price_One_part" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Total_Price_One_Part" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Notes_Order" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FK_ORDER_Delivery" Type="Int32" />
-          <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="STORE">
           <Key>
             <PropertyRef Name="ID_STORE" />
@@ -2391,6 +2417,26 @@ warning 6013: The table/view 'Resturant.dbo.ReviewSalesMaster' does not have a p
           <Property Name="To_be_Paid" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="REMARKS" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="familly_Cat">
+          <Key>
+            <PropertyRef Name="ID_familly_Cat" />
+          </Key>
+          <Property Name="ID_familly_Cat" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name_familly_Cat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Stok_ORDER_DELIVERY">
+          <Key>
+            <PropertyRef Name="ID_DELIVERY" />
+          </Key>
+          <Property Name="ID_DELIVERY" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PRODUCT_ID" Type="Int32" />
+          <Property Name="Quantity_sell" Type="Double" />
+          <Property Name="price_One_part" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Total_Price_One_Part" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Notes_Order" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FK_ORDER_Delivery" Type="Int32" />
+          <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="ReviewSalesItemInfo">
           <Key>
             <PropertyRef Name="ID_DELIVERY" />
@@ -2407,6 +2453,28 @@ warning 6013: The table/view 'Resturant.dbo.ReviewSalesMaster' does not have a p
           <Property Name="PRODUCT_QET" Type="Int32" />
           <Property Name="PRODUCT_ID" Type="Int32" />
           <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ReviewSalesMaster">
+          <Key>
+            <PropertyRef Name="ID_ORDER_Delivery" />
+          </Key>
+          <Property Name="ID_ORDER_Delivery" Type="Int32" Nullable="false" />
+          <Property Name="Date_Order_Delivery" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CUSTOMER_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CUSTOMER_ADDRES" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PHONE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CUSTOMER_ADDRES_2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Total_All" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="EMPLOYEE_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="EMPLOYEE_ID" Type="Int32" />
+          <Property Name="Tax" Type="Double" />
+          <Property Name="Confirmation" Type="Boolean" />
+          <Property Name="USER_CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CUSTOMER_ID" Type="Int32" />
+          <Property Name="type_order" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name_Pilot" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Namber_Order_Delivery" Type="Int32" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -2888,14 +2956,6 @@ warning 6013: The table/view 'Resturant.dbo.ReviewSalesMaster' does not have a p
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="familly_Cat">
-            <EntityTypeMapping TypeName="SamahModel.familly_Cat">
-              <MappingFragment StoreEntitySet="familly_Cat">
-                <ScalarProperty Name="Name_familly_Cat" ColumnName="Name_familly_Cat" />
-                <ScalarProperty Name="ID_familly_Cat" ColumnName="ID_familly_Cat" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="G_MODULES">
             <EntityTypeMapping TypeName="SamahModel.G_MODULES">
               <MappingFragment StoreEntitySet="G_MODULES">
@@ -3324,20 +3384,6 @@ warning 6013: The table/view 'Resturant.dbo.ReviewSalesMaster' does not have a p
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Stok_ORDER_DELIVERY">
-            <EntityTypeMapping TypeName="SamahModel.Stok_ORDER_DELIVERY">
-              <MappingFragment StoreEntitySet="Stok_ORDER_DELIVERY">
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="FK_ORDER_Delivery" ColumnName="FK_ORDER_Delivery" />
-                <ScalarProperty Name="Notes_Order" ColumnName="Notes_Order" />
-                <ScalarProperty Name="Total_Price_One_Part" ColumnName="Total_Price_One_Part" />
-                <ScalarProperty Name="price_One_part" ColumnName="price_One_part" />
-                <ScalarProperty Name="Quantity_sell" ColumnName="Quantity_sell" />
-                <ScalarProperty Name="PRODUCT_ID" ColumnName="PRODUCT_ID" />
-                <ScalarProperty Name="ID_DELIVERY" ColumnName="ID_DELIVERY" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="STOREs">
             <EntityTypeMapping TypeName="SamahModel.STORE">
               <MappingFragment StoreEntitySet="STORE">
@@ -3464,6 +3510,28 @@ warning 6013: The table/view 'Resturant.dbo.ReviewSalesMaster' does not have a p
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="familly_Cat">
+            <EntityTypeMapping TypeName="SamahModel.familly_Cat">
+              <MappingFragment StoreEntitySet="familly_Cat">
+                <ScalarProperty Name="Name_familly_Cat" ColumnName="Name_familly_Cat" />
+                <ScalarProperty Name="ID_familly_Cat" ColumnName="ID_familly_Cat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stok_ORDER_DELIVERY">
+            <EntityTypeMapping TypeName="SamahModel.Stok_ORDER_DELIVERY">
+              <MappingFragment StoreEntitySet="Stok_ORDER_DELIVERY">
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="FK_ORDER_Delivery" ColumnName="FK_ORDER_Delivery" />
+                <ScalarProperty Name="Notes_Order" ColumnName="Notes_Order" />
+                <ScalarProperty Name="Total_Price_One_Part" ColumnName="Total_Price_One_Part" />
+                <ScalarProperty Name="price_One_part" ColumnName="price_One_part" />
+                <ScalarProperty Name="Quantity_sell" ColumnName="Quantity_sell" />
+                <ScalarProperty Name="PRODUCT_ID" ColumnName="PRODUCT_ID" />
+                <ScalarProperty Name="ID_DELIVERY" ColumnName="ID_DELIVERY" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ReviewSalesItemInfoes">
             <EntityTypeMapping TypeName="SamahModel.ReviewSalesItemInfo">
               <MappingFragment StoreEntitySet="ReviewSalesItemInfo">
@@ -3479,6 +3547,29 @@ warning 6013: The table/view 'Resturant.dbo.ReviewSalesMaster' does not have a p
                 <ScalarProperty Name="price_One_part" ColumnName="price_One_part" />
                 <ScalarProperty Name="Quantity_sell" ColumnName="Quantity_sell" />
                 <ScalarProperty Name="ID_DELIVERY" ColumnName="ID_DELIVERY" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReviewSalesMasters">
+            <EntityTypeMapping TypeName="SamahModel.ReviewSalesMaster">
+              <MappingFragment StoreEntitySet="ReviewSalesMaster">
+                <ScalarProperty Name="Namber_Order_Delivery" ColumnName="Namber_Order_Delivery" />
+                <ScalarProperty Name="Name_Pilot" ColumnName="Name_Pilot" />
+                <ScalarProperty Name="type_order" ColumnName="type_order" />
+                <ScalarProperty Name="CUSTOMER_ID" ColumnName="CUSTOMER_ID" />
+                <ScalarProperty Name="USER_CODE" ColumnName="USER_CODE" />
+                <ScalarProperty Name="Confirmation" ColumnName="Confirmation" />
+                <ScalarProperty Name="Tax" ColumnName="Tax" />
+                <ScalarProperty Name="EMPLOYEE_ID" ColumnName="EMPLOYEE_ID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="EMPLOYEE_NAME" ColumnName="EMPLOYEE_NAME" />
+                <ScalarProperty Name="Total_All" ColumnName="Total_All" />
+                <ScalarProperty Name="CUSTOMER_ADDRES_2" ColumnName="CUSTOMER_ADDRES_2" />
+                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+                <ScalarProperty Name="CUSTOMER_ADDRES" ColumnName="CUSTOMER_ADDRES" />
+                <ScalarProperty Name="CUSTOMER_NAME" ColumnName="CUSTOMER_NAME" />
+                <ScalarProperty Name="Date_Order_Delivery" ColumnName="Date_Order_Delivery" />
+                <ScalarProperty Name="ID_ORDER_Delivery" ColumnName="ID_ORDER_Delivery" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

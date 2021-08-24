@@ -210,6 +210,9 @@
     <Compile Include="Domain\ReviewSalesItemInfo.cs">
       <DependentUpon>SamahModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Domain\ReviewSalesMaster.cs">
+      <DependentUpon>SamahModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Domain\SamahEntities.cs" />
     <Compile Include="Domain\SamahModel.Context.cs">
       <DependentUpon>SamahModel.Context.tt</DependentUpon>

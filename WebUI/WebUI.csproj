@@ -28,6 +28,7 @@
     </NuGetPackageImportStamp>
     <Use64BitIISExpress />
     <TargetFrameworkProfile />
+    <TypeScriptToolsVersion>4.2</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -1200,6 +1201,7 @@
     <TypeScriptCompile Include="ClientApp\CustomEntities.ts" />
     <TypeScriptCompile Include="ClientApp\DataTable.ts" />
     <TypeScriptCompile Include="ClientApp\Entities.ts" />
+    <TypeScriptCompile Include="ClientApp\file1.ts" />
     <TypeScriptCompile Include="ClientApp\Generalsetting\USERS.ts" />
     <TypeScriptCompile Include="ClientApp\Generalsetting\Supplier.ts" />
     <TypeScriptCompile Include="ClientApp\HomeComponent.ts" />

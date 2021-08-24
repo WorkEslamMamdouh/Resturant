@@ -25,5 +25,6 @@ namespace DAL.Domain
         public string PRODUCT_NAME { get; set; }
         public Nullable<int> PRODUCT_QET { get; set; }
         public Nullable<int> PRODUCT_ID { get; set; }
+        public string Remarks { get; set; }
     }
 }

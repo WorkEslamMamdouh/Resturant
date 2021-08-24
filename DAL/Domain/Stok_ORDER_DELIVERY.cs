@@ -21,5 +21,6 @@ namespace DAL.Domain
         public Nullable<decimal> Total_Price_One_Part { get; set; }
         public string Notes_Order { get; set; }
         public Nullable<int> FK_ORDER_Delivery { get; set; }
+        public string Remarks { get; set; }
     }
 }

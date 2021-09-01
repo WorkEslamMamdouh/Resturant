@@ -36,8 +36,7 @@
         <EntityTypeShape EntityType="SamahModel.Setting" Width="1.5" PointX="16.75" PointY="0.75" />
         <EntityTypeShape EntityType="SamahModel.Settings_Report" Width="1.5" PointX="16.75" PointY="3.75" />
         <EntityTypeShape EntityType="SamahModel.SOFRA" Width="1.5" PointX="16.75" PointY="6.75" />
-        <EntityTypeShape EntityType="SamahModel.Stock_ORDER_TECAYE" Width="1.5" PointX="16.75" PointY="8.75" />
-        <EntityTypeShape EntityType="SamahModel.Stok_ORDER_DELIVERY" Width="1.5" PointX="16.75" PointY="12.75" />
+        <EntityTypeShape EntityType="SamahModel.Stock_ORDER_TECAYE" Width="1.75" PointX="16.75" PointY="8.75" />
         <EntityTypeShape EntityType="SamahModel.STORE" Width="1.5" PointX="12.75" PointY="16.75" />
         <EntityTypeShape EntityType="SamahModel.Supplier" Width="1.5" PointX="14.75" PointY="16.75" />
         <EntityTypeShape EntityType="SamahModel.sysdiagram" Width="1.5" PointX="16.75" PointY="16.75" />
@@ -50,6 +49,7 @@
         <EntityTypeShape EntityType="SamahModel.IQ_Purchases_Master" Width="1.5" PointX="18.75" PointY="9.75" />
         <EntityTypeShape EntityType="SamahModel.ReviewSalesItemInfo" Width="1.5" PointX="18.75" PointY="14.75" />
         <EntityTypeShape EntityType="SamahModel.ReviewSalesMaster" Width="1.5" PointX="10.75" PointY="19.75" />
+        <EntityTypeShape EntityType="SamahModel.Stok_ORDER_DELIVERY" Width="1.5" PointX="13.375" PointY="19.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

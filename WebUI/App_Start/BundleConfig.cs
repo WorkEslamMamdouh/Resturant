@@ -113,7 +113,8 @@ namespace WebUI
                 "~/ClientApp/SystemTools.js",
                 "~/ClientApp/CustomEntities.js",
                 "~/ClientApp/MessageBox.js",
-                    "~/ClientApp/HomeComponent.js"));
+                    "~/ClientApp/HomeComponent.js",
+                   "~/ClientApp/Home/Attendance.js"));
 
 
             bundles.Add(new ScriptBundle("~/Bundles/AppScript4")

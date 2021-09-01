@@ -190,6 +190,9 @@ thead[role="rowgroup"] {
 
 .notifcations {
     left: 60px;
+    overflow: scroll !important;
+    overflow: hidden !important;
+    height: 291px !important;
 }
 
     .notifcations ul li {

@@ -1,4 +1,4 @@
-﻿/// <reference path="../../scripts/typings/jquery/jquery.d.ts" />
+﻿
 $(document).ready(() => {
 
     SlsTrSales.InitalizeComponent();
@@ -1123,9 +1123,9 @@ namespace SlsTrSales {
         InvoiceModel.Total_All = Number($('#All_Total_Basket').attr('All_Total'));
         InvoiceModel.Date_Order_Delivery = timer();
         InvoiceModel.Tax = 0;
-        InvoiceModel.CUSTOMER_ID = Number(idCust.value) == null ? null : Number(idCust.value);
-        InvoiceModel.type_order = Number(idCust.value) == null ? 'Takeaway' : 'Delivery' ;
-        InvoiceModel.Confirmation = Number(idCust.value) == null ? true : false;
+        InvoiceModel.CUSTOMER_ID = Number(idCust.value) == 0 ? null : Number(idCust.value);
+        InvoiceModel.type_order = Number(idCust.value) == 0 ? 'Takeaway' : 'Delivery' ;
+        InvoiceModel.Confirmation = Number(idCust.value) == 0 ? true : false;
 
         for (var i = 1; i < Num_Add_List + 1; i++) {
 
@@ -1154,6 +1154,8 @@ namespace SlsTrSales {
                 Model.Total_Price_One_Part = Number(Total_Price);
                 Model.Notes_Order = MinPrice;
                 Model.FK_ORDER_Delivery = 0;
+                Model.Remarks = "حار";
+
 
 
                 List.push(Model);
@@ -1182,15 +1184,12 @@ namespace SlsTrSales {
 
 
 
-        if (P != 0) {
-            debugger
-            //if (!SysSession.CurrentPrivileges.AddNew) return;
-            //if (!ValidationHeader_On_Chanege()) return;
-            if (flag_Cust == false) {
-                show_Cutomr();
-                flag_Cust = true;
-                return;
-            }
+        if (P != 0) { 
+            //if (flag_Cust == false) {
+            //    show_Cutomr();
+            //    flag_Cust = true;
+            //    return;
+            //}
             ValidationMinUnitPrice = 1;
             Assign_Get_Data();
 

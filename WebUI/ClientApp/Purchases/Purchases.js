@@ -412,7 +412,6 @@ var Purchases;
                 if (result.IsSuccess) {
                     debugger;
                     Detailsfamilly_Cat = result.Response;
-                    //DocumentActions.FillCombowithdefult(Detailsfamilly_Cat, ddlVendor, "ID_Supplier", "Name_Supplier", "اختر المورد");
                 }
             }
         });
@@ -1116,11 +1115,6 @@ var Purchases;
             Errorinput($("#btnAddDetails"));
             return false;
         }
-        //if (Number($("#txtPaid_Up").val()) <= 0 || $("#txtPaid_Up").val() == null || $("#txtPaid_Up").val() == "" || $("#txtPaid_Up").val() == " ") {
-        //    MessageBox.Show(" برجاءادخال المبلغ المدفوع", "خطأ");
-        //    Errorinput($("#txtPaid_Up"));
-        //    return false
-        //}
         else {
             var CanAdd = true;
             if (CountGrid > -1) {
@@ -1131,7 +1125,7 @@ var Purchases;
                     }
                 }
             }
-            if (CanAdd) { //add
+            if (CanAdd) {
                 IsSuccess = false;
                 if ($('#txtNumber').val() == '') {
                     //alert('Add');
@@ -1148,7 +1142,7 @@ var Purchases;
                         }
                     }
                 }
-                else { //Edit
+                else {
                     if (Number($("#txtTo_be_Paid").val()) < 0) {
                         var Paid_1 = Number($("#txtTo_be_Paid").val()) * -1;
                         WorningMessage(" برجاءاستلام (" + Paid_1 + ")ج من المورد ", "Do you want to delete?", "تحذير", "worning", function () {
@@ -1209,7 +1203,6 @@ var Purchases;
             $("#Sales_Price" + i).removeAttr("disabled");
             $("#MinUnitPrice" + i).removeAttr("disabled");
             $("#txt_StatusFlag" + i).val("");
-            //$("#txtTotal" + i).removeAttr("disabled");
         }
     }
     function disabled_Grid_Controls() {
@@ -1228,7 +1221,6 @@ var Purchases;
             $("#Sales_Price" + i).attr("disabled", "disabled");
             $("#txtMinPrice" + i).attr("disabled", "disabled");
             $("#txt_StatusFlag" + i).val("");
-            //$("#txtScrapQty" + i).attr("disabled", "disabled");
         }
     }
     function printreport(type) {

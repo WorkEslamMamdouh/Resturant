@@ -1,4 +1,3 @@
-/// <reference path="../../scripts/typings/jquery/jquery.d.ts" />
 $(document).ready(function () {
     SlsTrSales.InitalizeComponent();
 });
@@ -525,10 +524,6 @@ var SlsTrSales;
                 if (parseFloat(input.val()) == parseFloat(input.attr('max'))) {
                     $(this).val(input.attr('max'));
                 }
-                //}
-                //else {
-                //    MessageBox.Show("خطأ الكميه المتاحه (" + OnhandQty + ")", "خطأ");
-                //}
             }
         }
         else {
@@ -862,9 +857,9 @@ var SlsTrSales;
         InvoiceModel.Total_All = Number($('#All_Total_Basket').attr('All_Total'));
         InvoiceModel.Date_Order_Delivery = timer();
         InvoiceModel.Tax = 0;
-        InvoiceModel.CUSTOMER_ID = Number(idCust.value) == null ? 24 : Number(idCust.value);
-        InvoiceModel.type_order = 'Delivery';
-        InvoiceModel.Confirmation = true;
+        InvoiceModel.CUSTOMER_ID = Number(idCust.value) == 0 ? null : Number(idCust.value);
+        InvoiceModel.type_order = Number(idCust.value) == 0 ? 'Takeaway' : 'Delivery';
+        InvoiceModel.Confirmation = Number(idCust.value) == 0 ? true : false;
         for (var i = 1; i < Num_Add_List + 1; i++) {
             var prgraph = document.getElementById("ppp" + i);
             if (prgraph != null) {
@@ -886,6 +881,7 @@ var SlsTrSales;
                 Model.Total_Price_One_Part = Number(Total_Price_1);
                 Model.Notes_Order = MinPrice;
                 Model.FK_ORDER_Delivery = 0;
+                Model.Remarks = "حار";
                 List.push(Model);
                 MasterDetailModel.I_Sls_TR_Invoice = InvoiceModel;
                 MasterDetailModel.I_Sls_TR_InvoiceItems = List;
@@ -900,14 +896,11 @@ var SlsTrSales;
     }
     function Finsh_Order_onclick() {
         if (P != 0) {
-            debugger;
-            //if (!SysSession.CurrentPrivileges.AddNew) return;
-            //if (!ValidationHeader_On_Chanege()) return;
-            if (flag_Cust == false) {
-                show_Cutomr();
-                flag_Cust = true;
-                return;
-            }
+            //if (flag_Cust == false) {
+            //    show_Cutomr();
+            //    flag_Cust = true;
+            //    return;
+            //}
             ValidationMinUnitPrice = 1;
             Assign_Get_Data();
             if (Validation_Insert != 1) {

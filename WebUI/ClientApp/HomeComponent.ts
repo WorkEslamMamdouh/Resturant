@@ -14,6 +14,7 @@ namespace HomeComponent {
     //let res: any = GetResourceList("");
     var sys: SystemTools = new SystemTools();
 
+    var tol_allnotification: HTMLButtonElement; 
     var But_Outlet: HTMLButtonElement;
     var But_Input: HTMLButtonElement;
     var btnCash: HTMLButtonElement;
@@ -24,6 +25,8 @@ namespace HomeComponent {
     var SysSession: SystemSession = GetSystemSession();
     var systemEnv: SystemEnvironment = SysSession.CurrentEnvironment;
     var Balance = 0;
+    var CountGrid = 0;
+    var Notification: Array<Notification_Proc> = new Array<Notification_Proc>();
 
     export function OpenPage(moduleCode: string) {
         SysSession.CurrentEnvironment.ModuleCode = moduleCode;
@@ -149,7 +152,9 @@ namespace HomeComponent {
         btn_loguotuser = DocumentActions.GetElementById<HTMLButtonElement>("btn_loguotuser");
         btn_loguotuser.onclick = LogoutUserApi;
 
+        tol_allnotification = document.getElementById('tol_allnotification') as HTMLButtonElement
         btnCash = document.getElementById('btnCash') as HTMLButtonElement
+
         But_Input = document.getElementById('But_Input') as HTMLButtonElement
         But_Outlet = document.getElementById('But_Outlet') as HTMLButtonElement
         Close = document.getElementById('Close') as HTMLButtonElement
@@ -161,9 +166,54 @@ namespace HomeComponent {
         Check_Close_Day();
 
         sidebarCollapse.onclick = ON_Click_SidebarCollapse;
-
+        tol_allnotification.onclick = tol_allnotification_onclick;
     }
 
+
+    function tol_allnotification_onclick() {
+
+        Ajax.Callsync({
+            type: "Get",
+            url: sys.apiUrl("SlsTrSales", "GetAllNotification"),
+            success: (d) => {
+                //debugger
+                let result = d as BaseResponse;
+                if (result.IsSuccess == true) {
+                    Notification = result.Response as Array<Notification_Proc>;
+
+                    $("#notificationUL").html('');
+                    CountGrid = 0;
+                    for (var i = 0; i < Notification.length; i++) {
+
+                        BuildNotification(CountGrid);
+                        //Disbly_BuildControls(i, AllGetStokMasterDetail);
+                        CountGrid += 1;
+                    }
+
+                }
+                else {
+
+                    MessageBox.Show(result.ErrorMessage, "خطأ");
+                }
+            }
+        });
+
+    }
+    function BuildNotification(cnt: number ) {
+
+        var html; 
+        html = '<li>   <span id="txt_Notification' + cnt + '" ></span> ' +
+            '<br/> ' +
+            '<span><select id="ddlName_Pilot" class="form-control col-lg-4"><option value="null">اختار الطيار</option></select></span> ' +
+
+            '</li> ';
+        $("#notificationUL").append(html);
+
+
+        $('#txt_Notification' + cnt).html('' + Number(cnt + 1) + '- رقم الفاتوره ( ' + Notification[cnt].Namber_Order_Delivery + ' )   اسم الزبون ( ' + Notification[cnt].CUSTOMER_NAME + ' ) --' + Notification[cnt].Date_Order_Delivery + '')
+
+
+    }
     function Get_balance() {
 
         Ajax.Callsync({

@@ -164,7 +164,6 @@ var AccDefVendor;
                 Update_claenData = 0;
                 btnback_onclick();
                 Display_All();
-                //$("#Div_control").attr("style", "height: 281px;margin-bottom: 19px;margin-top: 20px;display: none;");
             }
         }
         else {
@@ -176,7 +175,6 @@ var AccDefVendor;
                 Update_claenData = 1;
                 btnback_onclick();
                 Display_All();
-                //$("#Div_control").attr("style", "height: 281px;margin-bottom: 19px;margin-top: 20px;display: none;");
             }
         }
     }

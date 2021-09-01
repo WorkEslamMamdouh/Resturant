@@ -11,6 +11,7 @@ var HomeComponent;
 (function (HomeComponent) {
     //let res: any = GetResourceList("");
     var sys = new SystemTools();
+    var tol_allnotification;
     var But_Outlet;
     var But_Input;
     var btnCash;
@@ -21,6 +22,8 @@ var HomeComponent;
     var SysSession = GetSystemSession();
     var systemEnv = SysSession.CurrentEnvironment;
     var Balance = 0;
+    var CountGrid = 0;
+    var Notification = new Array();
     function OpenPage(moduleCode) {
         SysSession.CurrentEnvironment.ModuleCode = moduleCode;
         SysSession.CurrentEnvironment.ModuleCode = moduleCode;
@@ -132,6 +135,7 @@ var HomeComponent;
         }
         btn_loguotuser = DocumentActions.GetElementById("btn_loguotuser");
         btn_loguotuser.onclick = LogoutUserApi;
+        tol_allnotification = document.getElementById('tol_allnotification');
         btnCash = document.getElementById('btnCash');
         But_Input = document.getElementById('But_Input');
         But_Outlet = document.getElementById('But_Outlet');
@@ -143,8 +147,41 @@ var HomeComponent;
         Close.onclick = Close_Day;
         Check_Close_Day();
         sidebarCollapse.onclick = ON_Click_SidebarCollapse;
+        tol_allnotification.onclick = tol_allnotification_onclick;
     }
     HomeComponent.InitalizeComponent = InitalizeComponent;
+    function tol_allnotification_onclick() {
+        Ajax.Callsync({
+            type: "Get",
+            url: sys.apiUrl("SlsTrSales", "GetAllNotification"),
+            success: function (d) {
+                //debugger
+                var result = d;
+                if (result.IsSuccess == true) {
+                    Notification = result.Response;
+                    $("#notificationUL").html('');
+                    CountGrid = 0;
+                    for (var i = 0; i < Notification.length; i++) {
+                        BuildNotification(CountGrid);
+                        //Disbly_BuildControls(i, AllGetStokMasterDetail);
+                        CountGrid += 1;
+                    }
+                }
+                else {
+                    MessageBox.Show(result.ErrorMessage, "خطأ");
+                }
+            }
+        });
+    }
+    function BuildNotification(cnt) {
+        var html;
+        html = '<li>   <span id="txt_Notification' + cnt + '" ></span> ' +
+            '<br/> ' +
+            '<span><select id="ddlName_Pilot" class="form-control col-lg-4"><option value="null">اختار الطيار</option></select></span> ' +
+            '</li> ';
+        $("#notificationUL").append(html);
+        $('#txt_Notification' + cnt).html('' + Number(cnt + 1) + '- رقم الفاتوره ( ' + Notification[cnt].Namber_Order_Delivery + ' )   اسم الزبون ( ' + Notification[cnt].CUSTOMER_NAME + ' ) --' + Notification[cnt].Date_Order_Delivery + '');
+    }
     function Get_balance() {
         Ajax.Callsync({
             type: "Get",
@@ -252,7 +289,7 @@ var HomeComponent;
     }
     //By Muhammad Rajab 
     $("#LanguageButtonHome").click(function () {
-        if (SysSession.CurrentEnvironment.ScreenLanguage == "ar") { // English Mode  
+        if (SysSession.CurrentEnvironment.ScreenLanguage == "ar") {
             RemoveStyleSheet("bootstrap-rtl");
             RemoveStyleSheet("mainAR");
             RemoveStyleSheet("Style_Arabic");
@@ -267,7 +304,7 @@ var HomeComponent;
             $('#LanguageButtonHome').text(" تغير اللغة  ");
             document.cookie = "Inv1_systemProperties=" + JSON.stringify(SysSession.CurrentEnvironment) + ";expires=Fri, 31 Dec 2030 23:59:59 GMT;path=/";
         }
-        else { // Arabic Mode
+        else {
             RemoveStyleSheet("StyleEn");
             RemoveStyleSheet("bootstrap.min");
             RemoveStyleSheet("main");
@@ -671,7 +708,6 @@ var HomeComponent;
                 });
                 return false;
             });
-            //$('#Close').attr('style', 'margin-top: -18%;background-color: #4df109;border-radius: 11px;');
         }
     }
     function Check_Close_Day() {

@@ -32,6 +32,22 @@ namespace API.Controllers
         }
 
         [HttpGet, AllowAnonymous]
+        public IHttpActionResult GetAllNotification()
+        {
+            if (ModelState.IsValid)
+            {
+                string s = "Notifications_confirmation";
+                 
+                string query = s ;
+                var res = db.Database.SqlQuery<Notifications_confirmation_Result>(query).ToList();
+                return Ok(new BaseResponse(res)); 
+
+            }
+            return BadRequest(ModelState);
+        }
+
+
+        [HttpGet, AllowAnonymous]
         public IHttpActionResult GetAll(string UserName, string password)
         {
             if (ModelState.IsValid)
@@ -66,19 +82,21 @@ namespace API.Controllers
                     {
                         obj.I_Sls_TR_InvoiceItems[i].FK_ORDER_Delivery = Num_Order;
 
-                        int PRODUCT_ID =Convert.ToInt16(obj.I_Sls_TR_InvoiceItems[i].PRODUCT_ID);
-                        int Quantity =Convert.ToInt16(obj.I_Sls_TR_InvoiceItems[i].Quantity_sell);
+                        //int PRODUCT_ID =Convert.ToInt16(obj.I_Sls_TR_InvoiceItems[i].PRODUCT_ID);
+                        //int Quantity =Convert.ToInt16(obj.I_Sls_TR_InvoiceItems[i].Quantity_sell);
 
-                        string update = "update PRODUCT set PRODUCT_QET=(PRODUCT_QET - "+ Quantity + ") where PRODUCT_ID='" + PRODUCT_ID + "'";
+                        //string update = "update PRODUCT set PRODUCT_QET=(PRODUCT_QET - "+ Quantity + ") where PRODUCT_ID='" + PRODUCT_ID + "'";
 
                         var InvoiceItems = SlsTrSalesServices.Insert(obj.I_Sls_TR_InvoiceItems[i]);
 
-                        var update_Qy = db.Database.ExecuteSqlCommand(update);
+                        //var update_Qy = db.Database.ExecuteSqlCommand(update);
 
                     }
 
+                    string GetTrNo = "select [Namber_Order_Delivery] from [ORDER_DELIVERY] where [ID_ORDER_Delivery] = " + Num_Order + "";
+                    var TrNo = db.Database.SqlQuery<int>(GetTrNo).FirstOrDefault();
 
-                    return Ok(new BaseResponse(Num_Order));
+                    return Ok(new BaseResponse(TrNo));
                     ////////
                 }
                 catch (Exception ex)

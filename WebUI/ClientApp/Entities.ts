@@ -937,9 +937,9 @@ class Stok_ORDER_DELIVERY extends SecurityClass {
         this.price_One_part
         this.Total_Price_One_Part
         this.Notes_Order = "";
-        this.FK_ORDER_Delivery = 0;
-        this.Remarks = "";
+        this.FK_ORDER_Delivery = 0; 
         this.Name_Product_sell = "";
+        this.Remarks = "";
         this.StatusFlag = "";
     }
     public ID_DELIVERY: number;
@@ -948,10 +948,32 @@ class Stok_ORDER_DELIVERY extends SecurityClass {
     public price_One_part: any;
     public Total_Price_One_Part: any;
     public Notes_Order: string;
-    public FK_ORDER_Delivery: number;
-    public Remarks: string;
+    public FK_ORDER_Delivery: number; 
     public Name_Product_sell: string;
+    public Remarks: string; 
     public StatusFlag: string;
+}
+
+
+
+class Notification_Proc extends SecurityClass {
+    constructor() {
+        super();
+        this.CUSTOMER_NAME = '';
+        this.Date_Order_Delivery = '';
+        this.ID_ORDER_Delivery = 0;
+        this.Namber_Order_Delivery = 0;
+        this.Name_Pilot = "";
+        this.PHONE = "";
+        this.confirmation = false; 
+    }
+    public CUSTOMER_NAME: string;
+    public Date_Order_Delivery: string;
+    public ID_ORDER_Delivery: number;
+    public Namber_Order_Delivery: number;
+    public Name_Pilot: string;
+    public PHONE: string;
+    public confirmation: false; 
 }
 
 

@@ -175,9 +175,9 @@ var HomeComponent;
     }
     function BuildNotification(cnt) {
         var html;
-        html = '<li>   <span id="txt_Notification' + cnt + '" ></span> ' +
+        html = '<li class="style_li"> <span  id="txt_Notification' + cnt + '" ></span> ' +
             '<br/> ' +
-            '<span><select id="ddlName_Pilot" class="form-control col-lg-4"><option value="null">اختار الطيار</option></select></span> ' +
+            '<span><select id="ddlName_Pilot" class="form-control col-lg-5"><option value="null">اختار الطيار</option></select><div class="col-xs-1"></div><button id="btnBack" type="button" class="btn btn-success col-xs-2"> تأكيد <span class="glyphicon glyphicon-backward"></span></button><div class="col-xs-1"></div><button id="btnSave" type="button" class="btn btn-danger col-xs-2"> الغاء <span class="glyphicon glyphicon-floppy-saved"></span></button></span> ' +
             '</li> ';
         $("#notificationUL").append(html);
         $('#txt_Notification' + cnt).html('' + Number(cnt + 1) + '- رقم الفاتوره ( ' + Notification[cnt].Namber_Order_Delivery + ' )   اسم الزبون ( ' + Notification[cnt].CUSTOMER_NAME + ' ) --' + Notification[cnt].Date_Order_Delivery + '');

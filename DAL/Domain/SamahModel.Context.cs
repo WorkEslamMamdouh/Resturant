@@ -1218,21 +1218,18 @@ namespace DAL.Domain
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Original_Purchases_receipt_Result>("Original_Purchases_receipt", trNoParameter);
         }
     
-        
-    
         public virtual int New_Data_Bes()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("New_Data_Bes");
         }
     
-       
         public virtual ObjectResult<Original_sales_receipt_Result> Original_sales_receipt(Nullable<int> trNo)
         {
             var trNoParameter = trNo.HasValue ?
                 new ObjectParameter("TrNo", trNo) :
                 new ObjectParameter("TrNo", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Original_sales_receipt_Result>("Original_sales_receipt2", trNoParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Original_sales_receipt_Result>("Original_sales_receipt", trNoParameter);
         }
     }
 }

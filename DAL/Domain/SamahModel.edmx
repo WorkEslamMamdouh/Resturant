@@ -2457,6 +2457,7 @@ warning 6002: The table/view 'Resturant.dbo.ReviewSalesMaster' does not have a p
           <Property Type="String" Name="PRODUCT_NAME" Nullable="true" MaxLength="50" />
           <Property Type="Int32" Name="PRODUCT_QET" Nullable="true" />
           <Property Type="Int32" Name="PRODUCT_ID" Nullable="true" />
+          <Property Type="String" Name="Remarks" Nullable="true" MaxLength="100" />
         </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
@@ -3555,6 +3556,7 @@ warning 6002: The table/view 'Resturant.dbo.ReviewSalesMaster' does not have a p
                 <ScalarProperty Name="PRODUCT_NAME" ColumnName="PRODUCT_NAME" />
                 <ScalarProperty Name="PRODUCT_QET" ColumnName="PRODUCT_QET" />
                 <ScalarProperty Name="PRODUCT_ID" ColumnName="PRODUCT_ID" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

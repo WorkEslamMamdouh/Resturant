@@ -26,6 +26,7 @@ namespace DAL.Domain
         public Nullable<bool> Confirmation { get; set; }
         public string USER_CODE { get; set; }
         public string Name_Pilot { get; set; }
+        public Nullable<int> Namber_Order_Delivery { get; set; }
         public Nullable<int> ID_DELIVERY { get; set; }
         public Nullable<double> Quantity_sell { get; set; }
         public Nullable<decimal> price_One_part { get; set; }

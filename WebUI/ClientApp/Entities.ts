@@ -548,6 +548,7 @@ class ReviewSalesMaster extends SecurityClass {
         this.USER_CODE = "";
         this.CUSTOMER_ID = 0;
         this.type_order = "";
+        this.Nametype_order = ""; 
         this.Name_Pilot = "";
         this.Namber_Order_Delivery = 0;
     }
@@ -566,6 +567,7 @@ class ReviewSalesMaster extends SecurityClass {
     public USER_CODE: string;
     public CUSTOMER_ID: number;
     public type_order: string;
+    public Nametype_order: string; 
     public Name_Pilot: string;
     public Namber_Order_Delivery: number;
 }

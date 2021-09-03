@@ -1468,7 +1468,7 @@ warning 6002: The table/view 'Resturant.dbo.ReviewSalesMaster' does not have a p
           <FunctionImport Name="Original_Purchases_receipt" ReturnType="Collection(SamahModel.Original_Purchases_receipt_Result)">
           <Parameter Name="TrNo" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="Original_sales_receipt" ReturnType="Collection(SamahModel.Original_sales_receipt_Result)">
+          <FunctionImport Name="Original_sales_receipt">
           <Parameter Name="TrNo" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="New_Data_Bes" />
@@ -1517,7 +1517,10 @@ warning 6002: The table/view 'Resturant.dbo.ReviewSalesMaster' does not have a p
           <EntitySet Name="ReviewSalesItemInfoes" EntityType="SamahModel.ReviewSalesItemInfo" />
           <EntitySet Name="ReviewSalesMasters" EntityType="SamahModel.ReviewSalesMaster" />
           <EntitySet Name="Stok_ORDER_DELIVERY" EntityType="SamahModel.Stok_ORDER_DELIVERY" />
-          <FunctionImport Name="Original_sales_receipt1" ReturnType="Collection(SamahModel.Original_sales_receipt1_Result)">
+          <FunctionImport Name="Original_sales_receipt1">
+            <Parameter Name="TrNo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Original_sales_receipt2" ReturnType="Collection(SamahModel.Original_sales_receipt2_Result)">
             <Parameter Name="TrNo" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
@@ -1806,31 +1809,6 @@ warning 6002: The table/view 'Resturant.dbo.ReviewSalesMaster' does not have a p
           <Property Type="Int32" Name="ID_CAT" Nullable="true" />
           <Property Type="Int32" Name="ID_familly_Cat" Nullable="true" />
           <Property Type="Int32" Name="PRODUCT_QET" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="Original_sales_receipt_Result">
-          <Property Type="Int32" Name="ID_ORDER_Delivery" Nullable="true" />
-          <Property Type="String" Name="Date_Order_Delivery" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="CUSTOMER_NAME" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="CUSTOMER_ADDRES" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="PHONE" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="CUSTOMER_ADDRES_2" Nullable="true" MaxLength="50" />
-          <Property Type="Decimal" Name="Total_All" Nullable="true" Precision="19" />
-          <Property Type="String" Name="EMPLOYEE_NAME" Nullable="true" MaxLength="50" />
-          <Property Type="DateTime" Name="Date" Nullable="true" />
-          <Property Type="Double" Name="Tax" Nullable="true" />
-          <Property Type="Boolean" Name="Confirmation" Nullable="true" />
-          <Property Type="String" Name="USER_CODE" Nullable="true" MaxLength="50" />
-          <Property Type="Int32" Name="ID_DELIVERY" Nullable="true" />
-          <Property Type="Double" Name="Quantity_sell" Nullable="true" />
-          <Property Type="Decimal" Name="price_One_part" Nullable="true" Precision="19" />
-          <Property Type="Decimal" Name="Total_Price_One_Part" Nullable="true" Precision="19" />
-          <Property Type="String" Name="Notes_Order" Nullable="true" MaxLength="50" />
-          <Property Type="Int32" Name="FK_ORDER_Delivery" Nullable="true" />
-          <Property Type="Decimal" Name="MinUnitPrice" Nullable="true" Precision="19" />
-          <Property Type="Int32" Name="ID_CAT" Nullable="true" />
-          <Property Type="String" Name="PRODUCT_NAME" Nullable="true" MaxLength="50" />
-          <Property Type="Int32" Name="PRODUCT_QET" Nullable="true" />
-          <Property Type="Int32" Name="PRODUCT_ID" Nullable="true" />
         </ComplexType>
         <EntityType Name="CATEGRE">
           <Key>
@@ -2458,7 +2436,7 @@ warning 6002: The table/view 'Resturant.dbo.ReviewSalesMaster' does not have a p
           <Property Name="FK_ORDER_Delivery" Type="Int32" />
           <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
-        <ComplexType Name="Original_sales_receipt1_Result">
+        <ComplexType Name="Original_sales_receipt2_Result">
           <Property Type="Int32" Name="ID_ORDER_Delivery" Nullable="true" />
           <Property Type="String" Name="Date_Order_Delivery" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="CUSTOMER_NAME" Nullable="true" MaxLength="50" />
@@ -2472,6 +2450,7 @@ warning 6002: The table/view 'Resturant.dbo.ReviewSalesMaster' does not have a p
           <Property Type="Boolean" Name="Confirmation" Nullable="true" />
           <Property Type="String" Name="USER_CODE" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="Name_Pilot" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Namber_Order_Delivery" Nullable="true" />
           <Property Type="Int32" Name="ID_DELIVERY" Nullable="true" />
           <Property Type="Double" Name="Quantity_sell" Nullable="true" />
           <Property Type="Decimal" Name="price_One_part" Nullable="true" Precision="19" />
@@ -3552,9 +3531,9 @@ warning 6002: The table/view 'Resturant.dbo.ReviewSalesMaster' does not have a p
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="Original_sales_receipt1" FunctionName="SamahModel.Store.Original_sales_receipt">
+          <FunctionImportMapping FunctionImportName="Original_sales_receipt2" FunctionName="SamahModel.Store.Original_sales_receipt">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SamahModel.Original_sales_receipt1_Result">
+              <ComplexTypeMapping TypeName="SamahModel.Original_sales_receipt2_Result">
                 <ScalarProperty Name="ID_ORDER_Delivery" ColumnName="ID_ORDER_Delivery" />
                 <ScalarProperty Name="Date_Order_Delivery" ColumnName="Date_Order_Delivery" />
                 <ScalarProperty Name="CUSTOMER_NAME" ColumnName="CUSTOMER_NAME" />
@@ -3568,6 +3547,7 @@ warning 6002: The table/view 'Resturant.dbo.ReviewSalesMaster' does not have a p
                 <ScalarProperty Name="Confirmation" ColumnName="Confirmation" />
                 <ScalarProperty Name="USER_CODE" ColumnName="USER_CODE" />
                 <ScalarProperty Name="Name_Pilot" ColumnName="Name_Pilot" />
+                <ScalarProperty Name="Namber_Order_Delivery" ColumnName="Namber_Order_Delivery" />
                 <ScalarProperty Name="ID_DELIVERY" ColumnName="ID_DELIVERY" />
                 <ScalarProperty Name="Quantity_sell" ColumnName="Quantity_sell" />
                 <ScalarProperty Name="price_One_part" ColumnName="price_One_part" />

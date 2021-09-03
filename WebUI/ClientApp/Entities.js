@@ -385,6 +385,7 @@ var ReviewSalesMaster = (function (_super) {
         _this.USER_CODE = "";
         _this.CUSTOMER_ID = 0;
         _this.type_order = "";
+        _this.Nametype_order = "";
         _this.Name_Pilot = "";
         _this.Namber_Order_Delivery = 0;
         return _this;

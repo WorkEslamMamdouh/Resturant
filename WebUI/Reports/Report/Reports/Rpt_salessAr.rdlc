@@ -637,7 +637,7 @@
   <Width>3.36667in</Width>
   <Page>
     <PageHeader>
-      <Height>6.24586cm</Height>
+      <Height>6.92319cm</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
@@ -765,7 +765,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>CUSTOMER_NAME</rd:DefaultName>
-              <Top>2.69225cm</Top>
+              <Top>3.39075cm</Top>
               <Left>0.127cm</Left>
               <Height>0.6cm</Height>
               <Width>7.19786cm</Width>
@@ -800,7 +800,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox4</rd:DefaultName>
-              <Top>2.68696cm</Top>
+              <Top>3.38546cm</Top>
               <Left>7.36896cm</Left>
               <Height>0.6cm</Height>
               <Width>1.15062cm</Width>
@@ -834,7 +834,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>CUSTOMER_ADDRES</rd:DefaultName>
-              <Top>3.40162cm</Top>
+              <Top>4.10012cm</Top>
               <Left>0.127cm</Left>
               <Height>1.1715cm</Height>
               <Width>6.86272cm</Width>
@@ -869,7 +869,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox4</rd:DefaultName>
-              <Top>3.43669cm</Top>
+              <Top>4.13519cm</Top>
               <Left>7.025cm</Left>
               <Height>0.6cm</Height>
               <Width>1.49458cm</Width>
@@ -903,10 +903,10 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>PHONE</rd:DefaultName>
-              <Top>4.69423cm</Top>
-              <Left>3.32316cm</Left>
+              <Top>5.43397cm</Top>
+              <Left>3.72533cm</Left>
               <Height>0.6cm</Height>
-              <Width>4.01025cm</Width>
+              <Width>3.60808cm</Width>
               <ZIndex>7</ZIndex>
               <Style>
                 <Border>
@@ -925,7 +925,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>=First(Fields!ID_ORDER_Delivery.Value, "Rpt_salessAr")</Value>
+                      <Value>=First(Fields!Namber_Order_Delivery.Value, "Rpt_salessAr")</Value>
                       <Style>
                         <FontSize>12pt</FontSize>
                         <FontWeight>Bold</FontWeight>
@@ -976,7 +976,7 @@
               <Top>1.20325cm</Top>
               <Left>4.1275cm</Left>
               <Height>0.6cm</Height>
-              <Width>1.78357cm</Width>
+              <Width>2.25368cm</Width>
               <ZIndex>9</ZIndex>
               <Style>
                 <Border>
@@ -1008,7 +1008,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox4</rd:DefaultName>
-              <Top>4.70019cm</Top>
+              <Top>5.39869cm</Top>
               <Left>7.36896cm</Left>
               <Height>0.6cm</Height>
               <Width>1.15062cm</Width>
@@ -1043,8 +1043,8 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox4</rd:DefaultName>
-              <Top>5.47658cm</Top>
-              <Left>7.38687cm</Left>
+              <Top>2.70432cm</Top>
+              <Left>7.36895cm</Left>
               <Height>0.6cm</Height>
               <Width>1.15062cm</Width>
               <ZIndex>11</ZIndex>
@@ -1077,10 +1077,10 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>EMPLOYEE_NAME</rd:DefaultName>
-              <Top>5.47658cm</Top>
-              <Left>4.1275cm</Left>
+              <Top>2.67786cm</Top>
+              <Left>4.445cm</Left>
               <Height>0.6cm</Height>
-              <Width>3.26263cm</Width>
+              <Width>2.94513cm</Width>
               <ZIndex>12</ZIndex>
               <Style>
                 <Border>
@@ -1147,8 +1147,8 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox4</rd:DefaultName>
-              <Top>5.49531cm</Top>
-              <Left>2.90632cm</Left>
+              <Top>6.101cm</Top>
+              <Left>7.47098cm</Left>
               <Height>0.6cm</Height>
               <Width>0.99567cm</Width>
               <ZIndex>14</ZIndex>
@@ -1181,11 +1181,80 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>EMPLOYEE_NAME</rd:DefaultName>
-              <Top>5.49531cm</Top>
-              <Left>0.09525cm</Left>
+              <Top>6.101cm</Top>
+              <Left>3.72533cm</Left>
               <Height>0.6cm</Height>
-              <Width>2.7758cm</Width>
+              <Width>3.71038cm</Width>
               <ZIndex>15</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox12">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>النوع</Value>
+                      <Style>
+                        <FontSize>11pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Right</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox4</rd:DefaultName>
+              <Top>2.67786cm</Top>
+              <Left>3.2694cm</Left>
+              <Height>0.6cm</Height>
+              <Width>0.98806cm</Width>
+              <ZIndex>16</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="EMPLOYEE_NAME3">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>=First(Fields!Name_Pilot.Value, "Rpt_salessAr")</Value>
+                      <Style>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Right</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>EMPLOYEE_NAME</rd:DefaultName>
+              <Top>2.67786cm</Top>
+              <Left>0.127cm</Left>
+              <Height>0.6cm</Height>
+              <Width>3.04857cm</Width>
+              <ZIndex>17</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -1198,7 +1267,7 @@
             </Textbox>
           </ReportItems>
           <KeepTogether>true</KeepTogether>
-          <Height>6.20173cm</Height>
+          <Height>6.81556cm</Height>
           <Width>8.55133cm</Width>
           <Style>
             <Border>
@@ -1236,7 +1305,7 @@
       </Style>
     </PageHeader>
     <PageFooter>
-      <Height>0.02646cm</Height>
+      <Height>2.05846cm</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <Style>
@@ -1322,6 +1391,10 @@
         <Field Name="Name_Pilot">
           <DataField>Name_Pilot</DataField>
           <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Namber_Order_Delivery">
+          <DataField>Namber_Order_Delivery</DataField>
+          <rd:TypeName>System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
         </Field>
         <Field Name="ID_DELIVERY">
           <DataField>ID_DELIVERY</DataField>

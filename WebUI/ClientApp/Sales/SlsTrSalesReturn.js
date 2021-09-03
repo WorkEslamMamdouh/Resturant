@@ -69,6 +69,7 @@ var SlsTrSalesReturn;
     var CountGrid = -1;
     var CountItems = 0;
     var Bal = 0;
+    var ID_ORDER_Delivery = 0;
     function InitalizeComponent() {
         debugger;
         InitalizeControls();
@@ -229,6 +230,7 @@ var SlsTrSalesReturn;
                     debugger;
                     for (var i = 0; i < Get_IQ_ReviewSalesMaster.length; i++) {
                         Get_IQ_ReviewSalesMaster[i].Date = DateFormat(Get_IQ_ReviewSalesMaster[i].Date);
+                        Get_IQ_ReviewSalesMaster[i].Nametype_order = Get_IQ_ReviewSalesMaster[i].type_order == "Delivery" ? "دليفري " : "تيك اوي";
                     }
                     InitializeGrid();
                     divMasterGrid.DataSource = Get_IQ_ReviewSalesMaster;
@@ -266,10 +268,10 @@ var SlsTrSalesReturn;
         divMasterGrid.PrimaryKey = "ID_ORDER_Delivery";
         divMasterGrid.Columns = [
             { title: "ID", name: "ID_ORDER_Delivery", type: "text", width: "2%", visible: false },
-            { title: "رقم الفاتوره", name: "ID_ORDER_Delivery", type: "text", width: "10%" },
+            { title: "رقم الفاتوره", name: "Namber_Order_Delivery", type: "text", width: "10%" },
             { title: " التاريخ  ", name: "Date", type: "text", width: "12%" },
             { title: "البائع", name: "EMPLOYEE_NAME", type: "text", width: "20%" },
-            { title: "العميل", name: "CUSTOMER_NAME", type: "text", width: "20%" },
+            { title: "نوع الفاتوره", name: "Nametype_order", type: "text", width: "20%" },
             { title: "اجمالي الفاتوره", name: "Tax", type: "text", width: "16%" },
         ];
     }
@@ -282,59 +284,15 @@ var SlsTrSalesReturn;
     }
     function DisplayData(Selected_Data) {
         debugger;
-        //alert(Selected_Data[0].TrDate);
-        //console.log(Selected_Data[0].TrDate);
-        //CountGrid = 0;
-        //CountGridCharge = 0;
+        ID_ORDER_Delivery = Selected_Data[0].ID_ORDER_Delivery;
+        if (Selected_Data[0].type_order == 'Delivery') {
+            $('#Cheak_type_order').removeClass('display_none');
+        }
+        else {
+            $('#Cheak_type_order').addClass('display_none');
+        }
         DocumentActions.RenderFromModel(Selected_Data[0]);
         BindGetOperationItemsGridData(Selected_Data[0].ID_ORDER_Delivery);
-        //var trDate: string = DateFormat(Selected_Data[0].TrDate);
-        //$('#txtDate').val(trDate);
-        //$('#txtClearanceDate').val(DateFormat(Selected_Data[0].ClearanceDate));
-        //$('#txtdateopening').val(DateFormat(Selected_Data[0].OpenAt));
-        //$('#ddlVendor').prop("value", Selected_Data[0].VendorID);
-        //$('#txtNationality').prop("value", Selected_Data[0].NationalityID);
-        //if (Selected_Data[0].SalesmanId != 0) {
-        //    $('#ddlSalesman option[value=' + Selected_Data[0].SalesmanId + ']').prop('selected', 'selected').change();
-        //}
-        //else {
-        //    $('#ddlSalesman option[value=null]').prop('selected', 'selected').change();
-        //}
-        //$('#div_Master').removeClass('disabledDiv');
-        //$("#div_Master").attr("disabled", "disabled").off('click');
-        //$("#div_Master").addClass("disabledDiv");
-        //$('#txtStatus').val(Selected_Data[0].Status_DescA);
-        //Status = Selected_Data[0].Status;
-        //OperationID = Selected_Data[0].OperationID;
-        //var Close_TrDate: string = DateFormat(Selected_Data[0].Close_TrDate);
-        //$('#txtClose_TrDate').val(Close_TrDate);
-        //Calculation_Close();
-        //$('#Close_TotalSalesCredit').text(Selected_Data[0].Close_TotalSalesCredit);
-        //$('#Close_TotalSalesCreditVAT').text(Selected_Data[0].Close_TotalSalesCreditVAT);
-        //var AfterTotalSalesCreditVAT = Number(Selected_Data[0].Close_TotalSalesCredit) + Number(Selected_Data[0].Close_TotalSalesCreditVAT);
-        //$('#Close_AfterTotalSalesCreditVAT').text(AfterTotalSalesCreditVAT);
-        //$('#Close_TotalSalesCash').text(Selected_Data[0].Close_TotalSalesCash);
-        //$('#Close_TotalSalesCashVAT').text(Selected_Data[0].Close_TotalSalesCashVAT);
-        //var AfterTotalSalesCashVAT = Number(Selected_Data[0].Close_TotalSalesCash) + Number(Selected_Data[0].Close_TotalSalesCashVAT);
-        //$('#Close_AfterTotalSalesCashVAT').text(AfterTotalSalesCashVAT);
-        //$('#Close_AllTotalSale').text(Number(Selected_Data[0].Close_TotalSalesCash) + Number(Selected_Data[0].Close_TotalSalesCredit));
-        //$('#Close_AllTotalSaleVAT').text(Number(Selected_Data[0].Close_TotalSalesCashVAT) + Number(Selected_Data[0].Close_TotalSalesCreditVAT));
-        //$('#Close_AllAfterTotalSaleVAT').text(Number(AfterTotalSalesCreditVAT) + Number(AfterTotalSalesCashVAT));
-        //$('#lab_Close_CashOnhand').text(Number(Selected_Data[0].Close_CashOnhand));
-        //$('#lab_Close_CashOnBank').text(Number(Selected_Data[0].Close_CashOnBank));
-        //showdiv();
-        //$('#divlepRentdata_1').removeClass('showdiv');
-        //$('#spanlepRentdata_1').toggleClass('fa-caret-left');
-        //$('#spanlepRentdata_1').toggleClass('fa-caret-down');
-        //$('#divlepRentdata_2').removeClass('showdiv');
-        //$('#spanlepRentdata_2').toggleClass('fa-caret-left');
-        //$('#spanlepRentdata_2').toggleClass('fa-caret-down');
-        //$('#divlepRentdata_3').removeClass('showdiv');
-        //$('#spanlepRentdata_3').toggleClass('fa-caret-left');
-        //$('#spanlepRentdata_3').toggleClass('fa-caret-down');
-        //$('#lepRentdata').removeClass('showdiv');
-        //$('#spanlepRentdata_4').toggleClass('fa-caret-left');
-        //$('#spanlepRentdata_4').toggleClass('fa-caret-down');
     }
     function BindGetOperationItemsGridData(ID_ORDER) {
         debugger;
@@ -900,7 +858,7 @@ var SlsTrSalesReturn;
             }
         }
         SlsMasterDetils.I_Sls_TR_Invoice.Total_All = $('#txtTotal').val();
-        SlsMasterDetils.I_Sls_TR_Invoice.ID_ORDER_Delivery = $('#txtNumber').val();
+        SlsMasterDetils.I_Sls_TR_Invoice.ID_ORDER_Delivery = ID_ORDER_Delivery;
     }
     function Update() {
         debugger;
@@ -1022,7 +980,7 @@ var SlsTrSalesReturn;
         var _Stock = new Settings_Report();
         _Stock.Type_Print = type;
         _Stock.ID_Button_Print = 'saless_ret';
-        _Stock.Parameter_1 = $('#txtNumber').val();
+        _Stock.Parameter_1 = ID_ORDER_Delivery.toString();
         //_Stock.Parameter_2 = "";
         //_Stock.Parameter_3 = "";
         //_Stock.Parameter_4 = "";

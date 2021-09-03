@@ -214,6 +214,16 @@ class Settings_Report {
     public Type_Print: number;
 }
 
+
+class SlsInvoiceTrNo_Or_ID  {
+    constructor() { 
+        this.TrNo = 0;
+        this.ID_ORDER = 0; 
+    }
+    public TrNo: number;
+    public ID_ORDER: number; 
+}
+
 class G_Role extends SecurityClass {
     constructor() {
         super();

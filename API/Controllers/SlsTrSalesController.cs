@@ -22,6 +22,12 @@ namespace API.Controllers
     public class SlsTrSalesController : BaseController
     {
 
+        public class SlsInvoiceTrNo_Or_ID
+        {
+            public int TrNo { get; set; }
+            public int ID_ORDER { get; set; }
+        }
+
 
         private readonly ISlsTrSalesServices SlsTrSalesServices;
 
@@ -65,7 +71,9 @@ namespace API.Controllers
             if (ModelState.IsValid)
             {
                 try
-                { 
+                {
+                    SlsInvoiceTrNo_Or_ID TrNo_Or_ID = new SlsInvoiceTrNo_Or_ID();
+
                     string UserName = obj.I_Sls_TR_Invoice.UserName;
                     int Namber_Order_Delivery = obj.I_Sls_TR_Invoice.Namber_Order_Delivery;
                     decimal Total_All = obj.I_Sls_TR_Invoice.Total_All;
@@ -94,9 +102,14 @@ namespace API.Controllers
                     }
 
                     string GetTrNo = "select [Namber_Order_Delivery] from [ORDER_DELIVERY] where [ID_ORDER_Delivery] = " + Num_Order + "";
-                    var TrNo = db.Database.SqlQuery<int>(GetTrNo).FirstOrDefault();
+                    int TrNo = db.Database.SqlQuery<int>(GetTrNo).FirstOrDefault();
 
-                    return Ok(new BaseResponse(TrNo));
+                    TrNo_Or_ID.TrNo = TrNo;
+                    TrNo_Or_ID.ID_ORDER  = Num_Order;
+
+
+
+                    return Ok(new BaseResponse(TrNo_Or_ID));
                     ////////
                 }
                 catch (Exception ex)

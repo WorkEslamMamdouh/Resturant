@@ -108,7 +108,7 @@ namespace SlsTrSales {
     var id_Family;
     var id_Category;
     var type_Save_Print = false;
-    var res: any;
+    var res: SlsInvoiceTrNo_Or_ID = new SlsInvoiceTrNo_Or_ID();
     export function InitalizeComponent() {
         debugger
         $('#cont').toggleClass('colapsdivcont');
@@ -1233,11 +1233,11 @@ namespace SlsTrSales {
             debugger
             //if (!SysSession.CurrentPrivileges.AddNew) return;
             //if (!ValidationHeader_On_Chanege()) return;
-            if (flag_Cust == false) {
-                show_Cutomr();
-                flag_Cust = true;
-                return;
-            }
+            //if (flag_Cust == false) {
+            //    show_Cutomr();
+            //    flag_Cust = true;
+            //    return;
+            //}
             ValidationMinUnitPrice = 1;
             Assign_Get_Data();
 
@@ -1245,11 +1245,21 @@ namespace SlsTrSales {
 
                 Insert_Basket();
                 if (Success == true) {
+
+                    if (Number(idCust.value) == 0) {
+                        printreport();
+                        printreport2();
+                    }
+                    else {
+                        printreport2();
+
+                    }
+
                     Remove_Item_in_Basket();
 
                     $('#uul').html('');
                     Display_But();
-                    printreport();
+                   
 
                 }
 
@@ -1275,12 +1285,50 @@ namespace SlsTrSales {
     }
 
     function printreport() {
+        debugger; 
+        let _StockList: Array<Settings_Report> = new Array<Settings_Report>();
+        let _Stock: Settings_Report = new Settings_Report();
+        _Stock.Type_Print = 4;
+        _Stock.ID_Button_Print = 'saless_ret';
+        _Stock.Parameter_1 = res.ID_ORDER.toString();
+        //_Stock.Parameter_2 = "";
+        //_Stock.Parameter_3 = "";
+        //_Stock.Parameter_4 = "";
+        //_Stock.Parameter_5 = "";
+        //_Stock.Parameter_6 = "";
+        //_Stock.Parameter_7 = "";
+        //_Stock.Parameter_8 = "";
+        //_Stock.Parameter_9 = "";
+
+
+        _StockList.push(_Stock);
+
+        let rp: ReportParameters = new ReportParameters();
+
+        rp.Data_Report = JSON.stringify(_StockList);//output report as View
+
+        debugger
+        Ajax.Callsync({
+            url: Url.Action("Data_Report_Open", "GeneralReports"),
+            data: rp,
+            success: (d) => {
+                debugger
+                let result = d.result as string;
+
+
+                window.open(result, "_blank");
+            }
+        })
+         
+    }
+
+    function printreport2() {
         debugger;
         let _StockList: Array<Settings_Report> = new Array<Settings_Report>();
         let _Stock: Settings_Report = new Settings_Report();
         _Stock.Type_Print = 4;
-        _Stock.ID_Button_Print = 'saless';
-        _Stock.Parameter_1 = res;
+        _Stock.ID_Button_Print = 'saless2';
+        _Stock.Parameter_1 = res.ID_ORDER.toString();
         //_Stock.Parameter_2 = "";
         //_Stock.Parameter_3 = "";
         //_Stock.Parameter_4 = "";
@@ -1310,14 +1358,8 @@ namespace SlsTrSales {
             }
         })
 
-
-
-
-
-
-
-
     }
+
 
     function Insert_Basket() {
         if (InvoiceModel.CUSTOMER_ID == null || InvoiceModel.CUSTOMER_ID == 0) {
@@ -1330,8 +1372,8 @@ namespace SlsTrSales {
             success: (d) => {
                 let result = d as BaseResponse;
                 if (result.IsSuccess == true) {
-                    res = result.Response
-                    MessageBox.Show(" تم اصدار  فاتورة رقم  " + res + " ", "تم");
+                    res = result.Response as SlsInvoiceTrNo_Or_ID;
+                    MessageBox.Show(" تم اصدار  فاتورة رقم  " + res.TrNo + " ", "تم");
 
                     Success = true;
                     Hide_Basket();
@@ -1378,6 +1420,19 @@ namespace SlsTrSales {
 
             Insert_Basket();
             if (Success == true) {
+                if (type_Save_Print == true) {
+
+                    if (Number(idCust.value) == 0) {
+                        printreport();
+                        printreport2();
+                    }
+                    else {
+                        printreport2();
+
+                    }
+
+
+                }
                 Remove_Item_in_Basket();
                 ValidationMinUnitPrice = 0;
                 Validation_Insert = 0;
@@ -1391,10 +1446,7 @@ namespace SlsTrSales {
                 ID_Customer = null;
                 idCust.value = "";
                 hide_Custm();
-                flag_Cust = false;
-                if (type_Save_Print == true) {
-                    printreport();
-                }
+                flag_Cust = false; 
             }
 
         }

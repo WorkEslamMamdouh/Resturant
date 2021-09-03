@@ -167,6 +167,13 @@ var Settings_Report = (function () {
     }
     return Settings_Report;
 }());
+var SlsInvoiceTrNo_Or_ID = (function () {
+    function SlsInvoiceTrNo_Or_ID() {
+        this.TrNo = 0;
+        this.ID_ORDER = 0;
+    }
+    return SlsInvoiceTrNo_Or_ID;
+}());
 var G_Role = (function (_super) {
     __extends(G_Role, _super);
     function G_Role() {

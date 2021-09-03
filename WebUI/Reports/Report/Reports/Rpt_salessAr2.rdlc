@@ -329,7 +329,7 @@
             </TablixMember>
           </TablixMembers>
         </TablixRowHierarchy>
-        <DataSetName>Rpt_salessAr</DataSetName>
+        <DataSetName>Rpt_salessAr2</DataSetName>
         <Top>0.06171cm</Top>
         <Left>0cm</Left>
         <Height>1.2cm</Height>
@@ -347,7 +347,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=sum(Fields!Quantity_sell.Value, "Rpt_salessAr")</Value>
+                <Value>=sum(Fields!Quantity_sell.Value, "Rpt_salessAr2")</Value>
                 <Style>
                   <FontSize>11pt</FontSize>
                   <FontWeight>Bold</FontWeight>
@@ -485,7 +485,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>=First(Fields!Date_Order_Delivery.Value, "Rpt_salessAr")</Value>
+                      <Value>=First(Fields!Date_Order_Delivery.Value, "Rpt_salessAr2")</Value>
                       <Style>
                         <FontSize>11pt</FontSize>
                         <FontWeight>Bold</FontWeight>
@@ -555,7 +555,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>=First(Fields!Namber_Order_Delivery.Value, "Rpt_salessAr")</Value>
+                      <Value>=First(Fields!Namber_Order_Delivery.Value, "Rpt_salessAr2")</Value>
                       <Style>
                         <FontSize>12pt</FontSize>
                         <FontWeight>Bold</FontWeight>
@@ -625,7 +625,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>=First(Fields!Date.Value, "Rpt_salessAr")</Value>
+                      <Value>=First(Fields!Date.Value, "Rpt_salessAr2")</Value>
                       <Style>
                         <FontWeight>Bold</FontWeight>
                         <Format>dd/MM/yyyy</Format>
@@ -774,7 +774,7 @@
     </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="Rpt_salessAr">
+    <DataSet Name="Rpt_salessAr2">
       <Query>
         <DataSourceName>DALDomain</DataSourceName>
         <CommandText>/* Local Query */</CommandText>

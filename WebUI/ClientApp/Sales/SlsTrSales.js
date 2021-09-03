@@ -103,7 +103,7 @@ var SlsTrSales;
     var id_Family;
     var id_Category;
     var type_Save_Print = false;
-    var res;
+    var res = new SlsInvoiceTrNo_Or_ID();
     function InitalizeComponent() {
         debugger;
         $('#cont').toggleClass('colapsdivcont');
@@ -925,20 +925,26 @@ var SlsTrSales;
             debugger;
             //if (!SysSession.CurrentPrivileges.AddNew) return;
             //if (!ValidationHeader_On_Chanege()) return;
-            if (flag_Cust == false) {
-                show_Cutomr();
-                flag_Cust = true;
-                return;
-            }
+            //if (flag_Cust == false) {
+            //    show_Cutomr();
+            //    flag_Cust = true;
+            //    return;
+            //}
             ValidationMinUnitPrice = 1;
             Assign_Get_Data();
             if (Validation_Insert != 1) {
                 Insert_Basket();
                 if (Success == true) {
+                    if (Number(idCust.value) == 0) {
+                        printreport();
+                        printreport2();
+                    }
+                    else {
+                        printreport2();
+                    }
                     Remove_Item_in_Basket();
                     $('#uul').html('');
                     Display_But();
-                    printreport();
                 }
             }
             else {
@@ -955,8 +961,37 @@ var SlsTrSales;
         var _StockList = new Array();
         var _Stock = new Settings_Report();
         _Stock.Type_Print = 4;
-        _Stock.ID_Button_Print = 'saless';
-        _Stock.Parameter_1 = res;
+        _Stock.ID_Button_Print = 'saless_ret';
+        _Stock.Parameter_1 = res.ID_ORDER.toString();
+        //_Stock.Parameter_2 = "";
+        //_Stock.Parameter_3 = "";
+        //_Stock.Parameter_4 = "";
+        //_Stock.Parameter_5 = "";
+        //_Stock.Parameter_6 = "";
+        //_Stock.Parameter_7 = "";
+        //_Stock.Parameter_8 = "";
+        //_Stock.Parameter_9 = "";
+        _StockList.push(_Stock);
+        var rp = new ReportParameters();
+        rp.Data_Report = JSON.stringify(_StockList); //output report as View
+        debugger;
+        Ajax.Callsync({
+            url: Url.Action("Data_Report_Open", "GeneralReports"),
+            data: rp,
+            success: function (d) {
+                debugger;
+                var result = d.result;
+                window.open(result, "_blank");
+            }
+        });
+    }
+    function printreport2() {
+        debugger;
+        var _StockList = new Array();
+        var _Stock = new Settings_Report();
+        _Stock.Type_Print = 4;
+        _Stock.ID_Button_Print = 'saless2';
+        _Stock.Parameter_1 = res.ID_ORDER.toString();
         //_Stock.Parameter_2 = "";
         //_Stock.Parameter_3 = "";
         //_Stock.Parameter_4 = "";
@@ -991,7 +1026,7 @@ var SlsTrSales;
                 var result = d;
                 if (result.IsSuccess == true) {
                     res = result.Response;
-                    MessageBox.Show(" تم اصدار  فاتورة رقم  " + res + " ", "تم");
+                    MessageBox.Show(" تم اصدار  فاتورة رقم  " + res.TrNo + " ", "تم");
                     Success = true;
                     Hide_Basket();
                 }
@@ -1024,6 +1059,15 @@ var SlsTrSales;
         if (txt_ApprovePass.value == '1234') {
             Insert_Basket();
             if (Success == true) {
+                if (type_Save_Print == true) {
+                    if (Number(idCust.value) == 0) {
+                        printreport();
+                        printreport2();
+                    }
+                    else {
+                        printreport2();
+                    }
+                }
                 Remove_Item_in_Basket();
                 ValidationMinUnitPrice = 0;
                 Validation_Insert = 0;
@@ -1038,9 +1082,6 @@ var SlsTrSales;
                 idCust.value = "";
                 hide_Custm();
                 flag_Cust = false;
-                if (type_Save_Print == true) {
-                    printreport();
-                }
             }
         }
         else {

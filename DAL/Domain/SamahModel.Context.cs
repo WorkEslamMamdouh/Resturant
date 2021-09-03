@@ -1231,5 +1231,7 @@ namespace DAL.Domain
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("New_Data_Bes");
         }
+    
+        
     }
 }

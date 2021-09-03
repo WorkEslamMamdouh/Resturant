@@ -1517,6 +1517,9 @@ warning 6002: The table/view 'Resturant.dbo.ReviewSalesMaster' does not have a p
           <EntitySet Name="ReviewSalesItemInfoes" EntityType="SamahModel.ReviewSalesItemInfo" />
           <EntitySet Name="ReviewSalesMasters" EntityType="SamahModel.ReviewSalesMaster" />
           <EntitySet Name="Stok_ORDER_DELIVERY" EntityType="SamahModel.Stok_ORDER_DELIVERY" />
+          <FunctionImport Name="Original_sales_receipt1" ReturnType="Collection(SamahModel.Original_sales_receipt1_Result)">
+            <Parameter Name="TrNo" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="insert_Table_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
@@ -2455,6 +2458,32 @@ warning 6002: The table/view 'Resturant.dbo.ReviewSalesMaster' does not have a p
           <Property Name="FK_ORDER_Delivery" Type="Int32" />
           <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
+        <ComplexType Name="Original_sales_receipt1_Result">
+          <Property Type="Int32" Name="ID_ORDER_Delivery" Nullable="true" />
+          <Property Type="String" Name="Date_Order_Delivery" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="CUSTOMER_NAME" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="CUSTOMER_ADDRES" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PHONE" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="CUSTOMER_ADDRES_2" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="Total_All" Nullable="true" Precision="19" />
+          <Property Type="String" Name="EMPLOYEE_NAME" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="Date" Nullable="true" />
+          <Property Type="Double" Name="Tax" Nullable="true" />
+          <Property Type="Boolean" Name="Confirmation" Nullable="true" />
+          <Property Type="String" Name="USER_CODE" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Name_Pilot" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="ID_DELIVERY" Nullable="true" />
+          <Property Type="Double" Name="Quantity_sell" Nullable="true" />
+          <Property Type="Decimal" Name="price_One_part" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="Total_Price_One_Part" Nullable="true" Precision="19" />
+          <Property Type="String" Name="Notes_Order" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="FK_ORDER_Delivery" Nullable="true" />
+          <Property Type="Decimal" Name="MinUnitPrice" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="ID_CAT" Nullable="true" />
+          <Property Type="String" Name="PRODUCT_NAME" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="PRODUCT_QET" Nullable="true" />
+          <Property Type="Int32" Name="PRODUCT_ID" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2860,35 +2889,6 @@ warning 6002: The table/view 'Resturant.dbo.ReviewSalesMaster' does not have a p
                 <ScalarProperty Name="ID_CAT" ColumnName="ID_CAT" />
                 <ScalarProperty Name="ID_familly_Cat" ColumnName="ID_familly_Cat" />
                 <ScalarProperty Name="PRODUCT_QET" ColumnName="PRODUCT_QET" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="Original_sales_receipt" FunctionName="SamahModel.Store.Original_sales_receipt">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="SamahModel.Original_sales_receipt_Result">
-                <ScalarProperty Name="ID_ORDER_Delivery" ColumnName="ID_ORDER_Delivery" />
-                <ScalarProperty Name="Date_Order_Delivery" ColumnName="Date_Order_Delivery" />
-                <ScalarProperty Name="CUSTOMER_NAME" ColumnName="CUSTOMER_NAME" />
-                <ScalarProperty Name="CUSTOMER_ADDRES" ColumnName="CUSTOMER_ADDRES" />
-                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
-                <ScalarProperty Name="CUSTOMER_ADDRES_2" ColumnName="CUSTOMER_ADDRES_2" />
-                <ScalarProperty Name="Total_All" ColumnName="Total_All" />
-                <ScalarProperty Name="EMPLOYEE_NAME" ColumnName="EMPLOYEE_NAME" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Tax" ColumnName="Tax" />
-                <ScalarProperty Name="Confirmation" ColumnName="Confirmation" />
-                <ScalarProperty Name="USER_CODE" ColumnName="USER_CODE" />
-                <ScalarProperty Name="ID_DELIVERY" ColumnName="ID_DELIVERY" />
-                <ScalarProperty Name="Quantity_sell" ColumnName="Quantity_sell" />
-                <ScalarProperty Name="price_One_part" ColumnName="price_One_part" />
-                <ScalarProperty Name="Total_Price_One_Part" ColumnName="Total_Price_One_Part" />
-                <ScalarProperty Name="Notes_Order" ColumnName="Notes_Order" />
-                <ScalarProperty Name="FK_ORDER_Delivery" ColumnName="FK_ORDER_Delivery" />
-                <ScalarProperty Name="MinUnitPrice" ColumnName="MinUnitPrice" />
-                <ScalarProperty Name="ID_CAT" ColumnName="ID_CAT" />
-                <ScalarProperty Name="PRODUCT_NAME" ColumnName="PRODUCT_NAME" />
-                <ScalarProperty Name="PRODUCT_QET" ColumnName="PRODUCT_QET" />
-                <ScalarProperty Name="PRODUCT_ID" ColumnName="PRODUCT_ID" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -3552,6 +3552,36 @@ warning 6002: The table/view 'Resturant.dbo.ReviewSalesMaster' does not have a p
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Original_sales_receipt1" FunctionName="SamahModel.Store.Original_sales_receipt">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SamahModel.Original_sales_receipt1_Result">
+                <ScalarProperty Name="ID_ORDER_Delivery" ColumnName="ID_ORDER_Delivery" />
+                <ScalarProperty Name="Date_Order_Delivery" ColumnName="Date_Order_Delivery" />
+                <ScalarProperty Name="CUSTOMER_NAME" ColumnName="CUSTOMER_NAME" />
+                <ScalarProperty Name="CUSTOMER_ADDRES" ColumnName="CUSTOMER_ADDRES" />
+                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+                <ScalarProperty Name="CUSTOMER_ADDRES_2" ColumnName="CUSTOMER_ADDRES_2" />
+                <ScalarProperty Name="Total_All" ColumnName="Total_All" />
+                <ScalarProperty Name="EMPLOYEE_NAME" ColumnName="EMPLOYEE_NAME" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Tax" ColumnName="Tax" />
+                <ScalarProperty Name="Confirmation" ColumnName="Confirmation" />
+                <ScalarProperty Name="USER_CODE" ColumnName="USER_CODE" />
+                <ScalarProperty Name="Name_Pilot" ColumnName="Name_Pilot" />
+                <ScalarProperty Name="ID_DELIVERY" ColumnName="ID_DELIVERY" />
+                <ScalarProperty Name="Quantity_sell" ColumnName="Quantity_sell" />
+                <ScalarProperty Name="price_One_part" ColumnName="price_One_part" />
+                <ScalarProperty Name="Total_Price_One_Part" ColumnName="Total_Price_One_Part" />
+                <ScalarProperty Name="Notes_Order" ColumnName="Notes_Order" />
+                <ScalarProperty Name="FK_ORDER_Delivery" ColumnName="FK_ORDER_Delivery" />
+                <ScalarProperty Name="MinUnitPrice" ColumnName="MinUnitPrice" />
+                <ScalarProperty Name="ID_CAT" ColumnName="ID_CAT" />
+                <ScalarProperty Name="PRODUCT_NAME" ColumnName="PRODUCT_NAME" />
+                <ScalarProperty Name="PRODUCT_QET" ColumnName="PRODUCT_QET" />
+                <ScalarProperty Name="PRODUCT_ID" ColumnName="PRODUCT_ID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

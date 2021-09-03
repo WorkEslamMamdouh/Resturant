@@ -212,11 +212,11 @@
                     <div class="col-lg-12 ">
                         <label class="col-lg-1 col-xs-4      pading_2">إسم الموظف  </label>
 
-                        <div class="col-lg-2 col-xs-8">
+                        <div class="col-lg-3 col-xs-8">
                             <input id="txtUSER_NAME" name="USER_NAME" disabled type="text" class="form-control input-sm text_Display">
                         </div>
-                        <label class="col-lg-1 col-xs-4      pading_2 textcentr_pading">القسم</label>
-                        <div class="col-lg-2 col-xs-8">
+                        <label class="col-lg-1 col-xs-4  display_none    pading_2 textcentr_pading">القسم</label>
+                        <div class="col-lg-2 col-xs-8 display_none">
                             <input id="txtDepartmentName" name="DepartmentName" disabled type="text" class="form-control input-sm text_Display">
                         </div>
                         <label class="col-lg-1 col-xs-4   pading_2 textcentr_pading">فعال</label>
@@ -227,8 +227,13 @@
 
                     <div class="col-lg-12 ">
                         <label class="col-lg-1 col-xs-4      pading_2">الوظيفة</label>
-                        <div class="col-lg-2 col-xs-8">
-                            <input id="txtJobTitle" name="JobTitle" disabled type="text" class="form-control input-sm text_Display">
+                        <div class="col-lg-2 col-xs-8"> 
+                            <select  id="txtJobTitle" name="JobTitle" disabled class="form-control input-sm text_Display">
+                                <option value="null">اختار الوظيفه</option>
+                                <option value="1">كاشير</option>
+                                <option value="2">طيار</option>
+                                <option value="3">اداري</option> 
+                            </select>
                         </div>
                         <label class="col-lg-1 col-xs-4      pading_2 textcentr_pading">الموبيل</label>
                         <div class="col-lg-2 col-xs-8">

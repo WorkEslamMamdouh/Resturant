@@ -53,6 +53,7 @@ var USERS;
     var Update_claenData = 0;
     var txt_ID_APP_Category;
     var StatusFlag;
+    var USER_CODE;
     function InitalizeComponent() {
         if (SysSession.CurrentEnvironment.ScreenLanguage = "ar") {
             document.getElementById('Screen_name').innerHTML = "الاعدادات";
@@ -133,6 +134,15 @@ var USERS;
             Display = Details;
         }
         for (var i = 0; i < Display.length; i++) {
+            if (Display[i].JobTitle == '1') {
+                Display[i].NameJobTitle = 'كاشير';
+            }
+            else if (Display[i].JobTitle == '2') {
+                Display[i].NameJobTitle = 'طيار';
+            }
+            else {
+                Display[i].NameJobTitle = 'اداري';
+            }
             Display[i].USER_ACTIVE_Name = Display[i].USER_ACTIVE == false ? 'غير فعال' : 'فعال';
         }
         InitializeGrid();
@@ -224,13 +234,13 @@ var USERS;
             Errorinput($('#txtUSER_NAME'));
             return Valid = 1;
         }
-        if ($('#txtDepartmentName').val() == "") {
-            MessageBox.Show("يجب ادخال القسم ", "Contact Email Is Not Valid");
-            Errorinput($('#txtDepartmentName'));
-            return Valid = 1;
-        }
-        if ($('#txtJobTitle').val() == "") {
-            MessageBox.Show("يجب ادخال  الوظيفة ", "Contact Email Is Not Valid");
+        //if ($('#txtDepartmentName').val() == "") {
+        //    MessageBox.Show("يجب ادخال القسم ", "Contact Email Is Not Valid");
+        //    Errorinput($('#txtDepartmentName'));
+        //    return Valid = 1;
+        //}
+        if ($('#txtJobTitle').val() == "null") {
+            MessageBox.Show("يجب اختيار  الوظيفة ", "Contact Email Is Not Valid");
             Errorinput($('#txtJobTitle'));
             return Valid = 1;
         }
@@ -239,17 +249,17 @@ var USERS;
             Errorinput($('#txtMobile'));
             return Valid = 1;
         }
-        if ($('#txtUSER_CODE').val() == "") {
+        if ($('#txtUSER_CODE').val() == "" && $('#txtJobTitle').val() != '2') {
             MessageBox.Show("يجب ادخال  إسم المستخدم   ", "Contact Email Is Not Valid");
             Errorinput($('#txtUSER_CODE'));
             return Valid = 1;
         }
-        if ($('#txtUSER_PASSWORD').val() == "") {
+        if ($('#txtUSER_PASSWORD').val() == "" && $('#txtJobTitle').val() != '2') {
             MessageBox.Show("يجب ادخال كلمة السر   ", "Contact Email Is Not Valid");
             Errorinput($('#txtUSER_PASSWORD'));
             return Valid = 1;
         }
-        if ($('#txtUSER_PASSWORD_confirm').val() != $('#txtUSER_PASSWORD').val()) {
+        if ($('#txtUSER_PASSWORD_confirm').val() != $('#txtUSER_PASSWORD').val() && $('#txtJobTitle').val() != '2') {
             MessageBox.Show("كلمتى السر غير متوافقين", "Contact Email Is Not Valid");
             Errorinput($('#txtUSER_PASSWORD_confirm'));
             return Valid = 1;
@@ -276,6 +286,20 @@ var USERS;
             if (Valid != 2) {
                 $("#Div_control").attr("style", " margin-bottom: 19px;margin-top: 20px;display: none;");
             }
+            Selecteditem = Details.filter(function (s) { return s.USER_CODE == USER_CODE; });
+            DocumentActions.RenderFromModel(Selecteditem[0]);
+            $('#btnedite').removeClass("display_none");
+            $('#btnsave').addClass("display_none");
+            $('#btnback').addClass("display_none");
+            $('#btnedite').removeAttr("disabled");
+            if (Selecteditem[0].USER_ACTIVE == true) {
+                chk_IsActive.checked = true;
+            }
+            else {
+                chk_IsActive.checked = false;
+            }
+            BindGetOperationItemsGridData(Selecteditem[0].USER_CODE);
+            $("#Div_control").attr("style", " margin-bottom: 19px;margin-top: 20px;");
             $("#id_div_Add").attr("disabled", "");
             $("#id_div_Add").removeClass("disabledDiv");
             disabled_Grid_Controls();
@@ -306,7 +330,7 @@ var USERS;
         chk_IsActive.checked = false;
         $("#txtUSER_NAME").val("");
         $("#txtDepartmentName").val("");
-        $("#txtJobTitle").val("");
+        $("#txtJobTitle").prop("value", "null");
         $("#txtMobile").val("");
         $("#txtAddress").val("");
         $("#txtUSER_CODE").val("");
@@ -410,7 +434,7 @@ var USERS;
             { title: "الرقم", name: "USER_CODE", type: "text", width: "100px", visible: false },
             { title: "اسم الموظف", name: "USER_NAME", type: "text", width: "100px" },
             { title: "رقم الجوال", name: "Mobile", type: "text", width: "100px" },
-            { title: "النوع", name: "JobTitle", type: "text", width: "100px" },
+            { title: "نوع الوظيفه", name: "NameJobTitle", type: "text", width: "100px" },
             { title: "مفعل", name: "USER_ACTIVE_Name", type: "textdd", width: "100px" },
         ];
         ReportGrid.Bind();
@@ -560,15 +584,15 @@ var USERS;
     }
     function btnLoadRoles_onClick() {
         //$('#div_Data').html("");
-        btnLoadRoles.disabled = true;
         debugger;
         var Q = 0;
         var le = Number(List_RoleDetails.length + List_Roles.length);
         for (var i = List_Roles.length; i < le; i++) {
             if ($("#txtUSER_NAME").val() == "" || txtUSER_CODE.value == "" || $("#txtUSER_PASSWORD").val() == "") {
-                WorningMessageDailog("من فضلك تاكد من ادخال جميع البيانات", "");
+                WorningMessage("من فضلك تاكد من ادخال جميع البيانات", "");
             }
             else {
+                btnLoadRoles.disabled = true;
                 var xx = List_Roles.filter(function (x) { return x.RoleId == List_RoleDetails[Q].RoleId; });
                 if (xx.length > 0) {
                     Q += 1;
@@ -640,6 +664,7 @@ var USERS;
                 Model.USER_ACTIVE = false;
             }
             Model.CompCode = 1;
+            Model.USER_CODE = txtUSER_CODE.value.trim() == '' ? $('#txtUSER_NAME').val() : txtUSER_CODE.value;
             Model.Tokenid = 'HGFD-EV+xyuNsKkkH9SJrgL6XgROioRT8GfXE48AZcSVHN+256IG5apvYig==';
         }
         else {
@@ -703,6 +728,7 @@ var USERS;
                 var result = d;
                 if (result.IsSuccess) {
                     MessageBox.Show("تم الحفظ بنجاح", "Success");
+                    USER_CODE = txtUSER_CODE.value;
                     Update_claenData = 0;
                     FillddlUserMaster();
                     Display_All();
@@ -716,9 +742,11 @@ var USERS;
         });
     }
     function Update() {
+        debugger;
         CustomG_USERS_Model = new CustomG_USERS();
         Assign();
         Assign_Grid();
+        debugger;
         Ajax.Callsync({
             type: "POST",
             url: sys.apiUrl("G_USERS", "Update_USER"),

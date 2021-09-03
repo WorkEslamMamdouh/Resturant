@@ -1268,6 +1268,7 @@ class G_USERS extends SecurityClass {
         this.Email = "";
         this.DepartmentName = "";
         this.JobTitle = "";
+        this.NameJobTitle = "";
         this.USER_TYPE = 0;
         this.ManagedBy = "";
         this.LoginUrl = false;
@@ -1300,6 +1301,7 @@ class G_USERS extends SecurityClass {
     public Email: string;
     public DepartmentName: string;
     public JobTitle: string;
+    public NameJobTitle: string; 
     public USER_TYPE: number;
     public ManagedBy: string;
     public LoginUrl: boolean;

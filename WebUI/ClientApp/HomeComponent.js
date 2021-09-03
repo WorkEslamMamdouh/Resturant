@@ -24,6 +24,7 @@ var HomeComponent;
     var Balance = 0;
     var CountGrid = 0;
     var Notification = new Array();
+    var UserDetails = new Array();
     function OpenPage(moduleCode) {
         SysSession.CurrentEnvironment.ModuleCode = moduleCode;
         SysSession.CurrentEnvironment.ModuleCode = moduleCode;
@@ -148,8 +149,24 @@ var HomeComponent;
         Check_Close_Day();
         sidebarCollapse.onclick = ON_Click_SidebarCollapse;
         tol_allnotification.onclick = tol_allnotification_onclick;
+        FillddlPilot();
     }
     HomeComponent.InitalizeComponent = InitalizeComponent;
+    function FillddlPilot() {
+        debugger;
+        Ajax.Callsync({
+            type: "Get",
+            url: sys.apiUrl("G_USERS", "GetAllUser"),
+            data: {},
+            success: function (d) {
+                var result = d;
+                if (result.IsSuccess) {
+                    UserDetails = result.Response;
+                    UserDetails = UserDetails.filter(function (x) { return x.JobTitle == '2' && x.USER_ACTIVE == true; });
+                }
+            }
+        });
+    }
     function tol_allnotification_onclick() {
         Ajax.Callsync({
             type: "Get",
@@ -166,6 +183,9 @@ var HomeComponent;
                         //Disbly_BuildControls(i, AllGetStokMasterDetail);
                         CountGrid += 1;
                     }
+                    for (var i = 0; i < UserDetails.length; i++) {
+                        $('.ddlName_Pilot').append('<option  value="' + UserDetails[i].USER_NAME + '">' + UserDetails[i].USER_NAME + '</option>');
+                    }
                 }
                 else {
                     MessageBox.Show(result.ErrorMessage, "خطأ");
@@ -177,7 +197,7 @@ var HomeComponent;
         var html;
         html = '<li class="style_li"> <span  id="txt_Notification' + cnt + '" ></span> ' +
             '<br/> ' +
-            '<span><select id="ddlName_Pilot" class="form-control col-lg-5"><option value="null">اختار الطيار</option></select><div class="col-xs-1"></div><button id="btnBack" type="button" class="btn btn-success col-xs-2"> تأكيد <span class="glyphicon glyphicon-backward"></span></button><div class="col-xs-1"></div><button id="btnSave" type="button" class="btn btn-danger col-xs-2"> الغاء <span class="glyphicon glyphicon-floppy-saved"></span></button></span> ' +
+            '<span><select id="ddlName_Pilot' + cnt + '" class="ddlName_Pilot form-control col-lg-5"><option value="null">اختار الطيار</option></select><div class="col-xs-1"></div><button id="btnBack" type="button" class="btn btn-success col-xs-2"> تأكيد <span class="glyphicon glyphicon-backward"></span></button><div class="col-xs-1"></div><button id="btnSave" type="button" class="btn btn-danger col-xs-2"> الغاء <span class="glyphicon glyphicon-floppy-saved"></span></button></span> ' +
             '</li> ';
         $("#notificationUL").append(html);
         $('#txt_Notification' + cnt).html('' + Number(cnt + 1) + '- رقم الفاتوره ( ' + Notification[cnt].Namber_Order_Delivery + ' )   اسم الزبون ( ' + Notification[cnt].CUSTOMER_NAME + ' ) --' + Notification[cnt].Date_Order_Delivery + '');

@@ -884,6 +884,7 @@ var G_USERS = (function (_super) {
         _this.Email = "";
         _this.DepartmentName = "";
         _this.JobTitle = "";
+        _this.NameJobTitle = "";
         _this.USER_TYPE = 0;
         _this.ManagedBy = "";
         _this.LoginUrl = false;

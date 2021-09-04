@@ -35,7 +35,9 @@ namespace SlsTrSalesReturn {
     var ddlCustomerMaster: HTMLSelectElement;
     var ddlVendor: HTMLSelectElement;
     var ddlUserMaster: HTMLSelectElement;
+    var ddltype_order: HTMLSelectElement;
 
+    
     var id_divGridDetails: HTMLDivElement;
 
     // giedView
@@ -115,6 +117,9 @@ namespace SlsTrSalesReturn {
         txtFromDate = document.getElementById("txtFromDate") as HTMLInputElement;
         txtToDate = document.getElementById("txtToDate") as HTMLInputElement;
         ddlUserMaster = document.getElementById("ddlUserMaster") as HTMLSelectElement;
+        ddltype_order = document.getElementById("ddltype_order") as HTMLSelectElement;
+
+        
         ddlCustomerMaster = document.getElementById("ddlCustomerMaster") as HTMLSelectElement;
         searchbutmemreport = document.getElementById("searchbutmemreport") as HTMLInputElement;
 
@@ -126,56 +131,7 @@ namespace SlsTrSalesReturn {
         btnPrintTrview = document.getElementById("btnPrintTrview") as HTMLButtonElement;
         btnPrintTrPDF = document.getElementById("btnPrintTrPDF") as HTMLButtonElement;
         btnPrintTrEXEL = document.getElementById("btnPrintTrEXEL") as HTMLButtonElement;
-
-        //ddlStateType = document.getElementById("ddlStateType") as HTMLSelectElement;
-        //ddlSalesman = document.getElementById("ddlSalesman") as HTMLSelectElement;
-        //ddlVendor = document.getElementById("ddlVendor") as HTMLSelectElement;
-        //txtNationality = document.getElementById("txtNationality") as HTMLSelectElement;
-
-        //id_divGridDetails = document.getElementById("DivFilter") as HTMLDivElement;
-
-        ////textboxes
-
-        //txtdateopening = document.getElementById("txtdateopening") as HTMLInputElement;
-        //txtClose_Adjustment = document.getElementById("txtClose_Adjustment") as HTMLInputElement;
-        //txtClose_SalesManCommition = document.getElementById("txtClose_SalesManCommition") as HTMLInputElement;
-        //txtClose_CompanyCommitionPrc = document.getElementById("txtClose_CompanyCommitionPrc") as HTMLInputElement;
-
-
-        //txtTruckNumber = document.getElementById("txtTruckNumber") as HTMLInputElement;
-        //txtPaperPurchaseValue = document.getElementById("txtPaperPurchaseValue") as HTMLInputElement;
-        //txtPortName = document.getElementById("txtPortName") as HTMLInputElement;
-
-        ////buttons
-        //btnPresent = document.getElementById("btnPresent") as HTMLButtonElement;
-        //btnClose = document.getElementById("btnClose") as HTMLButtonElement;
-        //btnOpen = document.getElementById("btnOpen") as HTMLButtonElement;
-        //btnView_load = document.getElementById("btnView_load") as HTMLButtonElement;
-        //btnExpenses = document.getElementById("btnExpenses") as HTMLButtonElement;
-
-
-
-        //btnadd = document.getElementById("btnadd") as HTMLButtonElement;
-
-        //btnBack_1 = document.getElementById("btnBack_1") as HTMLButtonElement;
-        //btnSave_1 = document.getElementById("btnSave_1") as HTMLButtonElement;
-        //btnUpdate = document.getElementById("btnUpdate") as HTMLButtonElement;
-
-        //btnUpdate_3 = document.getElementById("btnUpdate_3") as HTMLButtonElement;
-        //btnBack_3 = document.getElementById("btnBack_3") as HTMLButtonElement;
-        //btnSave_3 = document.getElementById("btnSave_3") as HTMLButtonElement;
-        //btnUpdate_4 = document.getElementById("btnUpdate_4") as HTMLButtonElement;
-        //btnBack_4 = document.getElementById("btnBack_4") as HTMLButtonElement;
-        //btnSave_4 = document.getElementById("btnSave_4") as HTMLButtonElement;
-        //btnUpdate_5 = document.getElementById("btnUpdate_5") as HTMLButtonElement;
-        //btnBack_5 = document.getElementById("btnBack_5") as HTMLButtonElement;
-        //btnSave_5 = document.getElementById("btnSave_5") as HTMLButtonElement;
-
-        //btnAddDetails = document.getElementById("btnAddDetails") as HTMLButtonElement;
-        //btnAddDetailsCharge = document.getElementById("btnAddDetailsCharge") as HTMLButtonElement;
-        //btnAddDetailslebel = document.getElementById("btnAddDetailslebel") as HTMLButtonElement;
-
-
+ 
 
 
     }
@@ -223,9 +179,10 @@ namespace SlsTrSalesReturn {
                 let result = d as BaseResponse;
                 if (result.IsSuccess) {
                     UserDetails = result.Response as Array<G_USERS>;
+                    UserDetails = UserDetails.filter(x => x.JobTitle == '1')
                     debugger
 
-                    DocumentActions.FillCombowithdefult(UserDetails, ddlUserMaster, "USER_CODE", "USER_CODE", "اختار البائع");
+                    DocumentActions.FillCombowithdefult(UserDetails, ddlUserMaster, "USER_CODE", "USER_CODE", "اختار الكاشير");
 
 
                 }
@@ -272,16 +229,17 @@ namespace SlsTrSalesReturn {
         var enddt = DateFormatDataBes(txtToDate.value).toString();
         var CustomerId = 0;
         var USER_CODE = "null";
-
+        var type_order = "null";
 
         if (ddlUserMaster.value != "null") { USER_CODE = ddlUserMaster.value; }
+        if (ddltype_order.value != "null") { type_order = ddltype_order.value; }
         if (ddlCustomerMaster.value != "null") { CustomerId = Number(ddlCustomerMaster.value.toString()); }
 
 
         Ajax.Callsync({
             type: "Get",
             url: sys.apiUrl("ReviewSales", "GetAll_IQ_ReviewSalesMaster"),
-            data: { startDate: startdt, endDate: enddt, CustomerId: CustomerId, USER_CODE: USER_CODE },
+            data: { startDate: startdt, endDate: enddt, CustomerId: CustomerId, type_order: type_order, USER_CODE: USER_CODE },
             success: (d) => {
                 let result = d as BaseResponse;
                 if (result.IsSuccess) {

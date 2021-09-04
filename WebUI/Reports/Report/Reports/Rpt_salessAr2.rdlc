@@ -433,10 +433,10 @@
         </Style>
       </Textbox>
     </ReportItems>
-    <Height>0.82917in</Height>
+    <Height>2.1061cm</Height>
     <Style />
   </Body>
-  <Width>3.36667in</Width>
+  <Width>8.55134cm</Width>
   <Page>
     <PageHeader>
       <Height>2.77452cm</Height>
@@ -754,8 +754,8 @@
         </Border>
       </Style>
     </PageFooter>
-    <PageHeight>8.5cm</PageHeight>
-    <PageWidth>5.5cm</PageWidth>
+    <PageHeight>33cm</PageHeight>
+    <PageWidth>21.5cm</PageWidth>
     <LeftMargin>0cm</LeftMargin>
     <RightMargin>0cm</RightMargin>
     <TopMargin>0cm</TopMargin>

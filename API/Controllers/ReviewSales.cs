@@ -44,7 +44,7 @@ namespace API.Controllers
             return BadRequest(ModelState);
         }
         [HttpGet, AllowAnonymous]
-        public IHttpActionResult GetAll_IQ_ReviewSalesMaster(string startDate, string endDate, int? CustomerId, string USER_CODE)
+        public IHttpActionResult GetAll_IQ_ReviewSalesMaster(string startDate, string endDate, int? CustomerId,string type_order , string USER_CODE)
         {
             if (ModelState.IsValid )
             {
@@ -57,8 +57,9 @@ namespace API.Controllers
 
                 if (USER_CODE != "null"  )
                     condition = condition + " and USER_CODE = '" + USER_CODE+"'";
-       
 
+                if (type_order != "null")
+                    condition = condition + " and type_order = '" + type_order + "'";
 
 
                 string query = s + condition;

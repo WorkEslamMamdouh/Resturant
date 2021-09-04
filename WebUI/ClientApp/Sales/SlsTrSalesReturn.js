@@ -29,6 +29,7 @@ var SlsTrSalesReturn;
     var ddlCustomerMaster;
     var ddlVendor;
     var ddlUserMaster;
+    var ddltype_order;
     var id_divGridDetails;
     // giedView
     var divMasterGrid = new JsGrid();
@@ -95,6 +96,7 @@ var SlsTrSalesReturn;
         txtFromDate = document.getElementById("txtFromDate");
         txtToDate = document.getElementById("txtToDate");
         ddlUserMaster = document.getElementById("ddlUserMaster");
+        ddltype_order = document.getElementById("ddltype_order");
         ddlCustomerMaster = document.getElementById("ddlCustomerMaster");
         searchbutmemreport = document.getElementById("searchbutmemreport");
         btnShow = document.getElementById("btnShow");
@@ -105,41 +107,6 @@ var SlsTrSalesReturn;
         btnPrintTrview = document.getElementById("btnPrintTrview");
         btnPrintTrPDF = document.getElementById("btnPrintTrPDF");
         btnPrintTrEXEL = document.getElementById("btnPrintTrEXEL");
-        //ddlStateType = document.getElementById("ddlStateType") as HTMLSelectElement;
-        //ddlSalesman = document.getElementById("ddlSalesman") as HTMLSelectElement;
-        //ddlVendor = document.getElementById("ddlVendor") as HTMLSelectElement;
-        //txtNationality = document.getElementById("txtNationality") as HTMLSelectElement;
-        //id_divGridDetails = document.getElementById("DivFilter") as HTMLDivElement;
-        ////textboxes
-        //txtdateopening = document.getElementById("txtdateopening") as HTMLInputElement;
-        //txtClose_Adjustment = document.getElementById("txtClose_Adjustment") as HTMLInputElement;
-        //txtClose_SalesManCommition = document.getElementById("txtClose_SalesManCommition") as HTMLInputElement;
-        //txtClose_CompanyCommitionPrc = document.getElementById("txtClose_CompanyCommitionPrc") as HTMLInputElement;
-        //txtTruckNumber = document.getElementById("txtTruckNumber") as HTMLInputElement;
-        //txtPaperPurchaseValue = document.getElementById("txtPaperPurchaseValue") as HTMLInputElement;
-        //txtPortName = document.getElementById("txtPortName") as HTMLInputElement;
-        ////buttons
-        //btnPresent = document.getElementById("btnPresent") as HTMLButtonElement;
-        //btnClose = document.getElementById("btnClose") as HTMLButtonElement;
-        //btnOpen = document.getElementById("btnOpen") as HTMLButtonElement;
-        //btnView_load = document.getElementById("btnView_load") as HTMLButtonElement;
-        //btnExpenses = document.getElementById("btnExpenses") as HTMLButtonElement;
-        //btnadd = document.getElementById("btnadd") as HTMLButtonElement;
-        //btnBack_1 = document.getElementById("btnBack_1") as HTMLButtonElement;
-        //btnSave_1 = document.getElementById("btnSave_1") as HTMLButtonElement;
-        //btnUpdate = document.getElementById("btnUpdate") as HTMLButtonElement;
-        //btnUpdate_3 = document.getElementById("btnUpdate_3") as HTMLButtonElement;
-        //btnBack_3 = document.getElementById("btnBack_3") as HTMLButtonElement;
-        //btnSave_3 = document.getElementById("btnSave_3") as HTMLButtonElement;
-        //btnUpdate_4 = document.getElementById("btnUpdate_4") as HTMLButtonElement;
-        //btnBack_4 = document.getElementById("btnBack_4") as HTMLButtonElement;
-        //btnSave_4 = document.getElementById("btnSave_4") as HTMLButtonElement;
-        //btnUpdate_5 = document.getElementById("btnUpdate_5") as HTMLButtonElement;
-        //btnBack_5 = document.getElementById("btnBack_5") as HTMLButtonElement;
-        //btnSave_5 = document.getElementById("btnSave_5") as HTMLButtonElement;
-        //btnAddDetails = document.getElementById("btnAddDetails") as HTMLButtonElement;
-        //btnAddDetailsCharge = document.getElementById("btnAddDetailsCharge") as HTMLButtonElement;
-        //btnAddDetailslebel = document.getElementById("btnAddDetailslebel") as HTMLButtonElement;
     }
     function IntializeEvents() {
         searchbutmemreport.onkeydown = _SearchBox_Change;
@@ -179,8 +146,9 @@ var SlsTrSalesReturn;
                 var result = d;
                 if (result.IsSuccess) {
                     UserDetails = result.Response;
+                    UserDetails = UserDetails.filter(function (x) { return x.JobTitle == '1'; });
                     debugger;
-                    DocumentActions.FillCombowithdefult(UserDetails, ddlUserMaster, "USER_CODE", "USER_CODE", "اختار البائع");
+                    DocumentActions.FillCombowithdefult(UserDetails, ddlUserMaster, "USER_CODE", "USER_CODE", "اختار الكاشير");
                 }
             }
         });
@@ -213,8 +181,12 @@ var SlsTrSalesReturn;
         var enddt = DateFormatDataBes(txtToDate.value).toString();
         var CustomerId = 0;
         var USER_CODE = "null";
+        var type_order = "null";
         if (ddlUserMaster.value != "null") {
             USER_CODE = ddlUserMaster.value;
+        }
+        if (ddltype_order.value != "null") {
+            type_order = ddltype_order.value;
         }
         if (ddlCustomerMaster.value != "null") {
             CustomerId = Number(ddlCustomerMaster.value.toString());
@@ -222,7 +194,7 @@ var SlsTrSalesReturn;
         Ajax.Callsync({
             type: "Get",
             url: sys.apiUrl("ReviewSales", "GetAll_IQ_ReviewSalesMaster"),
-            data: { startDate: startdt, endDate: enddt, CustomerId: CustomerId, USER_CODE: USER_CODE },
+            data: { startDate: startdt, endDate: enddt, CustomerId: CustomerId, type_order: type_order, USER_CODE: USER_CODE },
             success: function (d) {
                 var result = d;
                 if (result.IsSuccess) {

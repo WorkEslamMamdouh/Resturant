@@ -14,7 +14,7 @@ namespace HomeComponent {
     //let res: any = GetResourceList("");
     var sys: SystemTools = new SystemTools();
 
-    var tol_allnotification: HTMLButtonElement; 
+    var tol_allnotification2: HTMLButtonElement; 
     var But_Outlet: HTMLButtonElement;
     var But_Input: HTMLButtonElement;
     var btnCash: HTMLButtonElement;
@@ -28,7 +28,7 @@ namespace HomeComponent {
     var CountGrid = 0;
     var Notification: Array<Notification_Proc> = new Array<Notification_Proc>();
     var UserDetails: Array<G_USERS> = new Array<G_USERS>();
-
+    
 
     export function OpenPage(moduleCode: string) {
         SysSession.CurrentEnvironment.ModuleCode = moduleCode;
@@ -154,7 +154,7 @@ namespace HomeComponent {
         btn_loguotuser = DocumentActions.GetElementById<HTMLButtonElement>("btn_loguotuser");
         btn_loguotuser.onclick = LogoutUserApi;
 
-        tol_allnotification = document.getElementById('tol_allnotification') as HTMLButtonElement
+        tol_allnotification2 = document.getElementById('tol_allnotification2') as HTMLButtonElement
         btnCash = document.getElementById('btnCash') as HTMLButtonElement
 
         But_Input = document.getElementById('But_Input') as HTMLButtonElement
@@ -168,7 +168,7 @@ namespace HomeComponent {
         Check_Close_Day();
 
         sidebarCollapse.onclick = ON_Click_SidebarCollapse;
-        tol_allnotification.onclick = tol_allnotification_onclick;
+        tol_allnotification2.onclick = tol_allnotification_onclick;
         FillddlPilot();
     }
 
@@ -193,6 +193,96 @@ namespace HomeComponent {
         });
     }
 
+
+    function OKNotification(ID_ORDER: number , Name_Pilot : string) {
+         
+        WorningMessage("تاكيد الطلب", "Do you want to delete?", "تحذير", "worning", () => {
+
+            Ajax.Callsync({
+                type: "Get",
+                url: sys.apiUrl("SlsTrSales", "Aprovd_Order"),
+                data: { ID_ORDER_Delivery: ID_ORDER, Name_Pilot: Name_Pilot },
+                success: (d) => {
+                    let result = d as BaseResponse;
+                    if (result.IsSuccess == true) {
+
+                    
+                        printreport(ID_ORDER);
+
+                        tol_allnotification_onclick()
+                    }
+                    else {
+
+                        MessageBox.Show(result.ErrorMessage, "خطأ");
+                    }
+                }
+            });
+
+        });
+    }
+
+    function printreport(ID_ORDER_Print: number) {
+        debugger;
+        let _StockList: Array<Settings_Report> = new Array<Settings_Report>();
+        let _Stock: Settings_Report = new Settings_Report();
+        _Stock.Type_Print = 4;
+        _Stock.ID_Button_Print = 'saless_ret';
+        _Stock.Parameter_1 = ID_ORDER_Print.toString();
+        //_Stock.Parameter_2 = "";
+        //_Stock.Parameter_3 = "";
+        //_Stock.Parameter_4 = "";
+        //_Stock.Parameter_5 = "";
+        //_Stock.Parameter_6 = "";
+        //_Stock.Parameter_7 = "";
+        //_Stock.Parameter_8 = "";
+        //_Stock.Parameter_9 = "";
+
+
+        _StockList.push(_Stock);
+
+        let rp: ReportParameters = new ReportParameters();
+
+        rp.Data_Report = JSON.stringify(_StockList);//output report as View
+
+        debugger
+        Ajax.Callsync({
+            url: Url.Action("Data_Report_Open", "GeneralReports"),
+            data: rp,
+            success: (d) => {
+                debugger
+                let result = d.result as string;
+
+
+                window.open(result, "_blank");
+            }
+        })
+
+    }
+
+    function DeleteNotification(ID_ORDER: number) {
+
+       
+        WorningMessage("هل تريد الحذف؟", "Do you want to delete?", "تحذير", "worning", () => {
+
+            Ajax.Callsync({
+                type: "Get",
+                url: sys.apiUrl("SlsTrSales", "Delete_Order"),
+                data: { ID_ORDER_Delivery: ID_ORDER },
+                success: (d) => {
+                    let result = d as BaseResponse;
+                    if (result.IsSuccess == true) {
+
+                        tol_allnotification_onclick()
+                    }
+                    else {
+
+                        MessageBox.Show(result.ErrorMessage, "خطأ");
+                    }
+                }
+            });
+
+        });
+    }
     function tol_allnotification_onclick() {
 
         Ajax.Callsync({
@@ -234,7 +324,7 @@ namespace HomeComponent {
         var html; 
         html = '<li class="style_li"> <span  id="txt_Notification' + cnt + '" ></span> ' +
             '<br/> ' +
-            '<span><select id="ddlName_Pilot' + cnt + '" class="ddlName_Pilot form-control col-lg-5"><option value="null">اختار الطيار</option></select><div class="col-xs-1"></div><button id="btnBack" type="button" class="btn btn-success col-xs-2"> تأكيد <span class="glyphicon glyphicon-backward"></span></button><div class="col-xs-1"></div><button id="btnSave" type="button" class="btn btn-danger col-xs-2"> الغاء <span class="glyphicon glyphicon-floppy-saved"></span></button></span> ' +
+            '<span><select id="ddlName_Pilot' + cnt + '" class="ddlName_Pilot form-control col-lg-5"><option value="null">اختار الطيار</option></select><div class="col-xs-1"></div><button id="btnSave' + cnt + '" type="button" class="btn btn-success col-xs-2"> تأكيد <span class="glyphicon glyphicon-backward"></span></button><div class="col-xs-1"></div><button id="btnDelete' + cnt + '" type="button" class="btn btn-danger col-xs-2"> الغاء <span class="glyphicon glyphicon-floppy-saved"></span></button></span> ' +
 
             '</li> ';
         $("#notificationUL").append(html);
@@ -242,8 +332,30 @@ namespace HomeComponent {
 
         $('#txt_Notification' + cnt).html('' + Number(cnt + 1) + '- رقم الفاتوره ( ' + Notification[cnt].Namber_Order_Delivery + ' )   اسم الزبون ( ' + Notification[cnt].CUSTOMER_NAME + ' ) --' + Notification[cnt].Date_Order_Delivery + '')
 
+        $('#btnSave' + cnt + '').on('click', function () { 
+
+            if ($('#ddlName_Pilot' + cnt + '').val() == 'null') {
+                MessageBox.Show('يجب اختيار الطيار ', 'تحظير');
+                Errorinput($('#ddlName_Pilot' + cnt + ''));
+                return
+            }
+            let ddlName_Pilot = $('#ddlName_Pilot' + cnt + '').val();
+            OKNotification(Notification[cnt].ID_ORDER_Delivery, ddlName_Pilot);
+
+        });
+
+        $('#btnDelete' + cnt + '').on('click', function () {
+            DeleteNotification(Notification[cnt].ID_ORDER_Delivery);
+        });
+
 
     }
+
+
+
+
+
+
     function Get_balance() {
 
         Ajax.Callsync({

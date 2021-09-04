@@ -98,8 +98,7 @@ namespace Income_expenses {
         return ReturnedDate;
     }
 
-    function FillddlUserMaster() {
-        debugger
+    function FillddlUserMaster() {   
         Ajax.Callsync({
             type: "Get",
             url: sys.apiUrl("G_USERS", "GetAllUser"),
@@ -108,7 +107,7 @@ namespace Income_expenses {
                 let result = d as BaseResponse;
                 if (result.IsSuccess) {
                     UserDetails = result.Response as Array<G_USERS>;
-                    debugger
+                    UserDetails = UserDetails.filter(x => x.JobTitle == '1')
 
                     DocumentActions.FillCombowithdefult(UserDetails, ddlUserMaster, "USER_CODE", "USER_CODE", "اختار البائع");
 

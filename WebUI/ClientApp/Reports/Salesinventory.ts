@@ -92,7 +92,8 @@ namespace Salesinventory {
                 let result = d as BaseResponse;
                 if (result.IsSuccess) {
                     UserDetails = result.Response as Array<G_USERS>;
-                    debugger
+                    UserDetails = UserDetails.filter(x => x.JobTitle == '1')
+                     
 
                     DocumentActions.FillCombowithdefult(UserDetails, ddlUserMaster, "USER_CODE", "USER_CODE", "اختار البائع");
 

@@ -80,7 +80,7 @@ var Salesinventory;
                 var result = d;
                 if (result.IsSuccess) {
                     UserDetails = result.Response;
-                    debugger;
+                    UserDetails = UserDetails.filter(function (x) { return x.JobTitle == '1'; });
                     DocumentActions.FillCombowithdefult(UserDetails, ddlUserMaster, "USER_CODE", "USER_CODE", "اختار البائع");
                 }
             }

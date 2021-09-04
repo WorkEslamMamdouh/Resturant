@@ -53,6 +53,35 @@ namespace API.Controllers
         }
 
 
+
+        [HttpGet, AllowAnonymous]
+        public IHttpActionResult Delete_Order(int ID_ORDER_Delivery)
+        {
+            if (ModelState.IsValid)
+            {
+                string s = "delete ORDER_DELIVERY where ID_ORDER_Delivery =  "+ ID_ORDER_Delivery + ""; 
+                string query = s;
+                db.Database.ExecuteSqlCommand(query);
+                return Ok(new BaseResponse(100));
+
+            }
+            return BadRequest(ModelState);
+        }
+
+
+        [HttpGet, AllowAnonymous]
+        public IHttpActionResult Aprovd_Order(int ID_ORDER_Delivery , string Name_Pilot)
+        {
+            if (ModelState.IsValid)
+            {
+                string s = "update [dbo].[ORDER_DELIVERY] set Confirmation = 1 , Name_Pilot = '"+ Name_Pilot + "' where [ID_ORDER_Delivery] =" + ID_ORDER_Delivery + "";
+                string query = s;
+                db.Database.ExecuteSqlCommand(query);
+                return Ok(new BaseResponse(100));
+
+            }
+            return BadRequest(ModelState);
+        }
         [HttpGet, AllowAnonymous]
         public IHttpActionResult GetAll(string UserName, string password)
         {

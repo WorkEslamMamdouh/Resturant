@@ -11,7 +11,7 @@ var HomeComponent;
 (function (HomeComponent) {
     //let res: any = GetResourceList("");
     var sys = new SystemTools();
-    var tol_allnotification;
+    var tol_allnotification2;
     var But_Outlet;
     var But_Input;
     var btnCash;
@@ -136,7 +136,7 @@ var HomeComponent;
         }
         btn_loguotuser = DocumentActions.GetElementById("btn_loguotuser");
         btn_loguotuser.onclick = LogoutUserApi;
-        tol_allnotification = document.getElementById('tol_allnotification');
+        tol_allnotification2 = document.getElementById('tol_allnotification2');
         btnCash = document.getElementById('btnCash');
         But_Input = document.getElementById('But_Input');
         But_Outlet = document.getElementById('But_Outlet');
@@ -148,7 +148,7 @@ var HomeComponent;
         Close.onclick = Close_Day;
         Check_Close_Day();
         sidebarCollapse.onclick = ON_Click_SidebarCollapse;
-        tol_allnotification.onclick = tol_allnotification_onclick;
+        tol_allnotification2.onclick = tol_allnotification_onclick;
         FillddlPilot();
     }
     HomeComponent.InitalizeComponent = InitalizeComponent;
@@ -165,6 +165,72 @@ var HomeComponent;
                     UserDetails = UserDetails.filter(function (x) { return x.JobTitle == '2' && x.USER_ACTIVE == true; });
                 }
             }
+        });
+    }
+    function OKNotification(ID_ORDER, Name_Pilot) {
+        WorningMessage("تاكيد الطلب", "Do you want to delete?", "تحذير", "worning", function () {
+            Ajax.Callsync({
+                type: "Get",
+                url: sys.apiUrl("SlsTrSales", "Aprovd_Order"),
+                data: { ID_ORDER_Delivery: ID_ORDER, Name_Pilot: Name_Pilot },
+                success: function (d) {
+                    var result = d;
+                    if (result.IsSuccess == true) {
+                        printreport(ID_ORDER);
+                        tol_allnotification_onclick();
+                    }
+                    else {
+                        MessageBox.Show(result.ErrorMessage, "خطأ");
+                    }
+                }
+            });
+        });
+    }
+    function printreport(ID_ORDER_Print) {
+        debugger;
+        var _StockList = new Array();
+        var _Stock = new Settings_Report();
+        _Stock.Type_Print = 4;
+        _Stock.ID_Button_Print = 'saless_ret';
+        _Stock.Parameter_1 = ID_ORDER_Print.toString();
+        //_Stock.Parameter_2 = "";
+        //_Stock.Parameter_3 = "";
+        //_Stock.Parameter_4 = "";
+        //_Stock.Parameter_5 = "";
+        //_Stock.Parameter_6 = "";
+        //_Stock.Parameter_7 = "";
+        //_Stock.Parameter_8 = "";
+        //_Stock.Parameter_9 = "";
+        _StockList.push(_Stock);
+        var rp = new ReportParameters();
+        rp.Data_Report = JSON.stringify(_StockList); //output report as View
+        debugger;
+        Ajax.Callsync({
+            url: Url.Action("Data_Report_Open", "GeneralReports"),
+            data: rp,
+            success: function (d) {
+                debugger;
+                var result = d.result;
+                window.open(result, "_blank");
+            }
+        });
+    }
+    function DeleteNotification(ID_ORDER) {
+        WorningMessage("هل تريد الحذف؟", "Do you want to delete?", "تحذير", "worning", function () {
+            Ajax.Callsync({
+                type: "Get",
+                url: sys.apiUrl("SlsTrSales", "Delete_Order"),
+                data: { ID_ORDER_Delivery: ID_ORDER },
+                success: function (d) {
+                    var result = d;
+                    if (result.IsSuccess == true) {
+                        tol_allnotification_onclick();
+                    }
+                    else {
+                        MessageBox.Show(result.ErrorMessage, "خطأ");
+                    }
+                }
+            });
         });
     }
     function tol_allnotification_onclick() {
@@ -197,10 +263,22 @@ var HomeComponent;
         var html;
         html = '<li class="style_li"> <span  id="txt_Notification' + cnt + '" ></span> ' +
             '<br/> ' +
-            '<span><select id="ddlName_Pilot' + cnt + '" class="ddlName_Pilot form-control col-lg-5"><option value="null">اختار الطيار</option></select><div class="col-xs-1"></div><button id="btnBack" type="button" class="btn btn-success col-xs-2"> تأكيد <span class="glyphicon glyphicon-backward"></span></button><div class="col-xs-1"></div><button id="btnSave" type="button" class="btn btn-danger col-xs-2"> الغاء <span class="glyphicon glyphicon-floppy-saved"></span></button></span> ' +
+            '<span><select id="ddlName_Pilot' + cnt + '" class="ddlName_Pilot form-control col-lg-5"><option value="null">اختار الطيار</option></select><div class="col-xs-1"></div><button id="btnSave' + cnt + '" type="button" class="btn btn-success col-xs-2"> تأكيد <span class="glyphicon glyphicon-backward"></span></button><div class="col-xs-1"></div><button id="btnDelete' + cnt + '" type="button" class="btn btn-danger col-xs-2"> الغاء <span class="glyphicon glyphicon-floppy-saved"></span></button></span> ' +
             '</li> ';
         $("#notificationUL").append(html);
         $('#txt_Notification' + cnt).html('' + Number(cnt + 1) + '- رقم الفاتوره ( ' + Notification[cnt].Namber_Order_Delivery + ' )   اسم الزبون ( ' + Notification[cnt].CUSTOMER_NAME + ' ) --' + Notification[cnt].Date_Order_Delivery + '');
+        $('#btnSave' + cnt + '').on('click', function () {
+            if ($('#ddlName_Pilot' + cnt + '').val() == 'null') {
+                MessageBox.Show('يجب اختيار الطيار ', 'تحظير');
+                Errorinput($('#ddlName_Pilot' + cnt + ''));
+                return;
+            }
+            var ddlName_Pilot = $('#ddlName_Pilot' + cnt + '').val();
+            OKNotification(Notification[cnt].ID_ORDER_Delivery, ddlName_Pilot);
+        });
+        $('#btnDelete' + cnt + '').on('click', function () {
+            DeleteNotification(Notification[cnt].ID_ORDER_Delivery);
+        });
     }
     function Get_balance() {
         Ajax.Callsync({

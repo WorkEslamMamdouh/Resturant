@@ -28,6 +28,7 @@ namespace SlsTrSales {
     var container: HTMLDivElement = document.querySelector("#contentContainer") as HTMLDivElement;
     var txtPrice: HTMLInputElement;
     var txtTotal_Price: HTMLInputElement;
+    var txtRemarks: HTMLInputElement;  
     var txtTotAfterTax_Popu: HTMLInputElement;
     var txtQuantity: HTMLInputElement;
     var CChat: HTMLSpanElement;
@@ -71,6 +72,8 @@ namespace SlsTrSales {
     var ValidationMinUnitPrice = 0;
     var Validation_Insert = 0;
     var price_Product = 0;
+    var Remark = '';
+
     var price_One_Product = 0;
     var Num_paragraph;
     var New_ItemFamilyID;
@@ -121,6 +124,8 @@ namespace SlsTrSales {
         Display_familly_Cate();
         Display_Category();
         Display_But();
+        select_But_Frist();
+
         GetAllCustomer();
         var Ul_Div = document.createElement('ul');
         Ul_Div.setAttribute('id', 'Ul_Div');
@@ -163,6 +168,7 @@ namespace SlsTrSales {
         txtPrice = document.getElementById('txtPrice') as HTMLInputElement;
         txtQuantity = document.getElementById('txtQuantity') as HTMLInputElement;
         txtTotal_Price = document.getElementById('txtTotal_Popu') as HTMLInputElement;
+        txtRemarks = document.getElementById('txtRemarks') as HTMLInputElement;
         txtTotAfterTax_Popu = document.getElementById('txtTotAfterTax_Popu') as HTMLInputElement;
         txt_ApprovePass = document.getElementById('txt_ApprovePass') as HTMLInputElement;
         //txt_search = document.getElementById('txt_search') as HTMLInputElement;
@@ -241,6 +247,8 @@ namespace SlsTrSales {
 
             $("#txtPrice").val(itembar[0].PRODUCT_PRICE);
             $("#txtTotal_Popu").val(itembar[0].PRODUCT_PRICE);
+            $("#txtRemarks").val('');
+
             txtQuantity.value = "1";
 
 
@@ -330,6 +338,35 @@ namespace SlsTrSales {
 
 
 
+
+    }
+    function select_But_Frist() {
+
+        Category = new Array<CATEGRES>();
+
+
+
+        famillyID = $(this).attr('data-famillyID');
+        Category = CategoryDetails.filter(x => x.ID_familly_Cat == Number(CategoryDetails[0].ID_familly_Cat));
+        document.getElementById("div_Category").innerHTML = "";
+        document.getElementById("uul").innerHTML = '';
+
+        for (var i = 0; i < Category.length; i++) {
+
+            Category_NAME = Category[i].Name_CAT;
+            CatID = Category[i].ID_CAT;
+            CatPlus = i;
+            Create_Category();
+
+            var Family = FamilyDetails.filter(x => x.ID_CAT == Number(Category[i].ID_CAT));
+            DisplayItems(Family);
+
+        }
+        //document.getElementById("uul").innerHTML = '';
+
+        $(this).attr('style', 'background: #e58828;');
+
+        id_Family = $(this);
 
     }
     function Selecte_familly_Cate() {
@@ -631,6 +668,8 @@ namespace SlsTrSales {
             $('#Men_popu').attr('class', 'popu animated zoomIn');
             $('#txtQuantity').val('1');
             $('#txtPrice').val($(this).attr('data-pirce'));
+            $('#txtRemarks').val('');
+
 
             ItemID = $(this).attr('data-itemid')
             PRODUCT_price = $(this).attr('data-pirce')
@@ -769,10 +808,13 @@ namespace SlsTrSales {
         var paragraph = document.getElementById('ppp' + Num_paragraph);
         var New_QET = Qet_Product;
         var New_price = price_Product;
+        var Remarks = txtRemarks.value;
+
 
         paragraph.setAttribute('data_QET_P', New_QET.toString());
         paragraph.setAttribute('data_total_price', New_price.toString());
-        paragraph.innerHTML = '( ' + New_QET + ' )   ' + Name_Product + '  = ' + New_price + ' <a id="oioo' + Num_paragraph + '"  data-ID-Paragraph="' + Num_paragraph + '" href="#"  data-exit_id="exit' + Num_paragraph + '"  data-ip_div="comnt' + Num_paragraph + '" data-MinUnitPrice="' + MinUnitPrice + '" data-OnhandQty="' + OnhandQty + '" data-Name="' + Name_Product + '" data-price_One="' + price_One_Product + '"  data-Qet_Product="' + New_QET + '" class="chat-box-wrap shadow-reset animated zoomInLeft fa big-icon fa-edit"         style="font-size: 13px;padding: 4px;border-radius: 20px;color: #fdff61;margin: 0px 10px 0px 0px;"           ></a> ';
+        paragraph.setAttribute('data_Remarks', Remarks.toString()); 
+        paragraph.innerHTML = '( ' + New_QET + ' )   ' + Name_Product + '  = ' + New_price + ' <a id="oioo' + Num_paragraph + '"  data-ID-Paragraph="' + Num_paragraph + '" href="#"  data-exit_id="exit' + Num_paragraph + '"  data-ip_div="comnt' + Num_paragraph + '" data-MinUnitPrice="' + MinUnitPrice + '" data-OnhandQty="' + OnhandQty + '" data-Name="' + Name_Product + '" data-price_One="' + price_One_Product + '" data-Remarks_Product="' + Remarks + '"  data-Qet_Product="' + New_QET + '" class="chat-box-wrap shadow-reset animated zoomInLeft fa big-icon fa-edit"         style="font-size: 13px;padding: 4px;border-radius: 20px;color: #fdff61;margin: 0px 10px 0px 0px;"           ></a> ';
         $('#Ul_Div li a').click(click_Remove_Item_in_Basket);
         $('#Men_popu').attr('class', 'popu animated zoomOutRight');
         $("#PopupDialog").modal("hide");
@@ -783,6 +825,8 @@ namespace SlsTrSales {
 
         price_One_Product = parseFloat($("#txtPrice").val());
         price_Product = parseFloat($("#txtTotal_Popu").val());
+        Remark  = $("#txtRemarks").val();
+
         Qet_Product = Number(txtQuantity.value);
         var tttt = 1;
         if (P > -1) {
@@ -803,7 +847,9 @@ namespace SlsTrSales {
 
                         paragraph.setAttribute('data_QET_P', New_QET.toString());
                         paragraph.setAttribute('data_total_price', New_price.toString());
-                        paragraph.innerHTML = '( ' + New_QET + ' )   ' + Name_Product + '  = ' + New_price + ' <a id="oioo' + New_P + '" href="#" data-ID-Paragraph="' + New_P + '"  data-exit_id="exit' + New_P + '"  data-ip_div="comnt' + New_P + '" data-MinUnitPrice="' + MinUnitPrice + '" data-OnhandQty="' + OnhandQty + '" data-Name="' + Name_Product + '" data-price_One="' + price_One_Product + '"  data-Qet_Product="' + New_QET + '" class="chat-box-wrap shadow-reset animated zoomInLeft fa big-icon fa-edit"         style="font-size: 13px;padding: 4px;border-radius: 20px;color: #fdff61;margin: 0px 10px 0px 0px;"           ></a> ';
+                        paragraph.setAttribute('data_Remark', Remark.toString());
+
+                        paragraph.innerHTML = '( ' + New_QET + ' )   ' + Name_Product + '  = ' + New_price + ' <a id="oioo' + New_P + '" href="#" data-ID-Paragraph="' + New_P + '"  data-exit_id="exit' + New_P + '"  data-ip_div="comnt' + New_P + '" data-MinUnitPrice="' + MinUnitPrice + '" data-OnhandQty="' + OnhandQty + '" data-Name="' + Name_Product + '" data-price_One="' + price_One_Product + '" data-Remarks_Product="' + Remark + '"  data-Qet_Product="' + New_QET + '" class="chat-box-wrap shadow-reset animated zoomInLeft fa big-icon fa-edit"         style="font-size: 13px;padding: 4px;border-radius: 20px;color: #fdff61;margin: 0px 10px 0px 0px;"           ></a> ';
 
                         $('#Ul_Div li a').click(click_Remove_Item_in_Basket);
 
@@ -862,6 +908,7 @@ namespace SlsTrSales {
             //ppp.setAttribute('data_ItemFamilyID', New_ItemFamilyID.toString());
             ppp.setAttribute('data_QET_P', Qet_Product.toString());
             ppp.setAttribute('data_total_price', price_Product.toString());
+            ppp.setAttribute('data_Remark', Remark.toString()); 
             ppp.setAttribute('data-New_P', P.toString());
             ppp.setAttribute('data-MinUnitPrice', MinUnitPrice);
             document.getElementById("div" + P).appendChild(ppp);
@@ -893,7 +940,7 @@ namespace SlsTrSales {
             li2_a.setAttribute('data-id_ppp', 'ppp' + P);
             document.getElementById("li1_Div" + P).appendChild(li2_a);
 
-            document.getElementById('ppp' + P).innerHTML = '' + '( ' + Qet_Product + ' )   ' + Name_Product + '  = ' + price_Product + ' <a id="oioo' + P + '"  data-ID-Paragraph="' + P + '" href="#"  data-exit_id="exit' + P + '"  data-ip_div="comnt' + P + '"  data-MinUnitPrice="' + MinUnitPrice + '"  data-OnhandQty="' + OnhandQty + '"   data-Name="' + Name_Product + '" data-price_One="' + price_One_Product + '" data-Qet_Product="' + Qet_Product + '" class="chat-box-wrap shadow-reset animated zoomInLeft fa big-icon fa-edit"         style="font-size: 13px;padding: 4px;border-radius: 20px;color: #fdff61;margin: 0px 10px 0px 0px;"           ></a> ';
+            document.getElementById('ppp' + P).innerHTML = '' + '( ' + Qet_Product + ' )   ' + Name_Product + '  = ' + price_Product + ' <a id="oioo' + P + '"  data-ID-Paragraph="' + P + '" href="#"  data-exit_id="exit' + P + '"  data-ip_div="comnt' + P + '" data-Remark="' + Remark + '"  data-MinUnitPrice="' + MinUnitPrice + '"  data-OnhandQty="' + OnhandQty + '"   data-Name="' + Name_Product + '" data-price_One="' + price_One_Product + '" data-Qet_Product="' + Qet_Product + '" class="chat-box-wrap shadow-reset animated zoomInLeft fa big-icon fa-edit"         style="font-size: 13px;padding: 4px;border-radius: 20px;color: #fdff61;margin: 0px 10px 0px 0px;"           ></a> ';
             var mCSB_3_container = document.getElementById("mCSB_3_container");
 
             //mCSB_3_container.setAttribute('style', 'position: relative; top: -' + scro + 'px; left: 0px;');
@@ -968,7 +1015,7 @@ namespace SlsTrSales {
             Num_paragraph = $(this).attr('data-ID-Paragraph');
 
 
-            click_Edit($(this).attr('data-name'), Number($(this).attr('data-price_one')), Number($(this).attr('data-qet_product')), Number($(this).attr('data-onhandqty')), Number($(this).attr('data-minunitprice')));
+            click_Edit($(this).attr('data-name'), Number($(this).attr('data-price_one')), Number($(this).attr('data-qet_product')), Number($(this).attr('data-onhandqty')), Number($(this).attr('data-minunitprice')), $(this).attr('data-remark'));
 
         }
 
@@ -1055,14 +1102,14 @@ namespace SlsTrSales {
 
     }
     ////------------------------------------------------------Edit-----------------------------------
-    function click_Edit(New_Name: string, New_Pirce: number, new_Qet: number, New_OnhandQty: number, New_MinUnitPrice: number) {
+    function click_Edit(New_Name: string, New_Pirce: number, new_Qet: number, New_OnhandQty: number, New_MinUnitPrice: number, Remarks: string) {
         //debugger
         btn_Add_Basket.setAttribute('style', 'display:none;');
         btn_Edit_Basket.setAttribute('style', 'display:block;');
         Name_Product = New_Name;
         OnhandQty = New_OnhandQty;
         MinUnitPrice = New_MinUnitPrice;
-
+        Remark = Remarks;
 
 
         //OnhandQty = New_OnhandQty;
@@ -1087,6 +1134,8 @@ namespace SlsTrSales {
             $('#Men_popu').attr('class', 'popu animated zoomIn');
             $('#txtQuantity').val(new_Qet);
             $('#txtPrice').val(New_Pirce);
+            $('#txtRemarks').val(Remark);
+
 
             $("#PopupDialog").modal("show");
         } else {
@@ -1100,7 +1149,8 @@ namespace SlsTrSales {
             $('#Men_popu').attr('class', 'popu animated zoomIn');
             $('#txtQuantity').val(new_Qet);
             $('#txtPrice').val(New_Pirce);
-
+            $('#txtRemarks').val(Remark);
+             
             $("#PopupDialog").modal("show");
             Total();
         }
@@ -1141,7 +1191,10 @@ namespace SlsTrSales {
                 let Qty = Number(prgraph.getAttribute("data_qet_p"));
                 let Price_Item = Number(prgraph.getAttribute("data_price_p"));
                 let Total_Price = Number(prgraph.getAttribute("data_total_price"));
+                let Remarks = prgraph.getAttribute("data_remark");
 
+
+                
                 let MinPrice = prgraph.getAttribute("data-minunitprice");
                 let get_Price_on_seller = document.getElementById("oioo" + prgraph.getAttribute("data-new_p"));
                 let Price_on_seller = get_Price_on_seller.getAttribute("data-price_one");
@@ -1153,8 +1206,8 @@ namespace SlsTrSales {
                 Model.price_One_part = Number(Price_Item);
                 Model.Total_Price_One_Part = Number(Total_Price);
                 Model.Notes_Order = MinPrice;
-                Model.FK_ORDER_Delivery = 0;
-                Model.Remarks = "حار";
+                Model.Remarks = Remarks; 
+                Model.FK_ORDER_Delivery = 0; 
 
 
 
@@ -1201,6 +1254,7 @@ namespace SlsTrSales {
 
                     $('#uul').html('');
                     Display_But();
+                    select_But_Frist();
 
                 }
 
@@ -1259,6 +1313,8 @@ namespace SlsTrSales {
 
                     $('#uul').html('');
                     Display_But();
+                    select_But_Frist();
+
                    
 
                 }
@@ -1439,6 +1495,8 @@ namespace SlsTrSales {
                 FamilyDetails = new Array<PRODUCT>();
                 $('#uul').html('');
                 Display_But();
+                select_But_Frist();
+
                 $('#popu_Passowrd').attr('style', 'display:none;');
                 $('#popu_Passowrd').attr('class', 'popu animated zoomOut');
                 txt_ApprovePass.value = "";

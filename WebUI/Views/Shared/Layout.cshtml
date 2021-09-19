@@ -1,7 +1,7 @@
 ﻿@*@using Inv.WebUI.Resources*@
 
 <!doctype html>
-<html id="body_img" class="no-js">
+<html id="body_img" class="no-js hero-image">
 
 <head>
 
@@ -69,14 +69,17 @@
         .fontitm3:hover {
             color: #f53a3a !important;
         }
+
         .display_none {
             display: none !important;
         }
+
         .style_li {
             width: 100%;
             border-bottom: solid;
             padding: 2px;
         }
+
         .style_divnot {
             overflow: scroll;
             width: 35%;
@@ -88,7 +91,16 @@
             overflow-y: hidden; /* Hide vertical scrollbar */
             overflow-x: hidden;
         }
-    </style>
+
+     .hero-image {
+            background-image: url(../../images/Background/Fruitstore1.jpg) !important;
+            height: -webkit-fill-available;
+            background-position: center !important;
+            background-repeat: repeat;
+            background-size: cover;
+            position: relative;
+        }
+     </style>
 
 </head>
 
@@ -279,9 +291,9 @@
 
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-md-5 col-sm-6 col-xs-12">
+                            <div class="col-lg-3 col-md-5 col-sm-6 col-xs-12" style="text-align: center;">
                                 <div class="header-right-info">
-
+                                    <label id="Data_Day" class="pading_titelpag">Date</label>
 
                                 </div>
                             </div>

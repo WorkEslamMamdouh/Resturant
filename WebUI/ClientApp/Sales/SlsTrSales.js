@@ -105,6 +105,7 @@ var SlsTrSales;
     var id_Family;
     var id_Category;
     var type_Save_Print = false;
+    var Success_Print = false;
     var res = new SlsInvoiceTrNo_Or_ID();
     function InitalizeComponent() {
         debugger;
@@ -971,10 +972,13 @@ var SlsTrSales;
                 if (Success == true) {
                     if (Number(idCust.value) == 0) {
                         printreport();
-                        printreport2();
+                        setTimeout(function () {
+                            printreport2();
+                        }, 3000);
                     }
                     else {
                         printreport2();
+                        Success_Print = false;
                     }
                     Remove_Item_in_Basket();
                     $('#uul').html('');
@@ -1011,12 +1015,13 @@ var SlsTrSales;
         rp.Data_Report = JSON.stringify(_StockList); //output report as View
         debugger;
         Ajax.Callsync({
-            url: Url.Action("Data_Report_Open", "GeneralReports"),
+            url: Url.Action("Data_Report_Open", "PrintReports"),
             data: rp,
             success: function (d) {
-                debugger;
-                var result = d.result;
-                window.open(result, "_blank");
+                var result = d;
+                Success_Print = false;
+                PrintImage(result);
+                //setTimeout(function () { printreport2(); }, 10);       
             }
         });
     }
@@ -1038,16 +1043,36 @@ var SlsTrSales;
         _StockList.push(_Stock);
         var rp = new ReportParameters();
         rp.Data_Report = JSON.stringify(_StockList); //output report as View
+        alert(Url.Action("Data_Report_Open", "PrintReports"));
         debugger;
         Ajax.Callsync({
-            url: Url.Action("Data_Report_Open", "GeneralReports"),
+            url: Url.Action("Data_Report_Open", "PrintReports"),
             data: rp,
             success: function (d) {
-                debugger;
-                var result = d.result;
-                window.open(result, "_blank");
+                var result = d;
+                PrintImage(result);
             }
         });
+    }
+    function ImagetoPrint(source) {
+        return "<html><head><scri" + "pt>function step1(){\n" +
+            "setTimeout('step2()', 10);}\n" +
+            "function step2(){window.print();window.close()}\n" +
+            "</scri" + "pt></head><body onload='step1()'>\n" +
+            "<img src='data:image/png;base64," + source + "' /></body></html>";
+    }
+    function PrintImage(source) {
+        //var Pagelink = "about:blank";
+        //var pwa = window.open(Pagelink, "_new");
+        //pwa.document.open();
+        //pwa.document.write(ImagetoPrint(source));
+        //pwa.document.close();   
+        Success_Print = false;
+        this.prints = true;
+        var pwa = window.open('', 'Print-Window', 'height=600,width=800');
+        pwa.document.open();
+        pwa.document.write(ImagetoPrint(source));
+        pwa.document.close();
     }
     function Insert_Basket() {
         if (InvoiceModel.CUSTOMER_ID == null || InvoiceModel.CUSTOMER_ID == 0) {
@@ -1097,10 +1122,13 @@ var SlsTrSales;
                 if (type_Save_Print == true) {
                     if (Number(idCust.value) == 0) {
                         printreport();
-                        printreport2();
+                        setTimeout(function () {
+                            printreport2();
+                        }, 3000);
                     }
                     else {
                         printreport2();
+                        Success_Print = false;
                     }
                 }
                 Remove_Item_in_Basket();
@@ -1269,7 +1297,7 @@ var SlsTrSales;
             //    || x.ContactMobile.toString().search(search) >= 0 /*|| x.DueAmount.toString().search(search) >= 0 *//*|| x.DaysDiff.toString().search(search) >= 0*/);
             if (SearchDetails[0] != null) {
                 CUST_NAME.value = SearchDetails[0].CUSTOMER_NAME;
-                CUST_ADDRES.value = SearchDetails[0].CUSTOMER_NAME;
+                CUST_ADDRES.value = SearchDetails[0].CUSTOMER_ADDRES;
                 //CUST_ADDRES_2.value = SearchDetails[0].CUSTOMER_NAME;
                 CUST_Phone.value = SearchDetails[0].PHONE;
                 idCust.value = SearchDetails[0].CUSTOMER_ID.toString();
@@ -1324,5 +1352,17 @@ var SlsTrSales;
         document.getElementById("div_cutomr").setAttribute('style', 'position: fixed;height: 414px;width: 689px;background: linear - gradient(to right, rgb(22, 58, 71) 0%, #457198 100%);bottom: 90px;right: -59px;top: 91px;transition: all .4s ease 0s;z - index: 999;border: 23px solid #4386da; border - radius: 50px;');
         document.getElementById("div_cutomr").setAttribute('class', 'chat-box-wrap shadow-reset collapse in castmr');
     }
+    //function Print() {
+    //    debugger
+    //    var divToPrint = document.getElementById('printer');
+    //    var newWin = window.open('', 'Print-Window', 'height=600,width=800');
+    //    this.prints = true;
+    //    newWin.document.write('<body onload="window.print()" style="width:220px;height:10px!important;" >');
+    //    newWin.document.write(divToPrint.innerHTML);
+    //    newWin.document.write('</body></html>');
+    //    newWin.focus();
+    //    newWin.print();
+    //    setTimeout(function () { newWin.close(); }, 10);
+    //}
 })(SlsTrSales || (SlsTrSales = {}));
 //# sourceMappingURL=SlsTrSales.js.map

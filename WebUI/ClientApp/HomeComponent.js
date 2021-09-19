@@ -167,12 +167,12 @@ var HomeComponent;
             }
         });
     }
-    function OKNotification(ID_ORDER, Name_Pilot) {
+    function OKNotification(ID_ORDER, Name_Pilot, Tax) {
         WorningMessage("تاكيد الطلب", "Do you want to delete?", "تحذير", "worning", function () {
             Ajax.Callsync({
                 type: "Get",
                 url: sys.apiUrl("SlsTrSales", "Aprovd_Order"),
-                data: { ID_ORDER_Delivery: ID_ORDER, Name_Pilot: Name_Pilot },
+                data: { ID_ORDER_Delivery: ID_ORDER, Name_Pilot: Name_Pilot, Tax: Tax },
                 success: function (d) {
                     var result = d;
                     if (result.IsSuccess == true) {
@@ -206,12 +206,11 @@ var HomeComponent;
         rp.Data_Report = JSON.stringify(_StockList); //output report as View
         debugger;
         Ajax.Callsync({
-            url: Url.Action("Data_Report_Open", "GeneralReports"),
+            url: Url.Action("Data_Report_Open", "PrintReports"),
             data: rp,
             success: function (d) {
                 debugger;
                 var result = d.result;
-                window.open(result, "_blank");
             }
         });
     }
@@ -263,7 +262,7 @@ var HomeComponent;
         var html;
         html = '<li class="style_li"> <span  id="txt_Notification' + cnt + '" ></span> ' +
             '<br/> ' +
-            '<span><select id="ddlName_Pilot' + cnt + '" class="ddlName_Pilot form-control col-lg-5"><option value="null">اختار الطيار</option></select><div class="col-xs-1"></div><button id="btnSave' + cnt + '" type="button" class="btn btn-success col-xs-2"> تأكيد <span class="glyphicon glyphicon-backward"></span></button><div class="col-xs-1"></div><button id="btnDelete' + cnt + '" type="button" class="btn btn-danger col-xs-2"> الغاء <span class="glyphicon glyphicon-floppy-saved"></span></button></span> ' +
+            '<span><select id="ddlName_Pilot' + cnt + '" class="ddlName_Pilot form-control col-lg-5"><option value="null">اختار الطيار</option></select><input id="Tax_Pilot' + cnt + '" type="number"  class="form-control input-sm col-xs-2"></div><button id="btnSave' + cnt + '" type="button" class="btn btn-success col-xs-2"> تأكيد <span class="glyphicon glyphicon-backward"></span></button> <button id="btnDelete' + cnt + '" type="button" class="btn btn-danger col-xs-2"> الغاء <span class="glyphicon glyphicon-floppy-saved"></span></button></span> ' +
             '</li> ';
         $("#notificationUL").append(html);
         $('#txt_Notification' + cnt).html('' + Number(cnt + 1) + '- رقم الفاتوره ( ' + Notification[cnt].Namber_Order_Delivery + ' )   اسم الزبون ( ' + Notification[cnt].CUSTOMER_NAME + ' ) --' + Notification[cnt].Date_Order_Delivery + '');
@@ -274,7 +273,8 @@ var HomeComponent;
                 return;
             }
             var ddlName_Pilot = $('#ddlName_Pilot' + cnt + '').val();
-            OKNotification(Notification[cnt].ID_ORDER_Delivery, ddlName_Pilot);
+            var Tax = $('#Tax_Pilot' + cnt + '').val();
+            OKNotification(Notification[cnt].ID_ORDER_Delivery, ddlName_Pilot, Number(Tax));
         });
         $('#btnDelete' + cnt + '').on('click', function () {
             DeleteNotification(Notification[cnt].ID_ORDER_Delivery);
@@ -820,9 +820,11 @@ var HomeComponent;
                     //alert(res);
                     if (res == '1900-01-01T00:00:00') {
                         //Close.style.
+                        $('#Data_Day').html("");
                         $('#Close').attr('style', 'margin-top: -18%;background-color: #4df109;border-radius: 11px;');
                     }
                     else {
+                        $('#Data_Day').html(formatDate(res));
                         $('#Close').attr('style', 'margin-top: -18%;background-color: #c40303;border-radius: 11px;');
                     }
                 }

@@ -70,11 +70,11 @@ namespace API.Controllers
 
 
         [HttpGet, AllowAnonymous]
-        public IHttpActionResult Aprovd_Order(int ID_ORDER_Delivery , string Name_Pilot)
+        public IHttpActionResult Aprovd_Order(int ID_ORDER_Delivery , string Name_Pilot,decimal Tax)
         {
             if (ModelState.IsValid)
             {
-                string s = "update [dbo].[ORDER_DELIVERY] set Confirmation = 1 , Name_Pilot = '"+ Name_Pilot + "' where [ID_ORDER_Delivery] =" + ID_ORDER_Delivery + "";
+                string s = "update [dbo].[ORDER_DELIVERY] set Confirmation = 1 , Name_Pilot = '"+ Name_Pilot + "',Tax = "+ Tax + " where [ID_ORDER_Delivery] =" + ID_ORDER_Delivery + "";
                 string query = s;
                 db.Database.ExecuteSqlCommand(query);
                 return Ok(new BaseResponse(100));

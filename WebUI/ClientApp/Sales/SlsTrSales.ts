@@ -28,7 +28,7 @@ namespace SlsTrSales {
     var container: HTMLDivElement = document.querySelector("#contentContainer") as HTMLDivElement;
     var txtPrice: HTMLInputElement;
     var txtTotal_Price: HTMLInputElement;
-    var txtRemarks: HTMLInputElement;  
+    var txtRemarks: HTMLInputElement;
     var txtTotAfterTax_Popu: HTMLInputElement;
     var txtQuantity: HTMLInputElement;
     var CChat: HTMLSpanElement;
@@ -111,6 +111,7 @@ namespace SlsTrSales {
     var id_Family;
     var id_Category;
     var type_Save_Print = false;
+    var Success_Print = false;
     var res: SlsInvoiceTrNo_Or_ID = new SlsInvoiceTrNo_Or_ID();
     export function InitalizeComponent() {
         debugger
@@ -620,15 +621,15 @@ namespace SlsTrSales {
 
 
         //if (this.getAttribute('data-Qty') > 0) {
-                                                                                              
+
         //    this.setAttribute('value', '( ' + this.getAttribute('data-pirce') + ' )' + 'ج');
         //}
         //else {
-                                                                                                     
+
         //    this.setAttribute('value', 'Finish');                                                      
         //}
 
-                        
+
 
     }
     function mouseleave_but() {
@@ -663,23 +664,23 @@ namespace SlsTrSales {
         //    $(this).val('Finish');
         //} else {
 
-            $('#id_Labol').html('' + Name_Product + '');
-            $('#Men_popu').attr('style', 'display:block;');
-            $('#Men_popu').attr('class', 'popu animated zoomIn');
-            $('#txtQuantity').val('1');
-            $('#txtPrice').val($(this).attr('data-pirce'));
-            $('#txtRemarks').val('');
+        $('#id_Labol').html('' + Name_Product + '');
+        $('#Men_popu').attr('style', 'display:block;');
+        $('#Men_popu').attr('class', 'popu animated zoomIn');
+        $('#txtQuantity').val('1');
+        $('#txtPrice').val($(this).attr('data-pirce'));
+        $('#txtRemarks').val('');
 
 
-            ItemID = $(this).attr('data-itemid')
-            PRODUCT_price = $(this).attr('data-pirce')
+        ItemID = $(this).attr('data-itemid')
+        PRODUCT_price = $(this).attr('data-pirce')
 
 
 
-            $("#PopupDialog").modal("show");
+        $("#PopupDialog").modal("show");
 
 
-            Total();
+        Total();
         //}
 
 
@@ -706,12 +707,12 @@ namespace SlsTrSales {
             else if (type == 'plus') {
                 //if (currentVal < Number(OnhandQty)) {
 
-                    if (currentVal < Number(input.attr('max'))) {
-                        input.val((currentVal + 1)).change();
-                    }
-                    if (parseFloat(input.val()) == parseFloat(input.attr('max'))) {
-                        $(this).val(input.attr('max'));
-                    }
+                if (currentVal < Number(input.attr('max'))) {
+                    input.val((currentVal + 1)).change();
+                }
+                if (parseFloat(input.val()) == parseFloat(input.attr('max'))) {
+                    $(this).val(input.attr('max'));
+                }
 
                 //}
                 //else {
@@ -771,8 +772,8 @@ namespace SlsTrSales {
     function Total() {
 
         //if (Number($("#txtQuantity").val()) <= OnhandQty) {
-            var total = Number($("#txtPrice").val()) * Number($("#txtQuantity").val());
-            $("#txtTotal_Popu").val(total);
+        var total = Number($("#txtPrice").val()) * Number($("#txtQuantity").val());
+        $("#txtTotal_Popu").val(total);
 
 
         //}
@@ -813,7 +814,7 @@ namespace SlsTrSales {
 
         paragraph.setAttribute('data_QET_P', New_QET.toString());
         paragraph.setAttribute('data_total_price', New_price.toString());
-        paragraph.setAttribute('data_Remarks', Remarks.toString()); 
+        paragraph.setAttribute('data_Remarks', Remarks.toString());
         paragraph.innerHTML = '( ' + New_QET + ' )   ' + Name_Product + '  = ' + New_price + ' <a id="oioo' + Num_paragraph + '"  data-ID-Paragraph="' + Num_paragraph + '" href="#"  data-exit_id="exit' + Num_paragraph + '"  data-ip_div="comnt' + Num_paragraph + '" data-MinUnitPrice="' + MinUnitPrice + '" data-OnhandQty="' + OnhandQty + '" data-Name="' + Name_Product + '" data-price_One="' + price_One_Product + '" data-Remarks_Product="' + Remarks + '"  data-Qet_Product="' + New_QET + '" class="chat-box-wrap shadow-reset animated zoomInLeft fa big-icon fa-edit"         style="font-size: 13px;padding: 4px;border-radius: 20px;color: #fdff61;margin: 0px 10px 0px 0px;"           ></a> ';
         $('#Ul_Div li a').click(click_Remove_Item_in_Basket);
         $('#Men_popu').attr('class', 'popu animated zoomOutRight');
@@ -825,7 +826,7 @@ namespace SlsTrSales {
 
         price_One_Product = parseFloat($("#txtPrice").val());
         price_Product = parseFloat($("#txtTotal_Popu").val());
-        Remark  = $("#txtRemarks").val();
+        Remark = $("#txtRemarks").val();
 
         Qet_Product = Number(txtQuantity.value);
         var tttt = 1;
@@ -904,11 +905,11 @@ namespace SlsTrSales {
             ppp.setAttribute('style', 'width: 96%;');
             ppp.setAttribute('data_Name_P', Name_Product);
             ppp.setAttribute('data_price_P', PRODUCT_price.toString());
-            ppp.setAttribute('data_ItemId', ItemID.toString());          
+            ppp.setAttribute('data_ItemId', ItemID.toString());
             //ppp.setAttribute('data_ItemFamilyID', New_ItemFamilyID.toString());
             ppp.setAttribute('data_QET_P', Qet_Product.toString());
             ppp.setAttribute('data_total_price', price_Product.toString());
-            ppp.setAttribute('data_Remark', Remark.toString()); 
+            ppp.setAttribute('data_Remark', Remark.toString());
             ppp.setAttribute('data-New_P', P.toString());
             ppp.setAttribute('data-MinUnitPrice', MinUnitPrice);
             document.getElementById("div" + P).appendChild(ppp);
@@ -1150,7 +1151,7 @@ namespace SlsTrSales {
             $('#txtQuantity').val(new_Qet);
             $('#txtPrice').val(New_Pirce);
             $('#txtRemarks').val(Remark);
-             
+
             $("#PopupDialog").modal("show");
             Total();
         }
@@ -1174,7 +1175,7 @@ namespace SlsTrSales {
         InvoiceModel.Date_Order_Delivery = timer();
         InvoiceModel.Tax = 0;
         InvoiceModel.CUSTOMER_ID = Number(idCust.value) == 0 ? null : Number(idCust.value);
-        InvoiceModel.type_order = Number(idCust.value) == 0 ? 'Takeaway' : 'Delivery' ;
+        InvoiceModel.type_order = Number(idCust.value) == 0 ? 'Takeaway' : 'Delivery';
         InvoiceModel.Confirmation = Number(idCust.value) == 0 ? true : false;
 
         for (var i = 1; i < Num_Add_List + 1; i++) {
@@ -1194,7 +1195,7 @@ namespace SlsTrSales {
                 let Remarks = prgraph.getAttribute("data_remark");
 
 
-                
+
                 let MinPrice = prgraph.getAttribute("data-minunitprice");
                 let get_Price_on_seller = document.getElementById("oioo" + prgraph.getAttribute("data-new_p"));
                 let Price_on_seller = get_Price_on_seller.getAttribute("data-price_one");
@@ -1206,8 +1207,8 @@ namespace SlsTrSales {
                 Model.price_One_part = Number(Price_Item);
                 Model.Total_Price_One_Part = Number(Total_Price);
                 Model.Notes_Order = MinPrice;
-                Model.Remarks = Remarks; 
-                Model.FK_ORDER_Delivery = 0; 
+                Model.Remarks = Remarks;
+                Model.FK_ORDER_Delivery = 0;
 
 
 
@@ -1237,7 +1238,7 @@ namespace SlsTrSales {
 
 
 
-        if (P != 0) { 
+        if (P != 0) {
             //if (flag_Cust == false) {
             //    show_Cutomr();
             //    flag_Cust = true;
@@ -1302,10 +1303,13 @@ namespace SlsTrSales {
 
                     if (Number(idCust.value) == 0) {
                         printreport();
-                        printreport2();
+                        setTimeout(function () {
+                            printreport2();
+                        }, 3000);
                     }
                     else {
                         printreport2();
+                        Success_Print = false;
 
                     }
 
@@ -1315,7 +1319,7 @@ namespace SlsTrSales {
                     Display_But();
                     select_But_Frist();
 
-                   
+
 
                 }
 
@@ -1341,7 +1345,7 @@ namespace SlsTrSales {
     }
 
     function printreport() {
-        debugger; 
+        debugger;
         let _StockList: Array<Settings_Report> = new Array<Settings_Report>();
         let _Stock: Settings_Report = new Settings_Report();
         _Stock.Type_Print = 4;
@@ -1365,17 +1369,20 @@ namespace SlsTrSales {
 
         debugger
         Ajax.Callsync({
-            url: Url.Action("Data_Report_Open", "GeneralReports"),
+            url: Url.Action("Data_Report_Open", "PrintReports"),
             data: rp,
             success: (d) => {
-                debugger
-                let result = d.result as string;
+                let result = d as BaseResponse;
 
+                Success_Print = false;
 
-                window.open(result, "_blank");
+                PrintImage(result)
+                //setTimeout(function () { printreport2(); }, 10);       
+
             }
         })
-         
+
+
     }
 
     function printreport2() {
@@ -1401,20 +1408,54 @@ namespace SlsTrSales {
 
         rp.Data_Report = JSON.stringify(_StockList);//output report as View
 
+        alert(Url.Action("Data_Report_Open", "PrintReports"));
         debugger
         Ajax.Callsync({
-            url: Url.Action("Data_Report_Open", "GeneralReports"),
+            url: Url.Action("Data_Report_Open", "PrintReports"),
             data: rp,
             success: (d) => {
-                debugger
-                let result = d.result as string;
+
+                let result = d as BaseResponse;
+
+                PrintImage(result)
 
 
-                window.open(result, "_blank");
+
             }
         })
 
+
     }
+
+
+    function ImagetoPrint(source) {
+        return "<html><head><scri" + "pt>function step1(){\n" +
+            "setTimeout('step2()', 10);}\n" +
+            "function step2(){window.print();window.close()}\n" +
+            "</scri" + "pt></head><body onload='step1()'>\n" +
+            "<img src='data:image/png;base64," + source + "' /></body></html>";
+    }
+
+    function PrintImage(source) {
+        //var Pagelink = "about:blank";
+        //var pwa = window.open(Pagelink, "_new");
+        //pwa.document.open();
+        //pwa.document.write(ImagetoPrint(source));
+        //pwa.document.close();   
+
+        Success_Print = false;
+
+        this.prints = true;
+        var pwa = window.open('', 'Print-Window', 'height=600,width=800');
+        pwa.document.open();
+        pwa.document.write(ImagetoPrint(source));
+        pwa.document.close();
+                     
+      
+
+    }
+
+
 
 
     function Insert_Basket() {
@@ -1430,6 +1471,7 @@ namespace SlsTrSales {
                 if (result.IsSuccess == true) {
                     res = result.Response as SlsInvoiceTrNo_Or_ID;
                     MessageBox.Show(" تم اصدار  فاتورة رقم  " + res.TrNo + " ", "تم");
+
 
                     Success = true;
                     Hide_Basket();
@@ -1480,11 +1522,13 @@ namespace SlsTrSales {
 
                     if (Number(idCust.value) == 0) {
                         printreport();
-                        printreport2();
+                        setTimeout(function () {
+                            printreport2();
+                        }, 3000);
                     }
                     else {
                         printreport2();
-
+                        Success_Print = false;
                     }
 
 
@@ -1504,7 +1548,7 @@ namespace SlsTrSales {
                 ID_Customer = null;
                 idCust.value = "";
                 hide_Custm();
-                flag_Cust = false; 
+                flag_Cust = false;
             }
 
         }
@@ -1725,7 +1769,7 @@ namespace SlsTrSales {
 
             if (SearchDetails[0] != null) {
                 CUST_NAME.value = SearchDetails[0].CUSTOMER_NAME;
-                CUST_ADDRES.value = SearchDetails[0].CUSTOMER_NAME;
+                CUST_ADDRES.value = SearchDetails[0].CUSTOMER_ADDRES;
                 //CUST_ADDRES_2.value = SearchDetails[0].CUSTOMER_NAME;
                 CUST_Phone.value = SearchDetails[0].PHONE;
                 idCust.value = SearchDetails[0].CUSTOMER_ID.toString();
@@ -1792,5 +1836,21 @@ namespace SlsTrSales {
     }
 
 
+    //function Print() {
+
+    //    debugger
+    //    var divToPrint = document.getElementById('printer');
+
+    //    var newWin = window.open('', 'Print-Window', 'height=600,width=800');
+
+    //    this.prints = true;
+    //    newWin.document.write('<body onload="window.print()" style="width:220px;height:10px!important;" >');
+    //    newWin.document.write(divToPrint.innerHTML);
+    //    newWin.document.write('</body></html>');
+    //    newWin.focus();
+    //    newWin.print();
+    //    setTimeout(function () { newWin.close(); }, 10);
+
+    //}
 
 }
